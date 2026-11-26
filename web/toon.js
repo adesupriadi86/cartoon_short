@@ -893,6 +893,11 @@ export const CAST = {
   kid:     { jacket: "#e05a47", pants: "#2b3648", shoes: "#f4f6f8", shoeTrim: "#28b8a8", skin: SKIN,      hair: "#2b211c", hoodie: true },
   /** Friendly doctor in a white coat for the nerve-board shots */
   doctor:  { jacket: "#f8fafc", pants: "#2b3648", shoes: "#3a2e28", shoeTrim: "#241726", skin: "#f5c9a0", hair: "#6b7280" },
+  /** Sharks cast: diver with mask, marine biologist, fisherman, fish vendor */
+  diver:     { jacket: "#1f6f6f", pants: "#1f2a3a", shoes: "#f4f6f8", shoeTrim: "#f5c418", skin: "#f2b88a", hair: "#2b211c", mask: true },
+  marine:    { jacket: "#2f8f7a", pants: "#2b3648", shoes: "#f4f6f8", shoeTrim: "#f5c418", skin: "#d99b6c", hair: "#4a2f1d", cap: "#f5c418" },
+  fisherman: { jacket: "#f5c418", pants: "#2b3648", shoes: "#3a2e28", shoeTrim: "#241726", skin: "#e8b08a", hair: "#6b4a2f", cap: "#e05a47", stout: true },
+  vendor:    { jacket: "#f8fafc", pants: "#2b3648", shoes: "#3a2e28", shoeTrim: "#3fa36c", skin: "#d99b6c", hair: "#1d1d24", cap: "#3fa36c" },
 };
 
 /** Hard hat for the safety inspector */
@@ -1037,6 +1042,14 @@ export const mallFront = (p, key, opts = {}) => {
     hatOn(p, { hat: "hair", hair: O.hair, jacket: O.jacket }, hp, H, cx, hc, light, seed, facing, false);
   }
   faceFront(p, cx, hc, W, expr, facing, look, lid, !!O.hardhat, skin, null, !!O.stout);
+  if (O.mask) { // dive mask + snorkel over the eyes
+    const ex = 15 * u, ey = hc;
+    p.poly(rrect(cx - 30 * u, ey - 8 * u, cx + 30 * u, ey + 8 * u, 8 * u), "#164e63", 2 * u);
+    p.ell(cx - ex, ey, 12 * u, 9 * u, "#bfe9ff", 2 * u);
+    p.ell(cx + ex, ey, 12 * u, 9 * u, "#bfe9ff", 2 * u);
+    p.stroke([[cx + 30 * u, ey - 2 * u], [cx + 38 * u, ey - 76 * u]], 4 * u, "#f5c418");
+    p.poly([[cx + 33 * u, ey - 84 * u], [cx + 43 * u, ey - 84 * u], [cx + 43 * u, ey - 74 * u], [cx + 33 * u, ey - 74 * u]], "#f5c418", 0);
+  }
   p.rot = null;
 
   // slushie cup held to the mouth — drawn last so it sits in front of the face

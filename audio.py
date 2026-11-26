@@ -1,9 +1,9 @@
 """Synthesized upbeat music bed + frame-accurate cartoon SFX for
-'Why Brain Freeze Happens', mixed under untouched voice.mp3.
+'What If Sharks Disappeared', mixed under untouched voice.mp3.
 Audio mix contract:
 - Voiceover untouched (zero time-stretching, zero pitch/EQ edits)
 - Music bed measured against gated voice RMS and set to exactly -6.0 dB (50% of voice RMS)
-- Music cuts DEAD SILENT at 45.05s (right before 'and your brain goes back to guard duty.' at 45.25s)
+- Music cuts DEAD SILENT at 43.99s (right before 'The ocean's scariest animal turns out to be its guardian.' at 44.19s)
 - SFX peaks strictly capped at <= 0.7x voice peak
 """
 import numpy as np, subprocess, wave
@@ -76,14 +76,14 @@ def hihat():
     n = int(0.06 * SR); t = np.arange(n) / SR
     return hp_fast((rng.standard_normal(n) * np.exp(-t * 65)).astype(np.float32), 6500) * 0.35
 
-# Bright progression (C - Am - F - G) shifts to tense minor pulse during the danger section (13.0s - 36.0s: vessels slam shut through the pressure spike and referred pain)
+# Bright progression (C - Am - F - G) shifts to tense minor pulse during the danger section (12.0s - 37.0s: rays explode through the 71% decline)
 prog_bright = [(48, [60, 64, 67]), (45, [57, 60, 64]), (41, [53, 57, 60]), (43, [55, 59, 62])]
 prog_tense  = [(45, [57, 60, 64]), (41, [53, 57, 60]), (40, [52, 55, 59]), (40, [52, 56, 59])]
 
-MUSIC_STOP = 45.05  # Cuts DEAD SILENT right before "and your brain goes back to guard duty." (45.25s)
+MUSIC_STOP = 43.99  # Cuts DEAD SILENT right before "The ocean's scariest animal turns out to be its guardian." (44.19s)
 bar = 0; tt = 0.0
 while tt < MUSIC_STOP:
-    tense = 13.0 <= tt < 36.0
+    tense = 12.0 <= tt < 37.0
     root, ch = (prog_tense if tense else prog_bright)[bar % 4]
     place(music, pad_chord([midi(m) for m in ch], beat * 4 * 0.96), tt, 0.14 if tense else 0.11)
     for b in range(4):
@@ -131,7 +131,7 @@ def crack_snap():
     return ((snap * 0.9 + ping * 0.5) * 0.7).astype(np.float32)
 
 def deep_boom():
-    """Low distant boom for the Comet breakup beat (tasteful, no crash noise)."""
+    """Low distant boom for the ray-swarm explosion beat (tasteful, no crash noise)."""
     d = 1.6; n = int(d * SR); t = np.arange(n) / SR
     sub = np.sin(2 * np.pi * (70 * np.exp(-t * 3) + 38) * t) * np.exp(-t * 2.0) * 1.0
     rumble = lp_fast(noise(d), 220) * np.exp(-t * 2.5) * 0.8
@@ -144,31 +144,31 @@ def zap_sfx():
     return (s * 0.65).astype(np.float32)
 
 def twist_sting():
-    """Punchy dramatic impact sting right on 'and your brain goes back to guard duty.' after dead silence!"""
+    """Punchy dramatic impact sting right on 'The ocean's scariest animal turns out to be its guardian.' after dead silence!"""
     d = 1.4; n = int(d * SR); t = np.arange(n) / SR
     sub = np.sin(2 * np.pi * (68 * np.exp(-t * 4) + 42) * t) * np.exp(-t * 2.2) * 1.1
     hit = lp_fast(noise(d), 1100) * np.exp(-t * 10) * 0.75
     ch = sum(np.sin(2 * np.pi * midi(m) * t) for m in [57, 60, 64, 69]) * np.exp(-t * 3.8) * 0.35
     return (sub + hit + ch).astype(np.float32)
 
-# Place all SFX synced to exact frames from phrases.json (brain-freeze beats)
-place(sfx, whoosh(0.45),      F(6), 0.70)      # hook: big gulp of the ice-cold drink
-place(sfx, zap_sfx(),         F(87), 0.85)     # forehead explodes
-place(sfx, sparkle_ping(),    F(162), 0.70)    # "That is a brain freeze" reveal
-place(sfx, whoosh(0.40),      F(272), 0.60)    # cold hits the roof of the mouth
-place(sfx, crack_snap(),      F(398), 0.90)    # vessels slam shut
-place(sfx, alarm_beep(780),   F(463), 0.80)    # brain is picky about temperature
-place(sfx, whoosh(0.38),      F(530), 0.60)    # warm blood rushes up
-place(sfx, alarm_beep(920),   F(616), 0.85)    # vessels fly open again
-place(sfx, zap_sfx(),         F(667), 0.90)    # pressure spike trips the pain nerves
-place(sfx, sparkle_ping(),    F(763), 0.65)    # "Here is the weird part"
-place(sfx, whoosh(0.35),      F(806), 0.60)    # trigeminal nerve cable
-place(sfx, zap_sfx(),         F(954), 0.80)    # wires crossed
-place(sfx, sparkle_ping(),    F(1101), 0.65)   # "Doctors call that referred pain"
-place(sfx, sparkle_ping(),    F(1175), 0.60)   # "The fix is simple"
-place(sfx, whoosh(0.35),      F(1212), 0.60)   # warm tongue to the roof of the mouth
-place(sfx, sparkle_ping(),    F(1282), 0.60)   # vessels calm down
-place(sfx, twist_sting(),     F(1357), 1.00)   # POST-SILENCE TWIST STING!
+# Place all SFX synced to exact frames from phrases.json (sharks beats)
+place(sfx, whoosh(0.45),      F(6), 0.70)      # hook: every shark vanishes
+place(sfx, zap_sfx(),         F(214), 0.85)    # "It is fear." reveal
+place(sfx, whoosh(0.40),      F(249), 0.60)    # "Off the coast of America" — chain reaction starts
+place(sfx, alarm_beep(780),   F(360), 0.80)    # "Big sharks declined"
+place(sfx, deep_boom(),       F(395), 0.90)    # cownose rays explode to forty million
+place(sfx, crack_snap(),      F(486), 0.90)    # rays wipe out the scallops, fishery collapses
+place(sfx, sparkle_ping(),    F(642), 0.70)    # "In Shark Bay" location reveal
+place(sfx, whoosh(0.38),      F(687), 0.60)    # tiger sharks do not even need to hunt
+place(sfx, sparkle_ping(),    F(751), 0.65)    # turtles and dugongs scared off the seagrass
+place(sfx, sparkle_ping(),    F(865), 0.65)    # seagrass stores carbon, shelters baby fish
+place(sfx, alarm_beep(920),   F(958), 0.85)    # "fallen seventy-one percent since nineteen seventy"
+place(sfx, whoosh(0.35),      F(1102), 0.60)   # "Take the rest away"
+place(sfx, zap_sfx(),         F(1134), 0.80)   # "the dominoes keep falling"
+place(sfx, sparkle_ping(),    F(1186), 0.60)   # "the fish we eat depend on that balance too"
+place(sfx, sparkle_ping(),    F(1268), 0.65)   # "No sharks,"
+place(sfx, sparkle_ping(),    F(1293), 0.65)   # "no balance."
+place(sfx, twist_sting(),     F(1325), 1.00)   # POST-SILENCE TWIST STING!
 
 # ---------------- EXACT -6.0 dB GATED-RMS MUSIC MIX + 0.7x SFX PEAK CAP ----------------
 voice = load_voice()

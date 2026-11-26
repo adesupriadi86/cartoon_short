@@ -12,157 +12,144 @@ Style: Default,DejaVu Sans,78,&H00FFFFFF,&H0000D7FF,&H0018121E,&H80000000,-1,0,0
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 
-Dialogue: 0,0:00:00.20,0:00:00.43,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}YOU{\c&H00FFFFFF&\fscx100\fscy100} TAKE ONE
-Dialogue: 0,0:00:00.43,0:00:00.65,Default,,0,0,0,,YOU {\c&H0018D8FF&\fscx108\fscy108}TAKE{\c&H00FFFFFF&\fscx100\fscy100} ONE
-Dialogue: 0,0:00:00.65,0:00:00.87,Default,,0,0,0,,YOU TAKE {\c&H0018D8FF&\fscx108\fscy108}ONE{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:00.87,0:00:01.09,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}BIG{\c&H00FFFFFF&\fscx100\fscy100} GULP OF
-Dialogue: 0,0:00:01.09,0:00:01.31,Default,,0,0,0,,BIG {\c&H0018D8FF&\fscx108\fscy108}GULP{\c&H00FFFFFF&\fscx100\fscy100} OF
-Dialogue: 0,0:00:01.31,0:00:01.53,Default,,0,0,0,,BIG GULP {\c&H0018D8FF&\fscx108\fscy108}OF{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:01.53,0:00:01.76,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}AN{\c&H00FFFFFF&\fscx100\fscy100} ICE-COLD DRINK,
-Dialogue: 0,0:00:01.76,0:00:02.42,Default,,0,0,0,,AN {\c&H0018D8FF&\fscx108\fscy108}ICE-COLD{\c&H00FFFFFF&\fscx100\fscy100} DRINK,
-Dialogue: 0,0:00:02.42,0:00:02.64,Default,,0,0,0,,AN ICE-COLD {\c&H0018D8FF&\fscx108\fscy108}DRINK,{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:02.93,0:00:03.11,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}AND{\c&H00FFFFFF&\fscx100\fscy100} SUDDENLY YOUR
-Dialogue: 0,0:00:03.11,0:00:03.64,Default,,0,0,0,,AND {\c&H0018D8FF&\fscx108\fscy108}SUDDENLY{\c&H00FFFFFF&\fscx100\fscy100} YOUR
-Dialogue: 0,0:00:03.64,0:00:03.82,Default,,0,0,0,,AND SUDDENLY {\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:03.82,0:00:04.35,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}FOREHEAD{\c&H00FFFFFF&\fscx100\fscy100} EXPLODES.
-Dialogue: 0,0:00:04.35,0:00:04.88,Default,,0,0,0,,FOREHEAD {\c&H0018D8FF&\fscx108\fscy108}EXPLODES.{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:05.43,0:00:05.61,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THAT{\c&H00FFFFFF&\fscx100\fscy100} IS A
-Dialogue: 0,0:00:05.61,0:00:05.78,Default,,0,0,0,,THAT {\c&H0018D8FF&\fscx108\fscy108}IS{\c&H00FFFFFF&\fscx100\fscy100} A
-Dialogue: 0,0:00:05.78,0:00:05.96,Default,,0,0,0,,THAT IS {\c&H0018D8FF&\fscx108\fscy108}A{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:05.96,0:00:06.14,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}BRAIN{\c&H00FFFFFF&\fscx100\fscy100} FREEZE,
-Dialogue: 0,0:00:06.14,0:00:06.31,Default,,0,0,0,,BRAIN {\c&H0018D8FF&\fscx108\fscy108}FREEZE,{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:06.71,0:00:06.88,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}AND{\c&H00FFFFFF&\fscx100\fscy100} IT IS
-Dialogue: 0,0:00:06.88,0:00:07.05,Default,,0,0,0,,AND {\c&H0018D8FF&\fscx108\fscy108}IT{\c&H00FFFFFF&\fscx100\fscy100} IS
-Dialogue: 0,0:00:07.05,0:00:07.22,Default,,0,0,0,,AND IT {\c&H0018D8FF&\fscx108\fscy108}IS{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:07.22,0:00:07.39,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100} BRAIN TRYING
-Dialogue: 0,0:00:07.39,0:00:07.56,Default,,0,0,0,,YOUR {\c&H0018D8FF&\fscx108\fscy108}BRAIN{\c&H00FFFFFF&\fscx100\fscy100} TRYING
-Dialogue: 0,0:00:07.56,0:00:07.73,Default,,0,0,0,,YOUR BRAIN {\c&H0018D8FF&\fscx108\fscy108}TRYING{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:07.73,0:00:07.90,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}TO{\c&H00FFFFFF&\fscx100\fscy100} SAVE ITSELF.
-Dialogue: 0,0:00:07.90,0:00:08.07,Default,,0,0,0,,TO {\c&H0018D8FF&\fscx108\fscy108}SAVE{\c&H00FFFFFF&\fscx100\fscy100} ITSELF.
-Dialogue: 0,0:00:08.07,0:00:08.41,Default,,0,0,0,,TO SAVE {\c&H0018D8FF&\fscx108\fscy108}ITSELF.{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:09.08,0:00:09.26,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} COLD HITS
-Dialogue: 0,0:00:09.26,0:00:09.44,Default,,0,0,0,,THE {\c&H0018D8FF&\fscx108\fscy108}COLD{\c&H00FFFFFF&\fscx100\fscy100} HITS
-Dialogue: 0,0:00:09.44,0:00:09.62,Default,,0,0,0,,THE COLD {\c&H0018D8FF&\fscx108\fscy108}HITS{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:09.62,0:00:09.79,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} ROOF OF
-Dialogue: 0,0:00:09.79,0:00:09.97,Default,,0,0,0,,THE {\c&H0018D8FF&\fscx108\fscy108}ROOF{\c&H00FFFFFF&\fscx100\fscy100} OF
-Dialogue: 0,0:00:09.97,0:00:10.15,Default,,0,0,0,,THE ROOF {\c&H0018D8FF&\fscx108\fscy108}OF{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:10.15,0:00:10.33,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100} MOUTH,
-Dialogue: 0,0:00:10.33,0:00:10.51,Default,,0,0,0,,YOUR {\c&H0018D8FF&\fscx108\fscy108}MOUTH,{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:10.88,0:00:11.06,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}WHERE{\c&H00FFFFFF&\fscx100\fscy100} BLOOD VESSELS
-Dialogue: 0,0:00:11.06,0:00:11.24,Default,,0,0,0,,WHERE {\c&H0018D8FF&\fscx108\fscy108}BLOOD{\c&H00FFFFFF&\fscx100\fscy100} VESSELS
-Dialogue: 0,0:00:11.24,0:00:11.60,Default,,0,0,0,,WHERE BLOOD {\c&H0018D8FF&\fscx108\fscy108}VESSELS{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:11.60,0:00:11.78,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}SIT{\c&H00FFFFFF&\fscx100\fscy100} JUST UNDER
-Dialogue: 0,0:00:11.78,0:00:11.96,Default,,0,0,0,,SIT {\c&H0018D8FF&\fscx108\fscy108}JUST{\c&H00FFFFFF&\fscx100\fscy100} UNDER
-Dialogue: 0,0:00:11.96,0:00:12.33,Default,,0,0,0,,SIT JUST {\c&H0018D8FF&\fscx108\fscy108}UNDER{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:12.33,0:00:12.51,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} SKIN.
-Dialogue: 0,0:00:12.51,0:00:12.69,Default,,0,0,0,,THE {\c&H0018D8FF&\fscx108\fscy108}SKIN.{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:13.30,0:00:13.50,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THEY{\c&H00FFFFFF&\fscx100\fscy100} SLAM SHUT
-Dialogue: 0,0:00:13.50,0:00:13.69,Default,,0,0,0,,THEY {\c&H0018D8FF&\fscx108\fscy108}SLAM{\c&H00FFFFFF&\fscx100\fscy100} SHUT
-Dialogue: 0,0:00:13.69,0:00:13.89,Default,,0,0,0,,THEY SLAM {\c&H0018D8FF&\fscx108\fscy108}SHUT{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:13.89,0:00:14.09,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}TO{\c&H00FFFFFF&\fscx100\fscy100} KEEP THE
-Dialogue: 0,0:00:14.09,0:00:14.29,Default,,0,0,0,,TO {\c&H0018D8FF&\fscx108\fscy108}KEEP{\c&H00FFFFFF&\fscx100\fscy100} THE
-Dialogue: 0,0:00:14.29,0:00:14.48,Default,,0,0,0,,TO KEEP {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:14.48,0:00:14.68,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}COLD{\c&H00FFFFFF&\fscx100\fscy100} OUT.
-Dialogue: 0,0:00:14.68,0:00:14.88,Default,,0,0,0,,COLD {\c&H0018D8FF&\fscx108\fscy108}OUT.{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:15.47,0:00:15.61,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}BUT{\c&H00FFFFFF&\fscx100\fscy100} YOUR BRAIN
-Dialogue: 0,0:00:15.61,0:00:15.75,Default,,0,0,0,,BUT {\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100} BRAIN
-Dialogue: 0,0:00:15.75,0:00:15.89,Default,,0,0,0,,BUT YOUR {\c&H0018D8FF&\fscx108\fscy108}BRAIN{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:15.89,0:00:16.02,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}IS{\c&H00FFFFFF&\fscx100\fscy100} PICKY ABOUT
-Dialogue: 0,0:00:16.02,0:00:16.30,Default,,0,0,0,,IS {\c&H0018D8FF&\fscx108\fscy108}PICKY{\c&H00FFFFFF&\fscx100\fscy100} ABOUT
-Dialogue: 0,0:00:16.30,0:00:16.59,Default,,0,0,0,,IS PICKY {\c&H0018D8FF&\fscx108\fscy108}ABOUT{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:16.59,0:00:17.14,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}TEMPERATURE.{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:17.68,0:00:17.89,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}IT{\c&H00FFFFFF&\fscx100\fscy100} PANICS AND
-Dialogue: 0,0:00:17.89,0:00:18.30,Default,,0,0,0,,IT {\c&H0018D8FF&\fscx108\fscy108}PANICS{\c&H00FFFFFF&\fscx100\fscy100} AND
-Dialogue: 0,0:00:18.30,0:00:18.50,Default,,0,0,0,,IT PANICS {\c&H0018D8FF&\fscx108\fscy108}AND{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:18.50,0:00:18.92,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}ORDERS{\c&H00FFFFFF&\fscx100\fscy100} WARM BLOOD
-Dialogue: 0,0:00:18.92,0:00:19.12,Default,,0,0,0,,ORDERS {\c&H0018D8FF&\fscx108\fscy108}WARM{\c&H00FFFFFF&\fscx100\fscy100} BLOOD
-Dialogue: 0,0:00:19.12,0:00:19.33,Default,,0,0,0,,ORDERS WARM {\c&H0018D8FF&\fscx108\fscy108}BLOOD{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:19.33,0:00:19.54,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}TO{\c&H00FFFFFF&\fscx100\fscy100} RUSH UP.
-Dialogue: 0,0:00:19.54,0:00:19.74,Default,,0,0,0,,TO {\c&H0018D8FF&\fscx108\fscy108}RUSH{\c&H00FFFFFF&\fscx100\fscy100} UP.
-Dialogue: 0,0:00:19.74,0:00:19.95,Default,,0,0,0,,TO RUSH {\c&H0018D8FF&\fscx108\fscy108}UP.{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:20.56,0:00:20.72,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} VESSELS FLY
-Dialogue: 0,0:00:20.72,0:00:21.04,Default,,0,0,0,,THE {\c&H0018D8FF&\fscx108\fscy108}VESSELS{\c&H00FFFFFF&\fscx100\fscy100} FLY
-Dialogue: 0,0:00:21.04,0:00:21.19,Default,,0,0,0,,THE VESSELS {\c&H0018D8FF&\fscx108\fscy108}FLY{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:21.19,0:00:21.51,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}OPEN{\c&H00FFFFFF&\fscx100\fscy100} AGAIN,
-Dialogue: 0,0:00:21.51,0:00:21.82,Default,,0,0,0,,OPEN {\c&H0018D8FF&\fscx108\fscy108}AGAIN,{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:22.25,0:00:22.44,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}AND{\c&H00FFFFFF&\fscx100\fscy100} THE PRESSURE
-Dialogue: 0,0:00:22.44,0:00:22.62,Default,,0,0,0,,AND {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} PRESSURE
-Dialogue: 0,0:00:22.62,0:00:23.00,Default,,0,0,0,,AND THE {\c&H0018D8FF&\fscx108\fscy108}PRESSURE{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:23.00,0:00:23.18,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}SPIKE{\c&H00FFFFFF&\fscx100\fscy100} TRIPS THE
-Dialogue: 0,0:00:23.18,0:00:23.37,Default,,0,0,0,,SPIKE {\c&H0018D8FF&\fscx108\fscy108}TRIPS{\c&H00FFFFFF&\fscx100\fscy100} THE
-Dialogue: 0,0:00:23.37,0:00:23.56,Default,,0,0,0,,SPIKE TRIPS {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:23.56,0:00:23.74,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}PAIN{\c&H00FFFFFF&\fscx100\fscy100} NERVES AROUND
-Dialogue: 0,0:00:23.74,0:00:24.12,Default,,0,0,0,,PAIN {\c&H0018D8FF&\fscx108\fscy108}NERVES{\c&H00FFFFFF&\fscx100\fscy100} AROUND
-Dialogue: 0,0:00:24.12,0:00:24.49,Default,,0,0,0,,PAIN NERVES {\c&H0018D8FF&\fscx108\fscy108}AROUND{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:24.49,0:00:24.68,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THEM.{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:25.46,0:00:25.62,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}HERE{\c&H00FFFFFF&\fscx100\fscy100} IS THE
-Dialogue: 0,0:00:25.62,0:00:25.78,Default,,0,0,0,,HERE {\c&H0018D8FF&\fscx108\fscy108}IS{\c&H00FFFFFF&\fscx100\fscy100} THE
-Dialogue: 0,0:00:25.78,0:00:25.94,Default,,0,0,0,,HERE IS {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:25.94,0:00:26.11,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}WEIRD{\c&H00FFFFFF&\fscx100\fscy100} PART.
-Dialogue: 0,0:00:26.11,0:00:26.27,Default,,0,0,0,,WEIRD {\c&H0018D8FF&\fscx108\fscy108}PART.{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:26.88,0:00:27.06,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THOSE{\c&H00FFFFFF&\fscx100\fscy100} NERVES REPORT
-Dialogue: 0,0:00:27.06,0:00:27.41,Default,,0,0,0,,THOSE {\c&H0018D8FF&\fscx108\fscy108}NERVES{\c&H00FFFFFF&\fscx100\fscy100} REPORT
-Dialogue: 0,0:00:27.41,0:00:27.76,Default,,0,0,0,,THOSE NERVES {\c&H0018D8FF&\fscx108\fscy108}REPORT{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:27.76,0:00:27.94,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THROUGH{\c&H00FFFFFF&\fscx100\fscy100} THE TRIGEMINAL
-Dialogue: 0,0:00:27.94,0:00:28.12,Default,,0,0,0,,THROUGH {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} TRIGEMINAL
-Dialogue: 0,0:00:28.12,0:00:28.82,Default,,0,0,0,,THROUGH THE {\c&H0018D8FF&\fscx108\fscy108}TRIGEMINAL{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:28.82,0:00:29.00,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}NERVE,{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:29.46,0:00:29.61,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} SAME CABLE
-Dialogue: 0,0:00:29.61,0:00:29.77,Default,,0,0,0,,THE {\c&H0018D8FF&\fscx108\fscy108}SAME{\c&H00FFFFFF&\fscx100\fscy100} CABLE
-Dialogue: 0,0:00:29.77,0:00:30.07,Default,,0,0,0,,THE SAME {\c&H0018D8FF&\fscx108\fscy108}CABLE{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:30.07,0:00:30.23,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THAT{\c&H00FFFFFF&\fscx100\fscy100} SERVES YOUR
-Dialogue: 0,0:00:30.23,0:00:30.54,Default,,0,0,0,,THAT {\c&H0018D8FF&\fscx108\fscy108}SERVES{\c&H00FFFFFF&\fscx100\fscy100} YOUR
-Dialogue: 0,0:00:30.54,0:00:30.69,Default,,0,0,0,,THAT SERVES {\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:30.69,0:00:31.15,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}FOREHEAD.{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:31.82,0:00:32.00,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}SO{\c&H00FFFFFF&\fscx100\fscy100} YOUR BRAIN
-Dialogue: 0,0:00:32.00,0:00:32.17,Default,,0,0,0,,SO {\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100} BRAIN
-Dialogue: 0,0:00:32.17,0:00:32.35,Default,,0,0,0,,SO YOUR {\c&H0018D8FF&\fscx108\fscy108}BRAIN{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:32.35,0:00:32.52,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}GETS{\c&H00FFFFFF&\fscx100\fscy100} THE WIRES
-Dialogue: 0,0:00:32.52,0:00:32.70,Default,,0,0,0,,GETS {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} WIRES
-Dialogue: 0,0:00:32.70,0:00:33.05,Default,,0,0,0,,GETS THE {\c&H0018D8FF&\fscx108\fscy108}WIRES{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:33.05,0:00:33.41,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}CROSSED,{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:33.93,0:00:34.08,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}AND{\c&H00FFFFFF&\fscx100\fscy100} FEELS THE
-Dialogue: 0,0:00:34.08,0:00:34.22,Default,,0,0,0,,AND {\c&H0018D8FF&\fscx108\fscy108}FEELS{\c&H00FFFFFF&\fscx100\fscy100} THE
-Dialogue: 0,0:00:34.22,0:00:34.37,Default,,0,0,0,,AND FEELS {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:34.37,0:00:34.51,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}PAIN{\c&H00FFFFFF&\fscx100\fscy100} IN YOUR
-Dialogue: 0,0:00:34.51,0:00:34.65,Default,,0,0,0,,PAIN {\c&H0018D8FF&\fscx108\fscy108}IN{\c&H00FFFFFF&\fscx100\fscy100} YOUR
-Dialogue: 0,0:00:34.65,0:00:34.80,Default,,0,0,0,,PAIN IN {\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:34.80,0:00:35.23,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}FOREHEAD{\c&H00FFFFFF&\fscx100\fscy100} INSTEAD OF
-Dialogue: 0,0:00:35.23,0:00:35.52,Default,,0,0,0,,FOREHEAD {\c&H0018D8FF&\fscx108\fscy108}INSTEAD{\c&H00FFFFFF&\fscx100\fscy100} OF
-Dialogue: 0,0:00:35.52,0:00:35.66,Default,,0,0,0,,FOREHEAD INSTEAD {\c&H0018D8FF&\fscx108\fscy108}OF{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:35.66,0:00:35.81,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100} MOUTH.
-Dialogue: 0,0:00:35.81,0:00:35.95,Default,,0,0,0,,YOUR {\c&H0018D8FF&\fscx108\fscy108}MOUTH.{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:36.71,0:00:37.10,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}DOCTORS{\c&H00FFFFFF&\fscx100\fscy100} CALL THAT
-Dialogue: 0,0:00:37.10,0:00:37.30,Default,,0,0,0,,DOCTORS {\c&H0018D8FF&\fscx108\fscy108}CALL{\c&H00FFFFFF&\fscx100\fscy100} THAT
-Dialogue: 0,0:00:37.30,0:00:37.50,Default,,0,0,0,,DOCTORS CALL {\c&H0018D8FF&\fscx108\fscy108}THAT{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:37.50,0:00:38.09,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}REFERRED{\c&H00FFFFFF&\fscx100\fscy100} PAIN.
-Dialogue: 0,0:00:38.09,0:00:38.28,Default,,0,0,0,,REFERRED {\c&H0018D8FF&\fscx108\fscy108}PAIN.{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:39.18,0:00:39.31,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} FIX IS
-Dialogue: 0,0:00:39.31,0:00:39.44,Default,,0,0,0,,THE {\c&H0018D8FF&\fscx108\fscy108}FIX{\c&H00FFFFFF&\fscx100\fscy100} IS
-Dialogue: 0,0:00:39.44,0:00:39.57,Default,,0,0,0,,THE FIX {\c&H0018D8FF&\fscx108\fscy108}IS{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:39.57,0:00:39.84,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}SIMPLE.{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:40.41,0:00:40.58,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}PRESS{\c&H00FFFFFF&\fscx100\fscy100} YOUR WARM
-Dialogue: 0,0:00:40.58,0:00:40.74,Default,,0,0,0,,PRESS {\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100} WARM
-Dialogue: 0,0:00:40.74,0:00:40.91,Default,,0,0,0,,PRESS YOUR {\c&H0018D8FF&\fscx108\fscy108}WARM{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:40.91,0:00:41.08,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}TONGUE{\c&H00FFFFFF&\fscx100\fscy100} TO THE
-Dialogue: 0,0:00:41.08,0:00:41.25,Default,,0,0,0,,TONGUE {\c&H0018D8FF&\fscx108\fscy108}TO{\c&H00FFFFFF&\fscx100\fscy100} THE
-Dialogue: 0,0:00:41.25,0:00:41.42,Default,,0,0,0,,TONGUE TO {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:41.42,0:00:41.59,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}ROOF{\c&H00FFFFFF&\fscx100\fscy100} OF YOUR
-Dialogue: 0,0:00:41.59,0:00:41.76,Default,,0,0,0,,ROOF {\c&H0018D8FF&\fscx108\fscy108}OF{\c&H00FFFFFF&\fscx100\fscy100} YOUR
-Dialogue: 0,0:00:41.76,0:00:41.93,Default,,0,0,0,,ROOF OF {\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:41.93,0:00:42.10,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}MOUTH.{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:42.75,0:00:42.95,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} VESSELS CALM
-Dialogue: 0,0:00:42.95,0:00:43.36,Default,,0,0,0,,THE {\c&H0018D8FF&\fscx108\fscy108}VESSELS{\c&H00FFFFFF&\fscx100\fscy100} CALM
-Dialogue: 0,0:00:43.36,0:00:43.56,Default,,0,0,0,,THE VESSELS {\c&H0018D8FF&\fscx108\fscy108}CALM{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:43.56,0:00:43.77,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}DOWN,{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:44.05,0:00:44.25,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} SIGNAL STOPS,
-Dialogue: 0,0:00:44.25,0:00:44.66,Default,,0,0,0,,THE {\c&H0018D8FF&\fscx108\fscy108}SIGNAL{\c&H00FFFFFF&\fscx100\fscy100} STOPS,
-Dialogue: 0,0:00:44.66,0:00:44.86,Default,,0,0,0,,THE SIGNAL {\c&H0018D8FF&\fscx108\fscy108}STOPS,{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:45.25,0:00:45.42,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}AND{\c&H00FFFFFF&\fscx100\fscy100} YOUR BRAIN
-Dialogue: 0,0:00:45.42,0:00:45.60,Default,,0,0,0,,AND {\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100} BRAIN
-Dialogue: 0,0:00:45.60,0:00:45.78,Default,,0,0,0,,AND YOUR {\c&H0018D8FF&\fscx108\fscy108}BRAIN{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:45.78,0:00:45.95,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}GOES{\c&H00FFFFFF&\fscx100\fscy100} BACK TO
-Dialogue: 0,0:00:45.95,0:00:46.13,Default,,0,0,0,,GOES {\c&H0018D8FF&\fscx108\fscy108}BACK{\c&H00FFFFFF&\fscx100\fscy100} TO
-Dialogue: 0,0:00:46.13,0:00:46.31,Default,,0,0,0,,GOES BACK {\c&H0018D8FF&\fscx108\fscy108}TO{\c&H00FFFFFF&\fscx100\fscy100}
-Dialogue: 0,0:00:46.31,0:00:46.48,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}GUARD{\c&H00FFFFFF&\fscx100\fscy100} DUTY.
-Dialogue: 0,0:00:46.48,0:00:46.84,Default,,0,0,0,,GUARD {\c&H0018D8FF&\fscx108\fscy108}DUTY.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:00.17,0:00:00.34,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}WHAT{\c&H00FFFFFF&\fscx100\fscy100} IF EVERY
+Dialogue: 0,0:00:00.34,0:00:00.50,Default,,0,0,0,,WHAT {\c&H0018D8FF&\fscx108\fscy108}IF{\c&H00FFFFFF&\fscx100\fscy100} EVERY
+Dialogue: 0,0:00:00.50,0:00:00.98,Default,,0,0,0,,WHAT IF {\c&H0018D8FF&\fscx108\fscy108}EVERY{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:00.98,0:00:01.15,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}SHARK{\c&H00FFFFFF&\fscx100\fscy100} ON EARTH
+Dialogue: 0,0:00:01.15,0:00:01.31,Default,,0,0,0,,SHARK {\c&H0018D8FF&\fscx108\fscy108}ON{\c&H00FFFFFF&\fscx100\fscy100} EARTH
+Dialogue: 0,0:00:01.31,0:00:01.47,Default,,0,0,0,,SHARK ON {\c&H0018D8FF&\fscx108\fscy108}EARTH{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:01.47,0:00:01.96,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}VANISHED{\c&H00FFFFFF&\fscx100\fscy100} TOMORROW?
+Dialogue: 0,0:00:01.96,0:00:02.45,Default,,0,0,0,,VANISHED {\c&H0018D8FF&\fscx108\fscy108}TOMORROW?{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:02.99,0:00:03.17,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}SHARKS{\c&H00FFFFFF&\fscx100\fscy100} SIT AT
+Dialogue: 0,0:00:03.17,0:00:03.34,Default,,0,0,0,,SHARKS {\c&H0018D8FF&\fscx108\fscy108}SIT{\c&H00FFFFFF&\fscx100\fscy100} AT
+Dialogue: 0,0:00:03.34,0:00:03.52,Default,,0,0,0,,SHARKS SIT {\c&H0018D8FF&\fscx108\fscy108}AT{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:03.52,0:00:03.69,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} TOP OF
+Dialogue: 0,0:00:03.69,0:00:03.87,Default,,0,0,0,,THE {\c&H0018D8FF&\fscx108\fscy108}TOP{\c&H00FFFFFF&\fscx100\fscy100} OF
+Dialogue: 0,0:00:03.87,0:00:04.04,Default,,0,0,0,,THE TOP {\c&H0018D8FF&\fscx108\fscy108}OF{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:04.04,0:00:04.21,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} OCEAN'S FOOD
+Dialogue: 0,0:00:04.21,0:00:04.56,Default,,0,0,0,,THE {\c&H0018D8FF&\fscx108\fscy108}OCEAN'S{\c&H00FFFFFF&\fscx100\fscy100} FOOD
+Dialogue: 0,0:00:04.56,0:00:04.74,Default,,0,0,0,,THE OCEAN'S {\c&H0018D8FF&\fscx108\fscy108}FOOD{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:04.74,0:00:04.91,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}CHAIN,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:05.30,0:00:05.46,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}BUT{\c&H00FFFFFF&\fscx100\fscy100} THEIR REAL
+Dialogue: 0,0:00:05.46,0:00:05.63,Default,,0,0,0,,BUT {\c&H0018D8FF&\fscx108\fscy108}THEIR{\c&H00FFFFFF&\fscx100\fscy100} REAL
+Dialogue: 0,0:00:05.63,0:00:05.79,Default,,0,0,0,,BUT THEIR {\c&H0018D8FF&\fscx108\fscy108}REAL{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:05.79,0:00:06.12,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}POWER{\c&H00FFFFFF&\fscx100\fscy100} IS NOT
+Dialogue: 0,0:00:06.12,0:00:06.29,Default,,0,0,0,,POWER {\c&H0018D8FF&\fscx108\fscy108}IS{\c&H00FFFFFF&\fscx100\fscy100} NOT
+Dialogue: 0,0:00:06.29,0:00:06.45,Default,,0,0,0,,POWER IS {\c&H0018D8FF&\fscx108\fscy108}NOT{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:06.45,0:00:06.78,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}EATING.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:07.14,0:00:07.32,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}IT{\c&H00FFFFFF&\fscx100\fscy100} IS FEAR.
+Dialogue: 0,0:00:07.32,0:00:07.50,Default,,0,0,0,,IT {\c&H0018D8FF&\fscx108\fscy108}IS{\c&H00FFFFFF&\fscx100\fscy100} FEAR.
+Dialogue: 0,0:00:07.50,0:00:07.68,Default,,0,0,0,,IT IS {\c&H0018D8FF&\fscx108\fscy108}FEAR.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:08.31,0:00:08.44,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}OFF{\c&H00FFFFFF&\fscx100\fscy100} THE COAST
+Dialogue: 0,0:00:08.44,0:00:08.57,Default,,0,0,0,,OFF {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} COAST
+Dialogue: 0,0:00:08.57,0:00:08.70,Default,,0,0,0,,OFF THE {\c&H0018D8FF&\fscx108\fscy108}COAST{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:08.70,0:00:08.84,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}OF{\c&H00FFFFFF&\fscx100\fscy100} AMERICA,
+Dialogue: 0,0:00:08.84,0:00:09.37,Default,,0,0,0,,OF {\c&H0018D8FF&\fscx108\fscy108}AMERICA,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:09.56,0:00:09.93,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}SCIENTISTS{\c&H00FFFFFF&\fscx100\fscy100} WATCHED THE
+Dialogue: 0,0:00:09.93,0:00:10.30,Default,,0,0,0,,SCIENTISTS {\c&H0018D8FF&\fscx108\fscy108}WATCHED{\c&H00FFFFFF&\fscx100\fscy100} THE
+Dialogue: 0,0:00:10.30,0:00:10.48,Default,,0,0,0,,SCIENTISTS WATCHED {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:10.48,0:00:10.67,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}CHAIN{\c&H00FFFFFF&\fscx100\fscy100} REACTION HAPPEN.
+Dialogue: 0,0:00:10.67,0:00:11.04,Default,,0,0,0,,CHAIN {\c&H0018D8FF&\fscx108\fscy108}REACTION{\c&H00FFFFFF&\fscx100\fscy100} HAPPEN.
+Dialogue: 0,0:00:11.04,0:00:11.41,Default,,0,0,0,,CHAIN REACTION {\c&H0018D8FF&\fscx108\fscy108}HAPPEN.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:12.01,0:00:12.19,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}BIG{\c&H00FFFFFF&\fscx100\fscy100} SHARKS DECLINED,
+Dialogue: 0,0:00:12.19,0:00:12.38,Default,,0,0,0,,BIG {\c&H0018D8FF&\fscx108\fscy108}SHARKS{\c&H00FFFFFF&\fscx100\fscy100} DECLINED,
+Dialogue: 0,0:00:12.38,0:00:12.93,Default,,0,0,0,,BIG SHARKS {\c&H0018D8FF&\fscx108\fscy108}DECLINED,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:13.18,0:00:13.35,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}AND{\c&H00FFFFFF&\fscx100\fscy100} COWNOSE RAYS
+Dialogue: 0,0:00:13.35,0:00:13.70,Default,,0,0,0,,AND {\c&H0018D8FF&\fscx108\fscy108}COWNOSE{\c&H00FFFFFF&\fscx100\fscy100} RAYS
+Dialogue: 0,0:00:13.70,0:00:13.88,Default,,0,0,0,,AND COWNOSE {\c&H0018D8FF&\fscx108\fscy108}RAYS{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:13.88,0:00:14.40,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}EXPLODED{\c&H00FFFFFF&\fscx100\fscy100} TO AROUND
+Dialogue: 0,0:00:14.40,0:00:14.57,Default,,0,0,0,,EXPLODED {\c&H0018D8FF&\fscx108\fscy108}TO{\c&H00FFFFFF&\fscx100\fscy100} AROUND
+Dialogue: 0,0:00:14.57,0:00:14.92,Default,,0,0,0,,EXPLODED TO {\c&H0018D8FF&\fscx108\fscy108}AROUND{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:14.92,0:00:15.27,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}FORTY{\c&H00FFFFFF&\fscx100\fscy100} MILLION.
+Dialogue: 0,0:00:15.27,0:00:15.61,Default,,0,0,0,,FORTY {\c&H0018D8FF&\fscx108\fscy108}MILLION.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:16.20,0:00:16.38,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} RAYS HELPED
+Dialogue: 0,0:00:16.38,0:00:16.55,Default,,0,0,0,,THE {\c&H0018D8FF&\fscx108\fscy108}RAYS{\c&H00FFFFFF&\fscx100\fscy100} HELPED
+Dialogue: 0,0:00:16.55,0:00:16.89,Default,,0,0,0,,THE RAYS {\c&H0018D8FF&\fscx108\fscy108}HELPED{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:16.89,0:00:17.06,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}WIPE{\c&H00FFFFFF&\fscx100\fscy100} OUT SO
+Dialogue: 0,0:00:17.06,0:00:17.23,Default,,0,0,0,,WIPE {\c&H0018D8FF&\fscx108\fscy108}OUT{\c&H00FFFFFF&\fscx100\fscy100} SO
+Dialogue: 0,0:00:17.23,0:00:17.41,Default,,0,0,0,,WIPE OUT {\c&H0018D8FF&\fscx108\fscy108}SO{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:17.41,0:00:17.75,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}MANY{\c&H00FFFFFF&\fscx100\fscy100} BAY SCALLOPS
+Dialogue: 0,0:00:17.75,0:00:17.92,Default,,0,0,0,,MANY {\c&H0018D8FF&\fscx108\fscy108}BAY{\c&H00FFFFFF&\fscx100\fscy100} SCALLOPS
+Dialogue: 0,0:00:17.92,0:00:18.27,Default,,0,0,0,,MANY BAY {\c&H0018D8FF&\fscx108\fscy108}SCALLOPS{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:18.27,0:00:18.44,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THAT{\c&H00FFFFFF&\fscx100\fscy100} A CENTURY-OLD
+Dialogue: 0,0:00:18.44,0:00:18.61,Default,,0,0,0,,THAT {\c&H0018D8FF&\fscx108\fscy108}A{\c&H00FFFFFF&\fscx100\fscy100} CENTURY-OLD
+Dialogue: 0,0:00:18.61,0:00:19.12,Default,,0,0,0,,THAT A {\c&H0018D8FF&\fscx108\fscy108}CENTURY-OLD{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:19.12,0:00:19.64,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}FISHERY{\c&H00FFFFFF&\fscx100\fscy100} COLLAPSED COMPLETELY.
+Dialogue: 0,0:00:19.64,0:00:20.15,Default,,0,0,0,,FISHERY {\c&H0018D8FF&\fscx108\fscy108}COLLAPSED{\c&H00FFFFFF&\fscx100\fscy100} COMPLETELY.
+Dialogue: 0,0:00:20.15,0:00:20.84,Default,,0,0,0,,FISHERY COLLAPSED {\c&H0018D8FF&\fscx108\fscy108}COMPLETELY.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:21.42,0:00:21.55,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}IN{\c&H00FFFFFF&\fscx100\fscy100} SHARK BAY,
+Dialogue: 0,0:00:21.55,0:00:21.67,Default,,0,0,0,,IN {\c&H0018D8FF&\fscx108\fscy108}SHARK{\c&H00FFFFFF&\fscx100\fscy100} BAY,
+Dialogue: 0,0:00:21.67,0:00:21.80,Default,,0,0,0,,IN SHARK {\c&H0018D8FF&\fscx108\fscy108}BAY,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:21.92,0:00:22.61,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}AUSTRALIA,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:22.91,0:00:23.24,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}TIGER{\c&H00FFFFFF&\fscx100\fscy100} SHARKS DO
+Dialogue: 0,0:00:23.24,0:00:23.40,Default,,0,0,0,,TIGER {\c&H0018D8FF&\fscx108\fscy108}SHARKS{\c&H00FFFFFF&\fscx100\fscy100} DO
+Dialogue: 0,0:00:23.40,0:00:23.57,Default,,0,0,0,,TIGER SHARKS {\c&H0018D8FF&\fscx108\fscy108}DO{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:23.57,0:00:23.73,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}NOT{\c&H00FFFFFF&\fscx100\fscy100} EVEN NEED
+Dialogue: 0,0:00:23.73,0:00:24.06,Default,,0,0,0,,NOT {\c&H0018D8FF&\fscx108\fscy108}EVEN{\c&H00FFFFFF&\fscx100\fscy100} NEED
+Dialogue: 0,0:00:24.06,0:00:24.22,Default,,0,0,0,,NOT EVEN {\c&H0018D8FF&\fscx108\fscy108}NEED{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:24.22,0:00:24.39,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}TO{\c&H00FFFFFF&\fscx100\fscy100} HUNT.
+Dialogue: 0,0:00:24.39,0:00:24.55,Default,,0,0,0,,TO {\c&H0018D8FF&\fscx108\fscy108}HUNT.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:25.04,0:00:25.23,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}JUST{\c&H00FFFFFF&\fscx100\fscy100} BEING NEARBY
+Dialogue: 0,0:00:25.23,0:00:25.43,Default,,0,0,0,,JUST {\c&H0018D8FF&\fscx108\fscy108}BEING{\c&H00FFFFFF&\fscx100\fscy100} NEARBY
+Dialogue: 0,0:00:25.43,0:00:25.82,Default,,0,0,0,,JUST BEING {\c&H0018D8FF&\fscx108\fscy108}NEARBY{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:25.82,0:00:26.21,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}SCARES{\c&H00FFFFFF&\fscx100\fscy100} TURTLES AND
+Dialogue: 0,0:00:26.21,0:00:26.60,Default,,0,0,0,,SCARES {\c&H0018D8FF&\fscx108\fscy108}TURTLES{\c&H00FFFFFF&\fscx100\fscy100} AND
+Dialogue: 0,0:00:26.60,0:00:26.79,Default,,0,0,0,,SCARES TURTLES {\c&H0018D8FF&\fscx108\fscy108}AND{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:26.79,0:00:27.18,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}DUGONGS{\c&H00FFFFFF&\fscx100\fscy100} AWAY FROM
+Dialogue: 0,0:00:27.18,0:00:27.57,Default,,0,0,0,,DUGONGS {\c&H0018D8FF&\fscx108\fscy108}AWAY{\c&H00FFFFFF&\fscx100\fscy100} FROM
+Dialogue: 0,0:00:27.57,0:00:27.77,Default,,0,0,0,,DUGONGS AWAY {\c&H0018D8FF&\fscx108\fscy108}FROM{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:27.77,0:00:27.96,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} SEAGRASS.
+Dialogue: 0,0:00:27.96,0:00:28.35,Default,,0,0,0,,THE {\c&H0018D8FF&\fscx108\fscy108}SEAGRASS.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:28.84,0:00:29.04,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THAT{\c&H00FFFFFF&\fscx100\fscy100} SEAGRASS STORES
+Dialogue: 0,0:00:29.04,0:00:29.43,Default,,0,0,0,,THAT {\c&H0018D8FF&\fscx108\fscy108}SEAGRASS{\c&H00FFFFFF&\fscx100\fscy100} STORES
+Dialogue: 0,0:00:29.43,0:00:29.83,Default,,0,0,0,,THAT SEAGRASS {\c&H0018D8FF&\fscx108\fscy108}STORES{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:29.83,0:00:30.23,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}CARBON{\c&H00FFFFFF&\fscx100\fscy100} AND SHELTERS
+Dialogue: 0,0:00:30.23,0:00:30.43,Default,,0,0,0,,CARBON {\c&H0018D8FF&\fscx108\fscy108}AND{\c&H00FFFFFF&\fscx100\fscy100} SHELTERS
+Dialogue: 0,0:00:30.43,0:00:30.82,Default,,0,0,0,,CARBON AND {\c&H0018D8FF&\fscx108\fscy108}SHELTERS{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:30.82,0:00:31.22,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}BABY{\c&H00FFFFFF&\fscx100\fscy100} FISH.
+Dialogue: 0,0:00:31.22,0:00:31.42,Default,,0,0,0,,BABY {\c&H0018D8FF&\fscx108\fscy108}FISH.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:31.95,0:00:32.48,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}OCEANIC{\c&H00FFFFFF&\fscx100\fscy100} SHARKS AND
+Dialogue: 0,0:00:32.48,0:00:32.66,Default,,0,0,0,,OCEANIC {\c&H0018D8FF&\fscx108\fscy108}SHARKS{\c&H00FFFFFF&\fscx100\fscy100} AND
+Dialogue: 0,0:00:32.66,0:00:32.84,Default,,0,0,0,,OCEANIC SHARKS {\c&H0018D8FF&\fscx108\fscy108}AND{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:32.84,0:00:33.02,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}RAYS{\c&H00FFFFFF&\fscx100\fscy100} HAVE ALREADY
+Dialogue: 0,0:00:33.02,0:00:33.19,Default,,0,0,0,,RAYS {\c&H0018D8FF&\fscx108\fscy108}HAVE{\c&H00FFFFFF&\fscx100\fscy100} ALREADY
+Dialogue: 0,0:00:33.19,0:00:33.72,Default,,0,0,0,,RAYS HAVE {\c&H0018D8FF&\fscx108\fscy108}ALREADY{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:33.72,0:00:34.08,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}FALLEN{\c&H00FFFFFF&\fscx100\fscy100} SEVENTY-ONE PERCENT
+Dialogue: 0,0:00:34.08,0:00:34.61,Default,,0,0,0,,FALLEN {\c&H0018D8FF&\fscx108\fscy108}SEVENTY-ONE{\c&H00FFFFFF&\fscx100\fscy100} PERCENT
+Dialogue: 0,0:00:34.61,0:00:34.96,Default,,0,0,0,,FALLEN SEVENTY-ONE {\c&H0018D8FF&\fscx108\fscy108}PERCENT{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:34.96,0:00:35.14,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}SINCE{\c&H00FFFFFF&\fscx100\fscy100} NINETEEN SEVENTY.
+Dialogue: 0,0:00:35.14,0:00:35.67,Default,,0,0,0,,SINCE {\c&H0018D8FF&\fscx108\fscy108}NINETEEN{\c&H00FFFFFF&\fscx100\fscy100} SEVENTY.
+Dialogue: 0,0:00:35.67,0:00:36.20,Default,,0,0,0,,SINCE NINETEEN {\c&H0018D8FF&\fscx108\fscy108}SEVENTY.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:36.76,0:00:36.93,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}TAKE{\c&H00FFFFFF&\fscx100\fscy100} THE REST
+Dialogue: 0,0:00:36.93,0:00:37.11,Default,,0,0,0,,TAKE {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} REST
+Dialogue: 0,0:00:37.11,0:00:37.28,Default,,0,0,0,,TAKE THE {\c&H0018D8FF&\fscx108\fscy108}REST{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:37.28,0:00:37.62,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}AWAY,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:37.82,0:00:37.97,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}AND{\c&H00FFFFFF&\fscx100\fscy100} THE DOMINOES
+Dialogue: 0,0:00:37.97,0:00:38.12,Default,,0,0,0,,AND {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} DOMINOES
+Dialogue: 0,0:00:38.12,0:00:38.57,Default,,0,0,0,,AND THE {\c&H0018D8FF&\fscx108\fscy108}DOMINOES{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:38.57,0:00:38.72,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}KEEP{\c&H00FFFFFF&\fscx100\fscy100} FALLING.
+Dialogue: 0,0:00:38.72,0:00:39.02,Default,,0,0,0,,KEEP {\c&H0018D8FF&\fscx108\fscy108}FALLING.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:39.55,0:00:39.74,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}AND{\c&H00FFFFFF&\fscx100\fscy100} THE FISH
+Dialogue: 0,0:00:39.74,0:00:39.92,Default,,0,0,0,,AND {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} FISH
+Dialogue: 0,0:00:39.92,0:00:40.10,Default,,0,0,0,,AND THE {\c&H0018D8FF&\fscx108\fscy108}FISH{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:40.10,0:00:40.28,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}WE{\c&H00FFFFFF&\fscx100\fscy100} EAT DEPEND
+Dialogue: 0,0:00:40.28,0:00:40.47,Default,,0,0,0,,WE {\c&H0018D8FF&\fscx108\fscy108}EAT{\c&H00FFFFFF&\fscx100\fscy100} DEPEND
+Dialogue: 0,0:00:40.47,0:00:40.83,Default,,0,0,0,,WE EAT {\c&H0018D8FF&\fscx108\fscy108}DEPEND{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:40.83,0:00:41.02,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}ON{\c&H00FFFFFF&\fscx100\fscy100} THAT BALANCE
+Dialogue: 0,0:00:41.02,0:00:41.20,Default,,0,0,0,,ON {\c&H0018D8FF&\fscx108\fscy108}THAT{\c&H00FFFFFF&\fscx100\fscy100} BALANCE
+Dialogue: 0,0:00:41.20,0:00:41.56,Default,,0,0,0,,ON THAT {\c&H0018D8FF&\fscx108\fscy108}BALANCE{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:41.56,0:00:41.75,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}TOO.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:42.27,0:00:42.60,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}NO{\c&H00FFFFFF&\fscx100\fscy100} SHARKS,
+Dialogue: 0,0:00:42.60,0:00:42.92,Default,,0,0,0,,NO {\c&H0018D8FF&\fscx108\fscy108}SHARKS,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:43.11,0:00:43.33,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}NO{\c&H00FFFFFF&\fscx100\fscy100} BALANCE.
+Dialogue: 0,0:00:43.33,0:00:43.76,Default,,0,0,0,,NO {\c&H0018D8FF&\fscx108\fscy108}BALANCE.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:44.19,0:00:44.37,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} OCEAN'S SCARIEST
+Dialogue: 0,0:00:44.37,0:00:44.73,Default,,0,0,0,,THE {\c&H0018D8FF&\fscx108\fscy108}OCEAN'S{\c&H00FFFFFF&\fscx100\fscy100} SCARIEST
+Dialogue: 0,0:00:44.73,0:00:45.09,Default,,0,0,0,,THE OCEAN'S {\c&H0018D8FF&\fscx108\fscy108}SCARIEST{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:45.09,0:00:45.63,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}ANIMAL{\c&H00FFFFFF&\fscx100\fscy100} TURNS OUT
+Dialogue: 0,0:00:45.63,0:00:45.82,Default,,0,0,0,,ANIMAL {\c&H0018D8FF&\fscx108\fscy108}TURNS{\c&H00FFFFFF&\fscx100\fscy100} OUT
+Dialogue: 0,0:00:45.82,0:00:46.00,Default,,0,0,0,,ANIMAL TURNS {\c&H0018D8FF&\fscx108\fscy108}OUT{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:46.00,0:00:46.18,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}TO{\c&H00FFFFFF&\fscx100\fscy100} BE ITS
+Dialogue: 0,0:00:46.18,0:00:46.36,Default,,0,0,0,,TO {\c&H0018D8FF&\fscx108\fscy108}BE{\c&H00FFFFFF&\fscx100\fscy100} ITS
+Dialogue: 0,0:00:46.36,0:00:46.54,Default,,0,0,0,,TO BE {\c&H0018D8FF&\fscx108\fscy108}ITS{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:46.54,0:00:46.90,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}GUARDIAN.{\c&H00FFFFFF&\fscx100\fscy100}

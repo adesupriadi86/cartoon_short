@@ -44,25 +44,39 @@ const M = {
   wood: toon({ color: '#9c6b43' }),
   hazard: texM(P.hazardStripe(), 8, 1),
   glass: new THREE.MeshToonMaterial({ gradientMap: grad, color: '#9ed8f5', transparent: true, opacity: 0.32, side: THREE.DoubleSide, depthWrite: false }),
-  // palate / brain sets
-  palatePink: toon({ color: '#f2a0b5' }),
-  brainPink: toon({ color: '#ff8fb1' }),
-  brainPinkDark: toon({ color: '#e56a92' }),
-  vesselRed: toon({ color: '#d92632' }),
-  vesselRedBright: new THREE.MeshBasicMaterial({ color: '#ff4d5e' }),
-  tonguePink: toon({ color: '#e86e78' }),
-  coldGlow: new THREE.MeshBasicMaterial({ color: '#7dd3fc' }),
-  warmGlow: new THREE.MeshBasicMaterial({ color: '#ffb36b' }),
-  nerveRed: toon({ color: '#ff3b30' }),
-  nerveYellow: toon({ color: '#ffd60a' }),
-  nerveGreen: toon({ color: '#4cd964' }),
-  nerveCyan: toon({ color: '#4dd0e1' }),
+  // ocean sets
+  sand: texM(P.sandTex(7), 20, 20),
+  rock: toon({ color: '#7a7f8a' }),
+  coralPink: toon({ color: '#ff7f9e' }),
+  coralOrange: toon({ color: '#ff9f5a' }),
+  coralPurple: toon({ color: '#b07fd4' }),
+  seaweed: toon({ color: '#3f9e57' }),
+  seaweedDark: toon({ color: '#2a7a42' }),
+  sharkGray: toon({ color: '#8fa8bc' }),
+  sharkBelly: toon({ color: '#e8eef2' }),
+  sharkDark: toon({ color: '#5a7286' }),
+  sharkFin: toon({ color: '#5a7286', side: THREE.DoubleSide }),
+  rayBrown: toon({ color: '#b08d68' }),
+  rayBelly: toon({ color: '#f0e2c8' }),
+  rayWing: toon({ color: '#a08060', side: THREE.DoubleSide }),
+  scallopShell: toon({ color: '#f2e6d8' }),
+  turtleGreen: toon({ color: '#5a8a5a' }),
+  turtleShell: toon({ color: '#6b8e5a' }),
+  dugongGray: toon({ color: '#9aa5ad' }),
+  fishYellow: toon({ color: '#f5c418' }),
+  fishBlue: toon({ color: '#4dd0e1' }),
+  fishOrange: toon({ color: '#ff8a3d' }),
+  netWhite: toon({ color: '#e8e8e8' }),
+  bubble: new THREE.MeshToonMaterial({ gradientMap: grad, color: '#dff3ff', transparent: true, opacity: 0.45, side: THREE.DoubleSide, depthWrite: false }),
+  lightRay: new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0.07, side: THREE.DoubleSide, depthWrite: false }),
   gaugeWhite: toon({ color: '#f8fafc' }),
   gaugeRed: toon({ color: '#e63946' }),
-  nerveBoard: new THREE.MeshBasicMaterial({ map: P.tex(P.nerveDiagram(), 1, 1) }),
-  referredBoard: new THREE.MeshBasicMaterial({ map: P.tex(P.referredPain(), 1, 1) }),
-  freezePlate: new THREE.MeshBasicMaterial({ map: P.tex(P.textPlate('BRAIN FREEZE', '#ff3b30', '#ffffff'), 1, 1) }),
-  finalePlate: new THREE.MeshBasicMaterial({ map: P.tex(P.textPlate('BACK TO GUARD DUTY', '#1f6fb2', '#ffffff'), 1, 1) }),
+  foodBoard: new THREE.MeshBasicMaterial({ map: P.tex(P.foodChain(), 1, 1) }),
+  mapBoard: new THREE.MeshBasicMaterial({ map: P.tex(P.coastMap(), 1, 1) }),
+  chart71Board: new THREE.MeshBasicMaterial({ map: P.tex(P.chart71(), 1, 1) }),
+  declineBoard: new THREE.MeshBasicMaterial({ map: P.tex(P.declineChart(), 1, 1) }),
+  finalePlate: new THREE.MeshBasicMaterial({ map: P.tex(P.textPlate('NO SHARKS, NO BALANCE', '#1f6fb2', '#ffffff'), 1, 1) }),
+  marketSign: new THREE.MeshBasicMaterial({ map: P.tex(P.textPlate('FISH MARKET', '#e05a47', '#ffffff'), 1, 1) }),
 };
 
 // ---------- ink / normal-depth contract ----------
@@ -106,111 +120,201 @@ const coldLight = new THREE.PointLight('#7dd3fc', 0, 7); coldLight.position.set(
 const warmLight = new THREE.PointLight('#ffb36b', 0, 8); warmLight.position.set(0, 2.7, 1.6); scene.add(warmLight);
 scene.fog = new THREE.Fog('#e6eef8', 24, 95);
 
-// ---------- PATIO: sidewalk floor + drifting clouds ----------
+// ---------- OCEAN FLOOR: sand + rising bubbles + god-rays ----------
 const world = new THREE.Group(); scene.add(world);
-add(box(240, 0.2, 240), M.sidewalk, 0, -0.3, 0, world, { cast: false });
+add(box(240, 0.2, 240), M.sand, 0, -0.3, 0, world, { cast: false });
 
-// drifting cartoon clouds (3 puffs each)
-const clouds = [];
+// rising bubbles (replaces the drifting clouds)
+const bubbles = [];
+for (let i = 0; i < 14; i++) {
+  const s = 0.06 + (i % 4) * 0.03;
+  const b = add(new THREE.SphereGeometry(s, 10, 8), M.bubble, -3 + (i * 0.55) % 6, 0.5 + (i % 5), -1.5 + (i % 3), world, { cast: false, ndSkip: true });
+  bubbles.push({ mesh: b, x: -3 + (i * 0.55) % 6, z: -1.5 + (i % 3), speed: 0.008 + (i % 3) * 0.004, phase: i * 0.7 });
+}
+// slanted god-rays from the surface
+for (let i = 0; i < 4; i++) {
+  const ray = add(new THREE.PlaneGeometry(0.7, 9), M.lightRay, -2.4 + i * 1.6, 5.5, -2.5, world, { cast: false, ndSkip: true });
+  ray.rotation.z = 0.35;
+}
+
+// ---------- REEF SET: rocks, corals, swaying seaweed ----------
+const reefGroup = new THREE.Group(); world.add(reefGroup); reefGroup.visible = false;
+const ROCKS = [[-2.6, 0.25, -1.2, 0.8], [2.7, 0.3, -1.4, 1.0], [-1.8, 0.2, -2.2, 0.6], [1.9, 0.22, -2.4, 0.7], [0.3, 0.18, -2.8, 0.55]];
+for (const [rx, ry, rz, rs] of ROCKS) {
+  const rock = add(new THREE.SphereGeometry(rs, 10, 8), M.rock, rx, ry, rz, reefGroup);
+  rock.scale.set(1.3, 0.6, 1);
+}
+const CORALS = [[-2.6, 0.6, -1.1, 'coralPink'], [2.7, 0.7, -1.3, 'coralOrange'], [-1.8, 0.5, -2.1, 'coralPurple'], [1.9, 0.5, -2.3, 'coralPink'], [0.3, 0.45, -2.7, 'coralOrange']];
+for (const [cx, cy, cz, col] of CORALS) {
+  add(new THREE.ConeGeometry(0.22, 0.7, 8), M[col], cx - 0.15, cy, cz, reefGroup);
+  add(new THREE.SphereGeometry(0.18, 8, 6), M[col], cx + 0.2, cy + 0.05, cz, reefGroup);
+}
+const seaweedBlades = [];
 for (let i = 0; i < 12; i++) {
-  const g = new THREE.Group();
-  const cx = -32 + (i * 5.7) % 64, cy = 9 + (i % 4) * 2.2, cz = -18 + (i * 3.1) % 26;
-  g.position.set(cx, cy, cz);
-  const s = 0.8 + (i % 3) * 0.35;
-  add(new THREE.SphereGeometry(1.25 * s, 10, 8), M.cloud, 0, 0, 0, g, { cast: false });
-  add(new THREE.SphereGeometry(0.9 * s, 10, 8), M.cloud, 1.3 * s, -0.15, 0.2, g, { cast: false });
-  add(new THREE.SphereGeometry(0.8 * s, 10, 8), M.cloud, -1.2 * s, -0.2, -0.1, g, { cast: false });
-  world.add(g);
-  clouds.push({ g, baseX: cx });
+  const bx = -3.2 + i * 0.58;
+  seaweedBlades.push(add(new THREE.ConeGeometry(0.09, 1.6 + (i % 3) * 0.3, 6), i % 2 ? M.seaweed : M.seaweedDark, bx, 0.85, -1.8 - (i % 3) * 0.4, reefGroup));
 }
 
-// ---------- CAFE SET: "BRAIN FREEZE" title plate on a stand behind the kid ----------
-const cafeGroup = new THREE.Group(); world.add(cafeGroup); cafeGroup.visible = false;
-add(box(2.9, 1.0, 0.12), M.steelDark, 0, 3.5, -0.5, cafeGroup);
-add(new THREE.PlaneGeometry(2.7, 0.84), M.freezePlate, 0, 3.5, -0.43, cafeGroup, { cast: false });
-for (const s of [-1.2, 1.2]) add(box(0.12, 2.6, 0.12), M.steelDark, s, 1.7, -0.5, cafeGroup);
-
-// ---------- PALATE PANEL (macro cross-section of the roof of the mouth) ----------
-const palateGroup = new THREE.Group(); world.add(palateGroup); palateGroup.visible = false;
-add(box(3.4, 2.8, 0.15), M.panel, 0, 2.4, 0, palateGroup);
-add(box(3.6, 0.18, 0.2), M.panelDark, 0, 0.95, 0, palateGroup);
-add(box(3.6, 0.18, 0.2), M.panelDark, 0, 3.85, 0, palateGroup);
-// palate roof arch (pink half-disc at the top of the panel)
-const archGeo = new THREE.CircleGeometry(1.15, 24, 0, Math.PI);
-const arch = add(archGeo, M.palatePink, 0, 2.95, 0.09, palateGroup, { cast: false });
-// blood vessels: 4 horizontal red tubes just under the arch
-const vessels = [];
-for (const vy of [2.15, 2.4, 2.65, 2.9]) {
-  const v = add(new THREE.CylinderGeometry(0.09, 0.09, 2.4, 12), M.vesselRed, 0, vy, 0.12, palateGroup, { cast: false });
-  v.rotation.z = Math.PI / 2;
-  vessels.push(v);
-}
-// cold glow dots on the vessels
-const coldDots = [];
-for (let i = 0; i < 5; i++) {
-  coldDots.push(add(new THREE.SphereGeometry(0.07, 8, 6), M.coldGlow, -0.9 + i * 0.45, 2.52, 0.18, palateGroup, { cast: false, ndSkip: true }));
-}
-// tongue: pink flattened blob that rises to press the roof during the fix
-const tongue = add(new THREE.SphereGeometry(0.55, 16, 12), M.tonguePink, 0, 1.45, 0.15, palateGroup);
-tongue.scale.set(1.5, 0.5, 0.7);
-
-// ---------- BRAIN CHAMBER (3D brain + dilating arteries + pressure gauge) ----------
-const brainGroup = new THREE.Group(); world.add(brainGroup); brainGroup.visible = false;
-// brain: cluster of pink lobes
-const brainLobes = [];
-const LOBES = [
-  [0, 2.7, 0, 0.55], [-0.45, 2.75, 0.1, 0.42], [0.45, 2.75, 0.1, 0.42],
-  [0, 3.15, 0, 0.4], [-0.3, 2.35, 0.15, 0.38], [0.3, 2.35, 0.15, 0.38], [0, 2.7, -0.35, 0.4],
-];
-for (const [lx, ly, lz, lr] of LOBES) {
-  brainLobes.push(add(new THREE.SphereGeometry(lr, 14, 10), M.brainPink, lx, ly, lz, brainGroup));
-}
-// (brain wrinkles removed: the large torus arcs stuck out above the brain's
-// silhouette and read as a red handle/arch under the amber light;
-// the lobe seams already give the brain its texture)
-// arteries: 3 red vessel tubes hugging the FRONT of the brain (no back half to peek over the top)
-const mkArtery = (y, r) => {
-  const pts = [];
-  for (let i = -2; i <= 2; i++) {
-    const a = i * Math.PI / 6; // -60° to +60° around the front (+Z)
-    pts.push(new THREE.Vector3(r * Math.sin(a), 0, r * Math.cos(a)));
-  }
-  const curve = new THREE.CatmullRomCurve3(pts);
-  return add(new THREE.TubeGeometry(curve, 20, 0.05, 8), M.vesselRed, 0, y, 0, brainGroup, { cast: false });
+// ---------- SHARKS: hero shark (swims, then vanishes) + tiger shark (patrols) ----------
+// Fins are flat DoubleSide triangles, NOT 4-sided cones: cones read as pyramids/diamonds.
+const finTri = (w, h, lean) => {
+  const s = new THREE.Shape();
+  s.moveTo(-w / 2, 0); s.lineTo(w / 2, 0); s.lineTo(lean, h); s.closePath();
+  return new THREE.ShapeGeometry(s);
 };
-const arteries = [mkArtery(2.45, 0.7), mkArtery(2.7, 0.85), mkArtery(2.95, 0.65)];
-// warm blood flow dots rising around the brain
-const flowDots = [];
-for (let i = 0; i < 8; i++) {
-  flowDots.push(add(new THREE.SphereGeometry(0.07, 8, 6), M.warmGlow, 0, 2.0, 0.3, brainGroup, { cast: false, ndSkip: true }));
-}
-// pressure gauge (upper right): white dial + red needle that spikes
-const gaugeGroup = new THREE.Group(); gaugeGroup.position.set(1.35, 3.3, 0.2); brainGroup.add(gaugeGroup);
-add(new THREE.CircleGeometry(0.42, 24), M.gaugeWhite, 0, 0, 0, gaugeGroup, { cast: false });
-add(new THREE.TorusGeometry(0.42, 0.05, 8, 24), M.steelDark, 0, 0, 0, gaugeGroup, { cast: false });
-const gaugeRedArc = add(new THREE.TorusGeometry(0.36, 0.04, 8, 12, Math.PI * 0.5), M.gaugeRed, 0, 0, 0.01, gaugeGroup, { cast: false });
-gaugeRedArc.rotation.z = Math.PI * 0.75;
-const needlePivot = new THREE.Group(); gaugeGroup.add(needlePivot);
-add(box(0.05, 0.36, 0.02), M.gaugeRed, 0, 0.18, 0.02, needlePivot, { cast: false });
-add(new THREE.SphereGeometry(0.06, 8, 6), M.steelDark, 0, 0, 0.03, needlePivot, { cast: false });
+const makeShark = (scale, tiger) => {
+  const g = new THREE.Group();
+  const body = add(new THREE.SphereGeometry(0.5, 16, 12), M.sharkGray, 0, 0, 0, g);
+  body.scale.set(2.6, 0.62, 0.55);
+  const belly = add(new THREE.SphereGeometry(0.45, 16, 12), M.sharkBelly, 0.1, -0.1, 0, g);
+  belly.scale.set(2.3, 0.45, 0.5);
+  const snout = add(new THREE.ConeGeometry(0.26, 0.6, 12), M.sharkGray, 1.35, 0, 0, g);
+  snout.rotation.z = -Math.PI / 2;
+  const dorsal = new THREE.Mesh(finTri(0.6, 0.55, 0.1), M.sharkFin);
+  dorsal.position.set(-0.1, 0.22, 0); dorsal.rotation.z = -0.2; dorsal.castShadow = true; g.add(dorsal);
+  const finL = new THREE.Mesh(finTri(0.4, 0.35, 0.05), M.sharkFin);
+  finL.position.set(0.35, -0.12, 0.22); finL.rotation.set(0.7, 0, 2.6); finL.castShadow = true; g.add(finL);
+  const finR = new THREE.Mesh(finTri(0.4, 0.35, 0.05), M.sharkFin);
+  finR.position.set(0.35, -0.12, -0.22); finR.rotation.set(-0.7, 0, 2.6); finR.castShadow = true; g.add(finR);
+  for (const ez of [0.26, -0.26]) add(new THREE.SphereGeometry(0.05, 8, 6), M.handrail, 1.0, 0.08, ez, g, { cast: false, ndSkip: true });
+  const tailPivot = new THREE.Group(); tailPivot.position.set(-1.2, 0, 0); g.add(tailPivot);
+  const tailUp = new THREE.Mesh(finTri(0.5, 0.7, 0.05), M.sharkFin);
+  tailUp.position.set(-0.12, 0.05, 0); tailUp.castShadow = true; tailPivot.add(tailUp);
+  const tailDn = new THREE.Mesh(finTri(0.4, 0.45, 0.05), M.sharkFin);
+  tailDn.position.set(-0.12, -0.02, 0); tailDn.rotation.z = Math.PI; tailDn.castShadow = true; tailPivot.add(tailDn);
+  if (tiger) { // 3 thin dark bands across the body where it is fullest
+    for (const [sx, sh, sd] of [[0.3, 0.55, 0.5], [0.0, 0.6, 0.53], [-0.3, 0.55, 0.5]]) {
+      const stripe = add(box(0.05, sh, sd), M.sharkDark, sx, 0.08, 0, g, { cast: false });
+      stripe.rotation.z = 0.15;
+    }
+  }
+  g.scale.setScalar(scale);
+  return { group: g, tailPivot };
+};
+const heroShark = makeShark(0.85, false);
+heroShark.group.position.set(0, 2.4, -1.2); world.add(heroShark.group); heroShark.group.visible = false;
+const tigerShark = makeShark(0.95, true);
+tigerShark.group.position.set(0, 3.0, -1.5); world.add(tigerShark.group); tigerShark.group.visible = false;
 
-// ---------- NERVE BOARD STAND (trigeminal diagram / referred pain) ----------
-const nerveGroup = new THREE.Group(); world.add(nerveGroup); nerveGroup.visible = false;
-add(box(2.6, 3.4, 0.12), M.steelDark, 0, 1.9, 0, nerveGroup);
-const diagramMesh = add(new THREE.PlaneGeometry(2.4, 3.2), M.nerveBoard, 0, 1.9, 0.075, nerveGroup, { cast: false });
-const referredMesh = add(new THREE.PlaneGeometry(2.4, 3.2), M.referredBoard, 0, 1.9, 0.075, nerveGroup, { cast: false });
-for (const s of [-0.95, 0.95]) add(box(0.12, 0.35, 0.65), M.steelDark, s, 0.18, 0, nerveGroup);
-// crossed wires: two tubes forming an X in front of the board
-const crossWiresGroup = new THREE.Group(); nerveGroup.add(crossWiresGroup); crossWiresGroup.visible = false;
-const wireCurve1 = new THREE.CatmullRomCurve3([
-  new THREE.Vector3(-0.9, 1.2, 0.25), new THREE.Vector3(0, 1.9, 0.3), new THREE.Vector3(0.9, 2.6, 0.25),
-]);
-const wireCurve2 = new THREE.CatmullRomCurve3([
-  new THREE.Vector3(0.9, 1.2, 0.25), new THREE.Vector3(0, 1.9, 0.32), new THREE.Vector3(-0.9, 2.6, 0.25),
-]);
-add(new THREE.TubeGeometry(wireCurve1, 20, 0.06, 8), M.nerveRed, 0, 0, 0, crossWiresGroup, { cast: false });
-add(new THREE.TubeGeometry(wireCurve2, 20, 0.06, 8), M.nerveYellow, 0, 0, 0, crossWiresGroup, { cast: false });
-add(new THREE.SphereGeometry(0.12, 10, 8), M.redGlow, 0, 1.9, 0.34, crossWiresGroup, { cast: false, ndSkip: true });
+// ---------- BOARD STAND (food chain / coast map / -71% / decline) ----------
+const boardGroup = new THREE.Group(); world.add(boardGroup); boardGroup.visible = false;
+add(box(2.6, 3.4, 0.12), M.steelDark, 0, 1.9, 0, boardGroup);
+const foodMesh = add(new THREE.PlaneGeometry(2.4, 3.2), M.foodBoard, 0, 1.9, 0.075, boardGroup, { cast: false });
+const mapMesh = add(new THREE.PlaneGeometry(2.4, 3.2), M.mapBoard, 0, 1.9, 0.075, boardGroup, { cast: false });
+const chart71Mesh = add(new THREE.PlaneGeometry(2.4, 3.2), M.chart71Board, 0, 1.9, 0.075, boardGroup, { cast: false });
+const declineMesh = add(new THREE.PlaneGeometry(2.4, 3.2), M.declineBoard, 0, 1.9, 0.075, boardGroup, { cast: false });
+for (const s of [-0.95, 0.95]) add(box(0.12, 0.35, 0.65), M.steelDark, s, 0.18, 0, boardGroup);
+
+// ---------- DOMINOES (chain reaction, fall one by one) ----------
+const dominoGroup = new THREE.Group(); world.add(dominoGroup); dominoGroup.visible = false;
+add(box(4.6, 0.15, 0.9), M.wood, 0, 0.08, -0.8, dominoGroup, { cast: false });
+const dominoes = [];
+const DOMINO_COLORS = ['#e05a47', '#f08a2c', '#f5c418', '#3fa36c', '#2f6fb2'];
+for (let i = 0; i < 5; i++) {
+  const pivot = new THREE.Group(); pivot.position.set(-1.4 + i * 0.7, 0.15, -0.8); dominoGroup.add(pivot);
+  add(box(0.14, 0.85, 0.5), toon({ color: DOMINO_COLORS[i] }), 0, 0.425, 0, pivot);
+  add(new THREE.SphereGeometry(0.06, 8, 6), M.white, 0, 0.7, 0.26, pivot, { cast: false, ndSkip: true });
+  dominoes.push(pivot);
+}
+
+// ---------- COWNOSE RAY SWARM (multiplies as sharks vanish) ----------
+const makeRay = () => {
+  const g = new THREE.Group();
+  // Face the camera: a ray's wings span its sides, so swimming toward the
+  // camera puts the diamond silhouette on screen (swimming across hides
+  // the wings edge-on). Flap pivots then read as up/down on screen.
+  g.rotation.y = Math.PI / 2;
+  const body = add(new THREE.SphereGeometry(0.28, 12, 8), M.rayBrown, 0, 0, 0, g);
+  body.scale.set(1.8, 0.35, 1.0);
+  const belly = add(new THREE.SphereGeometry(0.24, 12, 8), M.rayBelly, 0, -0.05, 0, g);
+  belly.scale.set(1.6, 0.22, 0.85);
+  const wingShape = new THREE.Shape();
+  wingShape.moveTo(0, 0); wingShape.lineTo(-0.35, 0.6); wingShape.lineTo(0.45, 0.6); wingShape.closePath();
+  const wingGeo = new THREE.ShapeGeometry(wingShape);
+  const pivR = new THREE.Group(); g.add(pivR);
+  const wR = new THREE.Mesh(wingGeo, M.rayWing); wR.rotation.x = Math.PI / 2 - 0.6; wR.castShadow = true; pivR.add(wR);
+  const pivL = new THREE.Group(); g.add(pivL);
+  const wL = new THREE.Mesh(wingGeo, M.rayWing); wL.rotation.x = -Math.PI / 2 + 0.6; wL.castShadow = true; pivL.add(wL);
+  return { group: g, pivR, pivL };
+};
+const rays = [];
+const RAY_SPOTS = [[-2.2, 2.0, -0.3], [-1.2, 2.5, 0.3], [-0.3, 1.9, -0.4], [0.7, 2.6, 0.2], [1.6, 2.1, -0.2], [2.3, 2.7, 0.3], [-1.8, 2.8, 0.1], [0.2, 2.9, -0.3]];
+for (const [rx, ry, rz] of RAY_SPOTS) {
+  const r = makeRay();
+  r.group.position.set(rx, ry, rz);
+  r.baseX = rx; r.baseY = ry;
+  world.add(r.group); r.group.visible = false;
+  rays.push(r);
+}
+
+// ---------- SCALLOP BED (stripped bare by the rays) + empty net ----------
+const scallopGroup = new THREE.Group(); world.add(scallopGroup); scallopGroup.visible = false;
+const scallops = [];
+for (let i = 0; i < 10; i++) {
+  const sx = -2.2 + (i % 5) * 1.1, sz = 0.3 + Math.floor(i / 5) * 0.5;
+  const shell = add(new THREE.SphereGeometry(0.22, 10, 8), i % 2 ? M.scallopShell : M.coralPink, sx, 0.12, sz, scallopGroup);
+  shell.scale.set(1, 0.35, 1);
+  scallops.push(shell);
+}
+add(box(2.2, 0.05, 0.06), M.netWhite, 0, 0.22, -0.02, scallopGroup, { cast: false });
+add(box(2.2, 0.05, 0.06), M.netWhite, 0, 0.22, 1.12, scallopGroup, { cast: false });
+add(box(0.06, 0.05, 1.2), M.netWhite, -1.07, 0.22, 0.55, scallopGroup, { cast: false });
+add(box(0.06, 0.05, 1.2), M.netWhite, 1.07, 0.22, 0.55, scallopGroup, { cast: false });
+for (let i = 0; i < 5; i++) add(box(0.03, 0.02, 1.14), M.steelDark, -0.88 + i * 0.44, 0.22, 0.55, scallopGroup, { cast: false });
+for (let i = 0; i < 3; i++) add(box(2.14, 0.02, 0.03), M.steelDark, 0, 0.22, 0.28 + i * 0.27, scallopGroup, { cast: false });
+
+// ---------- SHARK BAY: tall seagrass, turtle, dugong ----------
+const seagrassGroup = new THREE.Group(); world.add(seagrassGroup); seagrassGroup.visible = false;
+const tallBlades = [];
+for (let i = 0; i < 14; i++) {
+  const bx = -3.4 + i * 0.52;
+  tallBlades.push(add(new THREE.ConeGeometry(0.07, 2.2 + (i % 3) * 0.4, 6), i % 2 ? M.seaweed : M.seaweedDark, bx, 1.1, -1.2 - (i % 4) * 0.3, seagrassGroup));
+}
+const turtleGroup = new THREE.Group(); turtleGroup.position.set(-2.0, 0.6, 0.3); turtleGroup.scale.setScalar(1.3); seagrassGroup.add(turtleGroup);
+const tShell = add(new THREE.SphereGeometry(0.5, 14, 10), M.turtleShell, 0, 0, 0, turtleGroup);
+tShell.scale.set(1.3, 0.55, 1.0);
+add(new THREE.SphereGeometry(0.16, 10, 8), M.turtleGreen, 0.75, 0.05, 0, turtleGroup);
+for (const [fx, fz] of [[0.4, 0.45], [0.4, -0.45], [-0.45, 0.45], [-0.45, -0.45]]) {
+  const flip = add(new THREE.SphereGeometry(0.16, 8, 6), M.turtleGreen, fx, -0.1, fz, turtleGroup);
+  flip.scale.set(1.2, 0.25, 0.7);
+}
+const dugongGroup = new THREE.Group(); dugongGroup.position.set(2.0, 0.65, -0.3); dugongGroup.scale.setScalar(1.3); seagrassGroup.add(dugongGroup);
+const dBody = add(new THREE.SphereGeometry(0.5, 14, 10), M.dugongGray, 0, 0, 0, dugongGroup);
+dBody.scale.set(1.9, 0.75, 0.7);
+add(new THREE.SphereGeometry(0.2, 10, 8), M.dugongGray, 1.0, 0.1, 0, dugongGroup);
+const dTail = add(new THREE.ConeGeometry(0.3, 0.6, 4), M.dugongGray, -1.1, 0, 0, dugongGroup);
+dTail.rotation.z = Math.PI / 2; dTail.scale.set(1, 1, 0.3);
+
+// ---------- FISH SCHOOL (baby fish circling / scattering) ----------
+const fishSchoolGroup = new THREE.Group(); world.add(fishSchoolGroup); fishSchoolGroup.visible = false;
+const schoolFish = [];
+const FISH_COLS = [M.fishYellow, M.fishBlue, M.fishOrange];
+for (let i = 0; i < 10; i++) {
+  const fg = new THREE.Group();
+  const fb = add(new THREE.SphereGeometry(0.12, 10, 8), FISH_COLS[i % 3], 0, 0, 0, fg);
+  fb.scale.set(1.8, 0.7, 0.6);
+  const ft = add(new THREE.ConeGeometry(0.08, 0.18, 4), FISH_COLS[i % 3], -0.24, 0, 0, fg, { cast: false });
+  ft.rotation.z = Math.PI / 2; ft.scale.set(1, 1, 0.3);
+  fishSchoolGroup.add(fg);
+  schoolFish.push({ g: fg, a: (i / 10) * Math.PI * 2, r: 1.2 + (i % 3) * 0.3, y: 2.0 + (i % 4) * 0.35, sp: 0.02 + (i % 3) * 0.008 });
+}
+
+// ---------- FISH MARKET STALL ----------
+const marketGroup = new THREE.Group(); world.add(marketGroup); marketGroup.visible = false;
+add(box(2.6, 0.9, 1.0), M.wood, 0, 0.45, 0, marketGroup);
+add(box(2.8, 0.12, 1.2), M.white, 0, 0.95, 0, marketGroup);
+add(box(2.9, 1.0, 0.12), M.steelDark, 0, 3.3, -0.4, marketGroup);
+add(new THREE.PlaneGeometry(2.7, 0.84), M.marketSign, 0, 3.3, -0.33, marketGroup, { cast: false });
+for (const s of [-1.2, 1.2]) add(box(0.12, 2.4, 0.12), M.steelDark, s, 1.6, -0.4, marketGroup);
+for (const s of [-1.25, 1.25]) add(box(0.08, 1.3, 0.08), M.steelDark, s, 1.6, 0.3, marketGroup);
+for (let i = 0; i < 6; i++) {
+  add(box(0.48, 0.06, 1.4), i % 2 ? M.white : M.red, -1.25 + i * 0.5, 2.2, 0, marketGroup, { cast: false });
+}
+for (let i = 0; i < 5; i++) {
+  const fg = new THREE.Group(); fg.position.set(-1.0 + i * 0.5, 1.05, 0.1); marketGroup.add(fg);
+  const fb = add(new THREE.SphereGeometry(0.12, 10, 8), FISH_COLS[i % 3], 0, 0, 0, fg);
+  fb.scale.set(1.8, 0.7, 0.6);
+}
 
 // ---------- FINALE TITLE PLATE STAND (guard_finale) ----------
 const finaleGroup = new THREE.Group(); world.add(finaleGroup); finaleGroup.visible = false;
@@ -321,48 +425,94 @@ function placeSun(L, focus) {
 }
 
 function updateWorld(W_, f) {
+  const clamp01 = (x) => Math.min(1, Math.max(0, x));
+  const smooth = (x) => { x = clamp01(x); return x * x * (3 - 2 * x); };
   // sets
-  cafeGroup.visible = !!W_.cafe;
-  palateGroup.visible = !!W_.palate;
-  brainGroup.visible = !!W_.brain;
-  nerveGroup.visible = !!W_.nerve;
+  reefGroup.visible = !!W_.reef;
+  boardGroup.visible = W_.board !== 'none';
+  foodMesh.visible = W_.board === 'food';
+  mapMesh.visible = W_.board === 'map';
+  chart71Mesh.visible = W_.board === 'chart71';
+  declineMesh.visible = W_.board === 'decline';
+  dominoGroup.visible = !!W_.dominoes;
+  scallopGroup.visible = !!W_.scallops;
+  seagrassGroup.visible = !!W_.seagrass;
+  fishSchoolGroup.visible = !!W_.fishSchool;
+  marketGroup.visible = !!W_.market;
   finaleGroup.visible = !!W_.finalePlate;
-  // cafe: BRAIN FREEZE plate only on the intro shot
-  cafeGroup.children.forEach((ch) => { if (ch !== cafeGroup) ch.visible = !!W_.freezePlate; });
-  // palate panel: vessel constriction / dilation (radial scale only, length stays)
-  const vs = W_.vesselScale || 1;
-  vessels.forEach((v) => { v.scale.set(1, vs, vs); });
-  coldDots.forEach((d, i) => { d.visible = !!W_.vesselCold; });
-  coldLight.intensity = W_.vesselCold ? 3.0 + Math.sin(f * 0.4) * 0.8 : 0;
-  // tongue rises to press the roof during the fix
-  tongue.position.y = 1.45 + (W_.tongueUp || 0) * 0.75;
-  // brain chamber: pulse, artery dilation follows the gauge, flow dots rise
-  const pulse = 1 + 0.05 * (W_.brainPulse || 0);
-  brainLobes.forEach((b) => { b.scale.setScalar(pulse); });
-  const artScale = 1 + 0.3 * (W_.gauge || 0);
-  arteries.forEach((a) => { a.scale.setScalar(artScale); });
-  needlePivot.rotation.z = 0.9 - 1.8 * (W_.gauge || 0);
-  flowDots.forEach((d, i) => {
-    const t = ((f * 0.03 + i * 0.125) % 1);
-    const a = i * Math.PI / 4;
-    d.position.set(Math.cos(a) * 0.9, 1.9 + t * 1.7, 0.3 + Math.sin(a) * 0.25);
-    d.visible = !!W_.flowDots;
+  // hero shark: swims left->right across the reef, then vanishes
+  if (W_.shark) {
+    heroShark.group.visible = true;
+    if (W_.fishSchool) { // it_is_fear: shadow passes overhead
+      heroShark.group.position.set(-3 + 6 * ((f - 204) / 26), 3.8, -0.3);
+      heroShark.group.scale.setScalar(1.1);
+    } else { // hook_vanish: swim across, then vanish
+      heroShark.group.position.set(-4 + 8 * (f / 79), 2.4 + Math.sin(f * 0.1) * 0.15, -1.2);
+      heroShark.group.scale.setScalar(Math.max(0.001, 0.85 * (1 - (W_.sharkVanish || 0))));
+    }
+    heroShark.tailPivot.rotation.y = Math.sin(f * 0.18) * 0.4;
+  } else {
+    heroShark.group.visible = false;
+  }
+  // tiger shark: slow patrol back and forth over the seagrass
+  tigerShark.group.visible = !!W_.tiger;
+  if (W_.tiger) {
+    tigerShark.group.position.set(Math.sin(f * 0.02) * 1.2, 3.0 + Math.sin(f * 0.08) * 0.1, -1.5);
+    tigerShark.group.rotation.y = Math.cos(f * 0.02) > 0 ? 0 : Math.PI;
+    tigerShark.tailPivot.rotation.y = Math.sin(f * 0.18) * 0.4;
+  }
+  // dominoes fall one by one
+  dominoes.forEach((pv, i) => {
+    const t = clamp01((W_.dominoFall || 0) * 5 - i);
+    pv.rotation.z = -smooth(t) * 1.35;
   });
-  warmLight.intensity = W_.warmGlow ? 3.2 : 0;
-  // nerve board: diagram vs referred-pain texture, crossed wires
-  diagramMesh.visible = W_.nerveBoard === 'diagram';
-  referredMesh.visible = W_.nerveBoard === 'referred';
-  crossWiresGroup.visible = !!W_.crossWires;
-  // forehead flash: red point light at the kid's head during the explosion
-  if (W_.foreheadFlash) {
+  // rays multiply + flap (symmetric: both wings up together; dihedral base in the mesh)
+  rays.forEach((r, i) => {
+    const vis = (W_.rayCount || 0) * 8;
+    r.group.visible = i < vis;
+    if (r.group.visible) {
+      const s = 0.5 + 0.5 * clamp01(vis - i);
+      r.group.scale.setScalar(s);
+      const flap = Math.sin(f * 0.25 + i * 1.3) * 0.45;
+      r.pivR.rotation.x = -flap; r.pivL.rotation.x = flap;
+      r.group.position.y = r.baseY + Math.sin(f * 0.05 + i * 2) * 0.15;
+      r.group.position.x = r.baseX + Math.sin(f * 0.02 + i) * 0.2;
+    }
+  });
+  // scallops shrink away as the rays strip the bed
+  scallops.forEach((s, i) => {
+    const t = clamp01((W_.scallopBare || 0) * 1.4 - i * 0.05);
+    const k = 1 - smooth(t) * 0.92;
+    s.scale.set(k, 0.35 * k, k);
+  });
+  // seagrass sways; turtle & dugong flee from the tiger shark's path
+  seaweedBlades.forEach((b, i) => { b.rotation.z = 0.08 * Math.sin(f * 0.05 + i * 1.7); });
+  tallBlades.forEach((b, i) => { b.rotation.z = 0.06 * Math.sin(f * 0.04 + i * 1.3); });
+  const flee = W_.flee || 0;
+  turtleGroup.position.x = -2.0 - flee * 1.3;
+  dugongGroup.position.x = 2.0 + flee * 1.3;
+  turtleGroup.position.y = 0.6 + Math.sin(f * 0.06) * 0.05;
+  dugongGroup.position.y = 0.65 + Math.sin(f * 0.05 + 1) * 0.05;
+  // fish school circles
+  schoolFish.forEach((sf) => {
+    const ang = sf.a + f * sf.sp;
+    sf.g.position.set(Math.cos(ang) * sf.r, sf.y + Math.sin(f * 0.1 + sf.a) * 0.1, Math.sin(ang) * 0.4);
+    sf.g.rotation.y = -ang - Math.PI / 2;
+  });
+  // bubbles rise
+  for (const b of bubbles) {
+    const t = ((f * b.speed + b.phase) % 1);
+    b.mesh.position.set(b.x + Math.sin(f * 0.03 + b.phase) * 0.15, 0.3 + t * 7, b.z);
+    b.mesh.visible = !!W_.bubbles;
+  }
+  // lights: red pulse while "it is fear", warm glow on the finale
+  coldLight.intensity = 0;
+  warmLight.intensity = W_.finalePlate ? 3.2 : 0;
+  if (W_.fearGlow) {
     dangerLight.position.set(0, 2.0, 1.4);
-    dangerLight.intensity = 4.0 * (0.7 + 0.3 * Math.sin(f * 0.6));
+    dangerLight.intensity = 2.5 + Math.sin(f * 0.5) * 1.0;
   } else {
     dangerLight.intensity = 0;
-  }
-  // clouds drift slowly across the sky
-  for (const c of clouds) {
-    c.g.position.x = ((c.baseX + f * 0.008 + 35) % 70) - 35;
   }
 }
 

@@ -1,243 +1,230 @@
 {
- "duration": 47.230208,
- "frames30": 1417,
- "source": "silence-align (cost 2.50)",
+ "duration": 47.210333,
+ "frames30": 1416,
+ "source": "silence-align (cost 2.44)",
  "segments": [
   [
-   0.203708,
-   1.182917
+   0.1725,
+   1.534958
   ],
   [
-   1.321625,
-   2.645083
+   1.713625,
+   2.447333
   ],
   [
-   2.931792,
-   3.609208
+   2.993625,
+   4.9105
   ],
   [
-   3.772042,
-   4.8825
+   5.301042,
+   6.465417
   ],
   [
-   5.42975,
-   6.313833
+   6.588417,
+   6.780667
   ],
   [
-   6.71275,
-   8.411667
+   7.144208,
+   7.340208
   ],
   [
-   9.080875,
-   10.507583
+   7.5065,
+   7.683625
   ],
   [
-   10.87775,
-   11.76525
+   8.306708,
+   9.365583
   ],
   [
-   11.887667,
-   12.68875
+   9.556333,
+   11.408667
   ],
   [
-   13.298708,
-   14.880167
+   12.008875,
+   12.928583
   ],
   [
-   15.465667,
-   16.120125
+   13.179917,
+   14.938167
   ],
   [
-   16.268792,
-   17.145083
+   15.0845,
+   15.612042
   ],
   [
-   17.680792,
-   19.9475
+   16.204833,
+   18.424458
   ],
   [
-   20.563667,
-   21.025625
+   18.644083,
+   19.436875
   ],
   [
-   21.161333,
-   21.825208
+   19.566458,
+   20.839958
   ],
   [
-   22.249042,
-   22.3655
+   21.42025,
+   21.798417
   ],
   [
-   22.502417,
-   24.67825
+   21.921792,
+   22.613458
   ],
   [
-   25.459208,
-   26.267792
+   22.908667,
+   24.55275
   ],
   [
-   26.879167,
-   28.998917
+   25.037542,
+   28.350625
   ],
   [
-   29.458417,
-   30.72025
+   28.839792,
+   31.416167
   ],
   [
-   30.842792,
-   31.15125
+   31.95375,
+   36.19925
   ],
   [
-   31.819583,
-   33.406333
+   36.76175,
+   37.623333
   ],
   [
-   33.934208,
-   34.749
+   37.822333,
+   38.6485
   ],
   [
-   34.896958,
-   35.949875
+   38.793708,
+   39.01525
   ],
   [
-   36.712042,
-   37.653917
+   39.552875,
+   41.747833
   ],
   [
-   37.817458,
-   38.28075
+   42.268292,
+   42.923083
   ],
   [
-   39.1785,
-   39.83725
+   43.111125,
+   43.7545
   ],
   [
-   40.407375,
-   42.097417
+   44.186333,
+   45.513708
   ],
   [
-   42.75075,
-   43.768667
-  ],
-  [
-   44.047875,
-   44.860125
-  ],
-  [
-   45.2465,
-   46.835333
+   45.672375,
+   46.901708
   ]
  ],
  "phrases": [
   {
-   "text": "You take one big gulp of an ice-cold drink,",
-   "s": 0.204,
-   "e": 2.645
+   "text": "What if every shark on Earth vanished tomorrow?",
+   "s": 0.172,
+   "e": 2.447
   },
   {
-   "text": "and suddenly your forehead explodes.",
-   "s": 2.932,
-   "e": 4.883
+   "text": "Sharks sit at the top of the ocean's food chain,",
+   "s": 2.994,
+   "e": 4.91
   },
   {
-   "text": "That is a brain freeze,",
-   "s": 5.43,
-   "e": 6.314
+   "text": "but their real power is not eating.",
+   "s": 5.301,
+   "e": 6.781
   },
   {
-   "text": "and it is your brain trying to save itself.",
-   "s": 6.713,
-   "e": 8.412
+   "text": "It is fear.",
+   "s": 7.144,
+   "e": 7.684
   },
   {
-   "text": "The cold hits the roof of your mouth,",
-   "s": 9.081,
-   "e": 10.508
+   "text": "Off the coast of America,",
+   "s": 8.307,
+   "e": 9.366
   },
   {
-   "text": "where blood vessels sit just under the skin.",
-   "s": 10.878,
-   "e": 12.689
+   "text": "scientists watched the chain reaction happen.",
+   "s": 9.556,
+   "e": 11.409
   },
   {
-   "text": "They slam shut to keep the cold out.",
-   "s": 13.299,
-   "e": 14.88
+   "text": "Big sharks declined,",
+   "s": 12.009,
+   "e": 12.929
   },
   {
-   "text": "But your brain is picky about temperature.",
-   "s": 15.466,
-   "e": 17.145
+   "text": "and cownose rays exploded to around forty million.",
+   "s": 13.18,
+   "e": 15.612
   },
   {
-   "text": "It panics and orders warm blood to rush up.",
-   "s": 17.681,
-   "e": 19.948
+   "text": "The rays helped wipe out so many bay scallops that a century-old fishery collapsed completely.",
+   "s": 16.205,
+   "e": 20.84
   },
   {
-   "text": "The vessels fly open again,",
-   "s": 20.564,
-   "e": 21.825
+   "text": "In Shark Bay,",
+   "s": 21.42,
+   "e": 21.798
   },
   {
-   "text": "and the pressure spike trips the pain nerves around them.",
-   "s": 22.249,
-   "e": 24.678
+   "text": "Australia,",
+   "s": 21.922,
+   "e": 22.613
   },
   {
-   "text": "Here is the weird part.",
-   "s": 25.459,
-   "e": 26.268
+   "text": "tiger sharks do not even need to hunt.",
+   "s": 22.909,
+   "e": 24.553
   },
   {
-   "text": "Those nerves report through the trigeminal nerve,",
-   "s": 26.879,
-   "e": 28.999
+   "text": "Just being nearby scares turtles and dugongs away from the seagrass.",
+   "s": 25.038,
+   "e": 28.351
   },
   {
-   "text": "the same cable that serves your forehead.",
-   "s": 29.458,
-   "e": 31.151
+   "text": "That seagrass stores carbon and shelters baby fish.",
+   "s": 28.84,
+   "e": 31.416
   },
   {
-   "text": "So your brain gets the wires crossed,",
-   "s": 31.82,
-   "e": 33.406
+   "text": "Oceanic sharks and rays have already fallen seventy-one percent since nineteen seventy.",
+   "s": 31.954,
+   "e": 36.199
   },
   {
-   "text": "and feels the pain in your forehead instead of your mouth.",
-   "s": 33.934,
-   "e": 35.95
+   "text": "Take the rest away,",
+   "s": 36.762,
+   "e": 37.623
   },
   {
-   "text": "Doctors call that referred pain.",
-   "s": 36.712,
-   "e": 38.281
+   "text": "and the dominoes keep falling.",
+   "s": 37.822,
+   "e": 39.015
   },
   {
-   "text": "The fix is simple.",
-   "s": 39.178,
-   "e": 39.837
+   "text": "And the fish we eat depend on that balance too.",
+   "s": 39.553,
+   "e": 41.748
   },
   {
-   "text": "Press your warm tongue to the roof of your mouth.",
-   "s": 40.407,
-   "e": 42.097
+   "text": "No sharks,",
+   "s": 42.268,
+   "e": 42.923
   },
   {
-   "text": "The vessels calm down,",
-   "s": 42.751,
-   "e": 43.769
+   "text": "no balance.",
+   "s": 43.111,
+   "e": 43.755
   },
   {
-   "text": "the signal stops,",
-   "s": 44.048,
-   "e": 44.86
-  },
-  {
-   "text": "and your brain goes back to guard duty.",
-   "s": 45.246,
-   "e": 46.835
+   "text": "The ocean's scariest animal turns out to be its guardian.",
+   "s": 44.186,
+   "e": 46.902
   }
  ]
 }

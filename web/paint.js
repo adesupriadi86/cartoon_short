@@ -304,3 +304,129 @@ export function referredPain() {
   g.fillText('NOT DANGEROUS - JUST CONFUSED', 384, 860);
   return c;
 }
+
+// ---------- Sharks: ocean boards & sand ----------
+export function sandTex(seed = 7) {
+  const [c, g] = cv(512, 512);
+  const r = rng(seed);
+  g.fillStyle = '#d9c39a'; g.fillRect(0, 0, 512, 512);
+  for (let i = 0; i < 2600; i++) {
+    const v = r();
+    g.fillStyle = v < 0.5 ? 'rgba(120,90,50,0.25)' : 'rgba(255,240,200,0.30)';
+    g.beginPath(); g.arc(r() * 512, r() * 512, 1 + r() * 2.5, 0, 7); g.fill();
+  }
+  for (let i = 0; i < 8; i++) { // a few tiny shells
+    g.fillStyle = '#f8f2e4'; g.beginPath();
+    g.arc(r() * 512, r() * 512, 6 + r() * 6, 0, 7); g.fill();
+  }
+  return c;
+}
+
+export function foodChain() {
+  const [c, g] = cv(768, 1024);
+  g.fillStyle = '#184e82'; g.fillRect(0, 0, 768, 1024);
+  g.strokeStyle = '#ffffff'; g.lineWidth = 10; g.strokeRect(28, 28, 712, 968);
+  g.fillStyle = '#f5c418'; g.fillRect(48, 52, 672, 110);
+  g.strokeStyle = '#241726'; g.lineWidth = 6; g.strokeRect(48, 52, 672, 110);
+  g.fillStyle = '#241726'; g.font = '900 52px Arial Black, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillText('OCEAN FOOD CHAIN', 384, 108);
+  const rows = [
+    ['SHARKS', '#e05a47', 620], ['RAYS', '#f08a2c', 500],
+    ['SMALL FISH', '#4dd0e1', 380], ['SCALLOPS', '#e8d5a8', 260],
+  ];
+  let y = 240;
+  for (const [label, col, w] of rows) {
+    g.fillStyle = col; g.fillRect(384 - w / 2, y, w, 110);
+    g.strokeStyle = '#241726'; g.lineWidth = 6; g.strokeRect(384 - w / 2, y, w, 110);
+    g.fillStyle = '#241726'; g.font = '900 44px Arial Black, sans-serif';
+    g.fillText(label, 384, y + 56);
+    y += 150;
+  }
+  g.fillStyle = '#ffffff'; g.font = '900 34px Arial Black, sans-serif';
+  g.fillText('THE TOP CONTROLS', 384, 880);
+  g.fillStyle = '#ffd60a'; g.font = '900 34px Arial Black, sans-serif';
+  g.fillText('EVERYTHING BELOW', 384, 930);
+  return c;
+}
+
+export function coastMap() {
+  const [c, g] = cv(768, 1024);
+  g.fillStyle = '#1e7cc9'; g.fillRect(0, 0, 768, 1024);
+  g.strokeStyle = '#ffffff'; g.lineWidth = 10; g.strokeRect(28, 28, 712, 968);
+  g.fillStyle = '#f5c418'; g.fillRect(48, 52, 672, 110);
+  g.strokeStyle = '#241726'; g.lineWidth = 6; g.strokeRect(48, 52, 672, 110);
+  g.fillStyle = '#241726'; g.font = '900 52px Arial Black, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillText('US EAST COAST', 384, 108);
+  // simplified coastline blob (land on the left)
+  g.fillStyle = '#e8d5a8';
+  g.beginPath();
+  g.moveTo(120, 220); g.lineTo(300, 220); g.lineTo(340, 380); g.lineTo(300, 520);
+  g.lineTo(330, 660); g.lineTo(260, 800); g.lineTo(140, 860); g.lineTo(90, 600); g.lineTo(110, 380);
+  g.closePath(); g.fill();
+  g.strokeStyle = '#241726'; g.lineWidth = 5; g.stroke();
+  // red X: sharks decline
+  g.strokeStyle = '#ff3b30'; g.lineWidth = 14; g.lineCap = 'round';
+  g.beginPath(); g.moveTo(210, 280); g.lineTo(290, 360); g.moveTo(290, 280); g.lineTo(210, 360); g.stroke();
+  g.fillStyle = '#ffffff'; g.font = '900 34px Arial Black, sans-serif'; g.textAlign = 'left';
+  g.fillText('SHARKS', 400, 300); g.fillText('DECLINE', 400, 340);
+  // rays burst
+  g.fillStyle = '#ffd60a'; g.beginPath(); g.arc(500, 560, 90, 0, 7); g.fill();
+  g.strokeStyle = '#241726'; g.lineWidth = 6; g.stroke();
+  g.fillStyle = '#241726'; g.font = '900 30px Arial Black, sans-serif'; g.textAlign = 'center';
+  g.fillText('RAYS', 500, 540); g.fillText('40 MILLION', 500, 580);
+  // scallops gone
+  g.fillStyle = '#ffffff'; g.font = '900 34px Arial Black, sans-serif'; g.textAlign = 'left';
+  g.fillText('SCALLOPS', 400, 780); g.fillText('GONE', 400, 820);
+  g.strokeStyle = '#ff3b30'; g.lineWidth = 8;
+  g.beginPath(); g.moveTo(390, 800); g.lineTo(620, 760); g.stroke();
+  g.fillStyle = '#ffffff'; g.font = 'bold 28px Arial, sans-serif'; g.textAlign = 'center';
+  g.fillText('ONE CENTURY-OLD FISHERY', 384, 930);
+  g.fillText('COLLAPSED', 384, 962);
+  return c;
+}
+
+export function chart71() {
+  const [c, g] = cv(768, 1024);
+  g.fillStyle = '#ffffff'; g.fillRect(0, 0, 768, 1024);
+  g.strokeStyle = '#241726'; g.lineWidth = 10; g.strokeRect(28, 28, 712, 968);
+  g.fillStyle = '#241726'; g.font = '900 48px Arial Black, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillText('OCEANIC SHARKS', 384, 100);
+  g.fillText('& RAYS', 384, 160);
+  g.fillStyle = '#ff3b30'; g.font = '900 200px Arial Black, sans-serif';
+  g.fillText('-71%', 384, 380);
+  // falling arrow 1970 -> 2018
+  g.strokeStyle = '#ff3b30'; g.lineWidth = 22; g.lineCap = 'round';
+  g.beginPath(); g.moveTo(140, 560); g.lineTo(600, 760); g.stroke();
+  g.beginPath(); g.moveTo(520, 720); g.lineTo(610, 766); g.lineTo(520, 800); g.stroke();
+  g.fillStyle = '#241726'; g.font = '900 44px Arial Black, sans-serif';
+  g.fillText('1970', 170, 540);
+  g.fillText('2018', 580, 840);
+  g.fillStyle = '#5a6b7a'; g.font = 'bold 32px Arial, sans-serif';
+  g.fillText('ALREADY GONE', 384, 920);
+  return c;
+}
+
+export function declineChart() {
+  const [c, g] = cv(768, 1024);
+  g.fillStyle = '#ffffff'; g.fillRect(0, 0, 768, 1024);
+  g.strokeStyle = '#241726'; g.lineWidth = 10; g.strokeRect(28, 28, 712, 968);
+  g.fillStyle = '#241726'; g.font = '900 48px Arial Black, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillText('BIG SHARKS', 384, 100);
+  g.fillText('DECLINED', 384, 160);
+  const bars = [560, 460, 360, 260, 160];
+  const labels = ['1980', '1990', '2000', '2010', '2020'];
+  bars.forEach((h, i) => {
+    const x = 110 + i * 118;
+    g.fillStyle = '#2f6fb2'; g.fillRect(x, 800 - h, 88, h);
+    g.strokeStyle = '#241726'; g.lineWidth = 5; g.strokeRect(x, 800 - h, 88, h);
+    g.fillStyle = '#241726'; g.font = 'bold 28px Arial, sans-serif';
+    g.fillText(labels[i], x + 44, 840);
+  });
+  g.strokeStyle = '#ff3b30'; g.lineWidth = 16; g.lineCap = 'round';
+  g.beginPath(); g.moveTo(150, 300); g.lineTo(640, 640); g.stroke();
+  g.beginPath(); g.moveTo(580, 600); g.lineTo(650, 648); g.lineTo(560, 660); g.stroke();
+  g.fillStyle = '#ff3b30'; g.font = '900 36px Arial Black, sans-serif';
+  g.fillText('FEWER SHARKS', 384, 900);
+  g.fillText('MORE RAYS', 384, 940);
+  return c;
+}
