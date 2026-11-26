@@ -24,11 +24,8 @@ const toon = (opts) => new THREE.MeshToonMaterial({ gradientMap: grad, ...opts }
 const texM = (c, rx_ = 1, ry_ = 1, color = '#ffffff') => toon({ map: P.tex(c, rx_, ry_), color });
 
 const M = {
-  runway: texM(P.tarmac(3), 10, 1),
+  sidewalk: texM(P.sidewalk(7), 20, 20),
   grass: toon({ color: '#6fae5f' }),
-  fuselage: texM(P.fuselageTex(1), 1, 1),
-  fuselageComet: toon({ color: '#c9ced6' }),
-  windowGlass: new THREE.MeshBasicMaterial({ map: P.tex(P.windowGlass(2), 1, 1) }),
   panel: toon({ color: '#dfe6ec' }),
   panelDark: toon({ color: '#465260' }),
   steel: toon({ color: '#b0bcc8' }),
@@ -43,15 +40,29 @@ const M = {
   teal: toon({ color: '#28b8a8' }),
   white: toon({ color: '#f8fafc' }),
   blue: toon({ color: '#1f6fb2' }),
-  seatBlue: toon({ color: '#2f6fb2' }),
   cloud: toon({ color: '#ffffff' }),
   wood: toon({ color: '#9c6b43' }),
   hazard: texM(P.hazardStripe(), 8, 1),
   glass: new THREE.MeshToonMaterial({ gradientMap: grad, color: '#9ed8f5', transparent: true, opacity: 0.32, side: THREE.DoubleSide, depthWrite: false }),
-  blueprintBoard: new THREE.MeshBasicMaterial({ map: P.tex(P.blueprintStress(), 1, 1) }),
-  labelSquare: new THREE.MeshBasicMaterial({ map: P.tex(P.warnLabel('SQUARE'), 1, 1) }),
-  labelRound: new THREE.MeshBasicMaterial({ map: P.tex(P.textPlate('ROUND', '#2e9e4f', '#ffffff'), 1, 1) }),
-  finalePlate: new THREE.MeshBasicMaterial({ map: P.tex(P.textPlate('A LESSON WRITTEN IN METAL', '#1f6fb2', '#ffffff'), 1, 1) }),
+  // palate / brain sets
+  palatePink: toon({ color: '#f2a0b5' }),
+  brainPink: toon({ color: '#ff8fb1' }),
+  brainPinkDark: toon({ color: '#e56a92' }),
+  vesselRed: toon({ color: '#d92632' }),
+  vesselRedBright: new THREE.MeshBasicMaterial({ color: '#ff4d5e' }),
+  tonguePink: toon({ color: '#e86e78' }),
+  coldGlow: new THREE.MeshBasicMaterial({ color: '#7dd3fc' }),
+  warmGlow: new THREE.MeshBasicMaterial({ color: '#ffb36b' }),
+  nerveRed: toon({ color: '#ff3b30' }),
+  nerveYellow: toon({ color: '#ffd60a' }),
+  nerveGreen: toon({ color: '#4cd964' }),
+  nerveCyan: toon({ color: '#4dd0e1' }),
+  gaugeWhite: toon({ color: '#f8fafc' }),
+  gaugeRed: toon({ color: '#e63946' }),
+  nerveBoard: new THREE.MeshBasicMaterial({ map: P.tex(P.nerveDiagram(), 1, 1) }),
+  referredBoard: new THREE.MeshBasicMaterial({ map: P.tex(P.referredPain(), 1, 1) }),
+  freezePlate: new THREE.MeshBasicMaterial({ map: P.tex(P.textPlate('BRAIN FREEZE', '#ff3b30', '#ffffff'), 1, 1) }),
+  finalePlate: new THREE.MeshBasicMaterial({ map: P.tex(P.textPlate('BACK TO GUARD DUTY', '#1f6fb2', '#ffffff'), 1, 1) }),
 };
 
 // ---------- ink / normal-depth contract ----------
@@ -91,13 +102,13 @@ const sun = new THREE.DirectionalLight('#ffffff', 2.2); sun.castShadow = true;
 sun.shadow.mapSize.set(1024, 1024); sun.shadow.bias = -0.0005; sun.shadow.normalBias = 0.03; sun.shadow.radius = 2;
 scene.add(sun); scene.add(sun.target);
 const dangerLight = new THREE.PointLight('#ff3b30', 0, 8); dangerLight.position.set(0, 3.0, 1.4); scene.add(dangerLight);
+const coldLight = new THREE.PointLight('#7dd3fc', 0, 7); coldLight.position.set(0, 2.6, 1.6); scene.add(coldLight);
+const warmLight = new THREE.PointLight('#ffb36b', 0, 8); warmLight.position.set(0, 2.7, 1.6); scene.add(warmLight);
 scene.fog = new THREE.Fog('#e6eef8', 24, 95);
 
-// ---------- AIRFIELD: grass + runway strip + drifting clouds ----------
+// ---------- PATIO: sidewalk floor + drifting clouds ----------
 const world = new THREE.Group(); scene.add(world);
-// grass field (big) + runway strip the jet sits on
-add(box(240, 0.2, 240), M.grass, 0, -0.3, 0, world, { cast: false });
-add(box(140, 0.2, 12), M.runway, 0, -0.1, 0, world, { cast: false });
+add(box(240, 0.2, 240), M.sidewalk, 0, -0.3, 0, world, { cast: false });
 
 // drifting cartoon clouds (3 puffs each)
 const clouds = [];
@@ -113,135 +124,95 @@ for (let i = 0; i < 12; i++) {
   clouds.push({ g, baseX: cx });
 }
 
-// ---------- HERO JET BUILDER (fuselage along X, nose +X, windows on +Z side) ----------
-const makeJet = ({ square = false, fuselageMat = M.fuselage } = {}) => {
-  const g = new THREE.Group();
-  // fuselage tube (axis along X) + nose + tail cone
-  const tube = add(new THREE.CylinderGeometry(1.15, 1.15, 14, 24), fuselageMat, 0, 0, 0, g);
-  tube.rotation.z = Math.PI / 2;
-  const nose = add(new THREE.SphereGeometry(1.15, 20, 14), fuselageMat, 7, 0, 0, g);
-  nose.scale.set(1.6, 1, 1);
-  const tail = add(new THREE.CylinderGeometry(0.25, 1.15, 2.4, 16), fuselageMat, -8, 0, 0, g);
-  tail.rotation.z = Math.PI / 2;
-  // tail fin (swept) + horizontal stabilizers
-  const fin = add(box(1.8, 2.8, 0.16), M.blue, -7.4, 1.3, 0, g);
-  fin.rotation.z = -0.3;
-  add(box(1.8, 0.12, 3.6), M.blue, -7.6, 0.35, 0, g);
-  // swept wings (two halves) + engines
-  for (const s of [-1, 1]) {
-    const wing = add(box(3.4, 0.14, 5.2), M.steelBright, 0.2, -0.4, s * 2.9, g);
-    wing.rotation.y = -s * 0.28;
-    const eng = add(new THREE.CylinderGeometry(0.45, 0.45, 2.0, 14), M.steel, 0.6, -0.85, s * 2.3, g);
-    eng.rotation.z = Math.PI / 2;
-    const intake = add(new THREE.CircleGeometry(0.38, 14), M.handrail, 1.62, -0.85, s * 2.3, g, { cast: false });
-    intake.rotation.y = Math.PI / 2;
-  }
-  // cockpit windows on the nose
-  for (const s of [-1, 1]) {
-    const cw = add(new THREE.PlaneGeometry(0.55, 0.38), M.windowGlass, 7.75, 0.45, s * 0.42, g, { cast: false });
-    cw.rotation.y = s * 0.55;
-  }
-  // passenger windows along the fuselage side (y +0.35, z +1.16, slightly proud of the skin)
-  for (let i = 0; i < 9; i++) {
-    const x = -5.6 + i * 1.4;
-    if (square) {
-      add(new THREE.PlaneGeometry(0.6, 0.6), M.windowGlass, x, 0.35, 1.16, g, { cast: false });
-      add(box(0.72, 0.08, 0.06), M.steelDark, x, 0.68, 1.16, g, { cast: false });
-      add(box(0.72, 0.08, 0.06), M.steelDark, x, 0.02, 1.16, g, { cast: false });
-      add(box(0.08, 0.72, 0.06), M.steelDark, x - 0.32, 0.35, 1.16, g, { cast: false });
-      add(box(0.08, 0.72, 0.06), M.steelDark, x + 0.32, 0.35, 1.16, g, { cast: false });
-    } else {
-      const disc = add(new THREE.CircleGeometry(0.30, 20), M.windowGlass, x, 0.35, 1.16, g, { cast: false });
-      const ring = add(new THREE.TorusGeometry(0.30, 0.07, 10, 20), M.steelBright, x, 0.35, 1.16, g, { cast: false });
-    }
-  }
-  // pressure arrows (children of the jet, shown in balloon / thin-air / pressure shots)
-  const arrows = new THREE.Group(); g.add(arrows);
-  for (let i = 0; i < 6; i++) {
-    const a = new THREE.Group();
-    a.position.set(-5 + i * 2, 2.1, 0);
-    add(new THREE.CylinderGeometry(0.07, 0.07, 0.7, 8), M.yellow, 0, 0, 0, a, { cast: false });
-    const tip = add(new THREE.ConeGeometry(0.2, 0.5, 10), M.yellow, 0, -0.55, 0, a, { cast: false });
-    tip.rotation.x = Math.PI;
-    arrows.add(a);
-  }
-  g.userData.arrows = arrows;
-  // landing gear (visible only on the ground)
-  const gear = new THREE.Group(); g.add(gear);
-  for (const [gx, gz] of [[4.6, 0.75], [4.6, -0.75], [-0.8, 0]]) {
-    add(box(0.12, 1.15, 0.12), M.steelDark, gx, -1.72, gz, gear);
-    const wheel = add(new THREE.CylinderGeometry(0.28, 0.28, 0.18, 12), M.handrail, gx, -2.3, gz, gear);
-    wheel.rotation.x = Math.PI / 2;
-  }
-  g.userData.gear = gear;
-  return g;
-};
+// ---------- CAFE SET: "BRAIN FREEZE" title plate on a stand behind the kid ----------
+const cafeGroup = new THREE.Group(); world.add(cafeGroup); cafeGroup.visible = false;
+add(box(2.9, 1.0, 0.12), M.steelDark, 0, 3.5, -0.5, cafeGroup);
+add(new THREE.PlaneGeometry(2.7, 0.84), M.freezePlate, 0, 3.5, -0.43, cafeGroup, { cast: false });
+for (const s of [-1.2, 1.2]) add(box(0.12, 2.6, 0.12), M.steelDark, s, 1.7, -0.5, cafeGroup);
 
-const jetGroup = makeJet({}); world.add(jetGroup);
-const cometGroup = makeJet({ square: true, fuselageMat: M.fuselageComet });
-cometGroup.position.set(-14, 7.5, -5); cometGroup.rotation.y = 0.5; cometGroup.scale.setScalar(0.85);
-world.add(cometGroup); cometGroup.visible = false;
-
-// ---------- CABIN INTERIOR SET (x ~18, for its_round / why_round) ----------
-const cabinGroup = new THREE.Group(); world.add(cabinGroup); cabinGroup.visible = false;
-add(box(6, 0.1, 3.4), M.panel, 18, 0.05, 0.2, cabinGroup, { cast: false });
-add(box(5.5, 3.2, 0.15), M.panel, 18, 1.6, -0.9, cabinGroup, { cast: false });
-add(box(5.5, 0.5, 0.18), M.seatBlue, 18, 0.35, -0.82, cabinGroup, { cast: false });
-add(box(5.0, 0.55, 0.9), M.steelBright, 18, 2.95, -0.55, cabinGroup);
-// round cabin window + frame
-add(new THREE.TorusGeometry(0.55, 0.09, 10, 24), M.white, 18.3, 1.9, -0.80, cabinGroup, { cast: false });
-add(new THREE.CircleGeometry(0.55, 24), M.windowGlass, 18.3, 1.9, -0.79, cabinGroup, { cast: false });
-// seat backs flanking the passenger
-for (const sx of [16.4, 19.9]) {
-  add(box(0.9, 1.0, 0.25), M.seatBlue, sx, 0.85, 0.5, cabinGroup);
-  add(box(0.7, 0.3, 0.28), M.steelBright, sx, 1.45, 0.5, cabinGroup);
+// ---------- PALATE PANEL (macro cross-section of the roof of the mouth) ----------
+const palateGroup = new THREE.Group(); world.add(palateGroup); palateGroup.visible = false;
+add(box(3.4, 2.8, 0.15), M.panel, 0, 2.4, 0, palateGroup);
+add(box(3.6, 0.18, 0.2), M.panelDark, 0, 0.95, 0, palateGroup);
+add(box(3.6, 0.18, 0.2), M.panelDark, 0, 3.85, 0, palateGroup);
+// palate roof arch (pink half-disc at the top of the panel)
+const archGeo = new THREE.CircleGeometry(1.15, 24, 0, Math.PI);
+const arch = add(archGeo, M.palatePink, 0, 2.95, 0.09, palateGroup, { cast: false });
+// blood vessels: 4 horizontal red tubes just under the arch
+const vessels = [];
+for (const vy of [2.15, 2.4, 2.65, 2.9]) {
+  const v = add(new THREE.CylinderGeometry(0.09, 0.09, 2.4, 12), M.vesselRed, 0, vy, 0.12, palateGroup, { cast: false });
+  v.rotation.z = Math.PI / 2;
+  vessels.push(v);
 }
+// cold glow dots on the vessels
+const coldDots = [];
+for (let i = 0; i < 5; i++) {
+  coldDots.push(add(new THREE.SphereGeometry(0.07, 8, 6), M.coldGlow, -0.9 + i * 0.45, 2.52, 0.18, palateGroup, { cast: false, ndSkip: true }));
+}
+// tongue: pink flattened blob that rises to press the roof during the fix
+const tongue = add(new THREE.SphereGeometry(0.55, 16, 12), M.tonguePink, 0, 1.45, 0.15, palateGroup);
+tongue.scale.set(1.5, 0.5, 0.7);
 
-// ---------- COMPARISON PANEL (one stand, swaps square <-> round window) ----------
-const panelsGroup = new THREE.Group(); world.add(panelsGroup); panelsGroup.visible = false;
-add(box(3.4, 2.8, 0.15), M.panel, 0, 2.4, 0, panelsGroup);
-add(box(3.6, 0.18, 0.2), M.panelDark, 0, 0.95, 0, panelsGroup);
-add(box(3.6, 0.18, 0.2), M.panelDark, 0, 3.85, 0, panelsGroup);
-// label plates above the panel (toggle square / round)
-const labelSquareMesh = add(new THREE.PlaneGeometry(1.7, 0.53), M.labelSquare, 0, 4.35, 0.12, panelsGroup, { cast: false });
-const labelRoundMesh = add(new THREE.PlaneGeometry(1.7, 0.53), M.labelRound, 0, 4.35, 0.12, panelsGroup, { cast: false });
-// --- square window assembly ---
-const squareAssembly = new THREE.Group(); panelsGroup.add(squareAssembly);
-add(new THREE.PlaneGeometry(0.95, 0.95), M.windowGlass, 0, 2.5, 0.09, squareAssembly, { cast: false });
-add(box(1.07, 0.08, 0.06), M.steelDark, 0, 3.0, 0.1, squareAssembly, { cast: false });
-add(box(1.07, 0.08, 0.06), M.steelDark, 0, 2.0, 0.1, squareAssembly, { cast: false });
-add(box(0.08, 1.07, 0.06), M.steelDark, -0.52, 2.5, 0.1, squareAssembly, { cast: false });
-add(box(0.08, 1.07, 0.06), M.steelDark, 0.52, 2.5, 0.1, squareAssembly, { cast: false });
-// red corner glow spheres + growing crack lines (one per corner, 45 deg outward)
-const cornerGlows = [];
-const crackMeshes = [];
-const crackGeo = box(0.75, 0.05, 0.02); crackGeo.translate(0.375, 0, 0);
-const CORNERS = [
-  { x: -0.52, y: 3.0, a: Math.PI * 0.75 }, { x: 0.52, y: 3.0, a: Math.PI * 0.25 },
-  { x: -0.52, y: 2.0, a: Math.PI * 1.25 }, { x: 0.52, y: 2.0, a: Math.PI * 1.75 },
+// ---------- BRAIN CHAMBER (3D brain + dilating arteries + pressure gauge) ----------
+const brainGroup = new THREE.Group(); world.add(brainGroup); brainGroup.visible = false;
+// brain: cluster of pink lobes
+const brainLobes = [];
+const LOBES = [
+  [0, 2.7, 0, 0.55], [-0.45, 2.75, 0.1, 0.42], [0.45, 2.75, 0.1, 0.42],
+  [0, 3.15, 0, 0.4], [-0.3, 2.35, 0.15, 0.38], [0.3, 2.35, 0.15, 0.38], [0, 2.7, -0.35, 0.4],
 ];
-for (const c of CORNERS) {
-  cornerGlows.push(add(new THREE.SphereGeometry(0.09, 10, 8), M.redGlow, c.x, c.y, 0.16, squareAssembly, { cast: false, ndSkip: true }));
-  const cm = add(crackGeo, M.handrail, c.x, c.y, 0.14, squareAssembly, { cast: false });
-  cm.rotation.z = c.a; cm.scale.x = 0.05; crackMeshes.push(cm);
+for (const [lx, ly, lz, lr] of LOBES) {
+  brainLobes.push(add(new THREE.SphereGeometry(lr, 14, 10), M.brainPink, lx, ly, lz, brainGroup));
 }
-// --- round window assembly ---
-const roundAssembly = new THREE.Group(); panelsGroup.add(roundAssembly); roundAssembly.visible = false;
-add(new THREE.TorusGeometry(0.55, 0.09, 10, 24), M.steelBright, 0, 2.5, 0.1, roundAssembly, { cast: false });
-add(new THREE.CircleGeometry(0.55, 24), M.windowGlass, 0, 2.5, 0.09, roundAssembly, { cast: false });
-// stress flow dots orbiting the round window
+// (brain wrinkles removed: the large torus arcs stuck out above the brain's
+// silhouette and read as a red handle/arch under the amber light;
+// the lobe seams already give the brain its texture)
+// arteries: 3 red vessel tubes hugging the FRONT of the brain (no back half to peek over the top)
+const mkArtery = (y, r) => {
+  const pts = [];
+  for (let i = -2; i <= 2; i++) {
+    const a = i * Math.PI / 6; // -60° to +60° around the front (+Z)
+    pts.push(new THREE.Vector3(r * Math.sin(a), 0, r * Math.cos(a)));
+  }
+  const curve = new THREE.CatmullRomCurve3(pts);
+  return add(new THREE.TubeGeometry(curve, 20, 0.05, 8), M.vesselRed, 0, y, 0, brainGroup, { cast: false });
+};
+const arteries = [mkArtery(2.45, 0.7), mkArtery(2.7, 0.85), mkArtery(2.95, 0.65)];
+// warm blood flow dots rising around the brain
 const flowDots = [];
 for (let i = 0; i < 8; i++) {
-  flowDots.push(add(new THREE.SphereGeometry(0.07, 8, 6), M.greenGlow, 0, 2.5, 0.16, roundAssembly, { cast: false, ndSkip: true }));
+  flowDots.push(add(new THREE.SphereGeometry(0.07, 8, 6), M.warmGlow, 0, 2.0, 0.3, brainGroup, { cast: false, ndSkip: true }));
 }
+// pressure gauge (upper right): white dial + red needle that spikes
+const gaugeGroup = new THREE.Group(); gaugeGroup.position.set(1.35, 3.3, 0.2); brainGroup.add(gaugeGroup);
+add(new THREE.CircleGeometry(0.42, 24), M.gaugeWhite, 0, 0, 0, gaugeGroup, { cast: false });
+add(new THREE.TorusGeometry(0.42, 0.05, 8, 24), M.steelDark, 0, 0, 0, gaugeGroup, { cast: false });
+const gaugeRedArc = add(new THREE.TorusGeometry(0.36, 0.04, 8, 12, Math.PI * 0.5), M.gaugeRed, 0, 0, 0.01, gaugeGroup, { cast: false });
+gaugeRedArc.rotation.z = Math.PI * 0.75;
+const needlePivot = new THREE.Group(); gaugeGroup.add(needlePivot);
+add(box(0.05, 0.36, 0.02), M.gaugeRed, 0, 0.18, 0.02, needlePivot, { cast: false });
+add(new THREE.SphereGeometry(0.06, 8, 6), M.steelDark, 0, 0, 0.03, needlePivot, { cast: false });
 
-// ---------- BLUEPRINT BOARD STAND (engineers_fix / no_corners) ----------
-const boardGroup = new THREE.Group(); world.add(boardGroup); boardGroup.visible = false;
-add(box(2.6, 3.4, 0.12), M.steelDark, 0, 1.9, 0, boardGroup);
-add(new THREE.PlaneGeometry(2.4, 3.2), M.blueprintBoard, 0, 1.9, 0.075, boardGroup, { cast: false });
-for (const s of [-0.95, 0.95]) add(box(0.12, 0.35, 0.65), M.steelDark, s, 0.18, 0, boardGroup);
+// ---------- NERVE BOARD STAND (trigeminal diagram / referred pain) ----------
+const nerveGroup = new THREE.Group(); world.add(nerveGroup); nerveGroup.visible = false;
+add(box(2.6, 3.4, 0.12), M.steelDark, 0, 1.9, 0, nerveGroup);
+const diagramMesh = add(new THREE.PlaneGeometry(2.4, 3.2), M.nerveBoard, 0, 1.9, 0.075, nerveGroup, { cast: false });
+const referredMesh = add(new THREE.PlaneGeometry(2.4, 3.2), M.referredBoard, 0, 1.9, 0.075, nerveGroup, { cast: false });
+for (const s of [-0.95, 0.95]) add(box(0.12, 0.35, 0.65), M.steelDark, s, 0.18, 0, nerveGroup);
+// crossed wires: two tubes forming an X in front of the board
+const crossWiresGroup = new THREE.Group(); nerveGroup.add(crossWiresGroup); crossWiresGroup.visible = false;
+const wireCurve1 = new THREE.CatmullRomCurve3([
+  new THREE.Vector3(-0.9, 1.2, 0.25), new THREE.Vector3(0, 1.9, 0.3), new THREE.Vector3(0.9, 2.6, 0.25),
+]);
+const wireCurve2 = new THREE.CatmullRomCurve3([
+  new THREE.Vector3(0.9, 1.2, 0.25), new THREE.Vector3(0, 1.9, 0.32), new THREE.Vector3(-0.9, 2.6, 0.25),
+]);
+add(new THREE.TubeGeometry(wireCurve1, 20, 0.06, 8), M.nerveRed, 0, 0, 0, crossWiresGroup, { cast: false });
+add(new THREE.TubeGeometry(wireCurve2, 20, 0.06, 8), M.nerveYellow, 0, 0, 0, crossWiresGroup, { cast: false });
+add(new THREE.SphereGeometry(0.12, 10, 8), M.redGlow, 0, 1.9, 0.34, crossWiresGroup, { cast: false, ndSkip: true });
 
-// ---------- FINALE TITLE PLATE STAND (lesson_finale) ----------
+// ---------- FINALE TITLE PLATE STAND (guard_finale) ----------
 const finaleGroup = new THREE.Group(); world.add(finaleGroup); finaleGroup.visible = false;
 add(box(4.8, 1.5, 0.12), M.steelDark, 0, 3.4, 3.2, finaleGroup);
 add(new THREE.PlaneGeometry(4.6, 1.44), M.finalePlate, 0, 3.4, 3.27, finaleGroup, { cast: false });
@@ -350,57 +321,45 @@ function placeSun(L, focus) {
 }
 
 function updateWorld(W_, f) {
-  // hero jet: flying high or parked on the runway
-  jetGroup.visible = !!W_.jet;
-  if (W_.jet === 'fly') {
-    jetGroup.position.set(0, 7.5, -2);
-    jetGroup.rotation.set(0, 0, 0.05 + Math.sin(f * 0.02) * 0.015);
-    jetGroup.userData.gear.visible = false;
-  } else if (W_.jet === 'ground') {
-    jetGroup.position.set(0, 2.6, 0);
-    jetGroup.rotation.set(0, 0, 0);
-    jetGroup.userData.gear.visible = true;
-  }
-  jetGroup.userData.arrows.visible = !!W_.pressureArrows;
-  if (W_.pressureArrows) {
-    jetGroup.userData.arrows.children.forEach((a, i) => {
-      a.scale.setScalar(1 + 0.18 * Math.sin(f * 0.28 + i * 1.1));
-    });
-  }
-  // 1950s Comet in the sky, gentle bob
-  cometGroup.visible = !!W_.comet;
-  if (W_.comet) cometGroup.position.y = 7.5 + Math.sin(f * 0.05) * 0.15;
   // sets
-  cabinGroup.visible = !!W_.cabin;
-  panelsGroup.visible = !!W_.panels;
-  boardGroup.visible = !!W_.board;
+  cafeGroup.visible = !!W_.cafe;
+  palateGroup.visible = !!W_.palate;
+  brainGroup.visible = !!W_.brain;
+  nerveGroup.visible = !!W_.nerve;
   finaleGroup.visible = !!W_.finalePlate;
-  // square vs round window on the comparison panel
-  const round = !!W_.roundPanel;
-  squareAssembly.visible = !round;
-  roundAssembly.visible = round;
-  labelSquareMesh.visible = !round;
-  labelRoundMesh.visible = round;
-  // red corner glow pulse on the square window
-  const glow = !!W_.cornerGlow && !round;
-  cornerGlows.forEach((cg) => { cg.visible = glow; });
-  if (glow) {
-    const pulse = 0.65 + 0.35 * Math.sin(f * 0.45);
-    M.redGlow.color.setRGB(1.0, 0.15 * pulse, 0.12 * pulse);
-    dangerLight.position.set(0, 2.6, 1.6);
-    dangerLight.intensity = 3.5 * pulse;
+  // cafe: BRAIN FREEZE plate only on the intro shot
+  cafeGroup.children.forEach((ch) => { if (ch !== cafeGroup) ch.visible = !!W_.freezePlate; });
+  // palate panel: vessel constriction / dilation (radial scale only, length stays)
+  const vs = W_.vesselScale || 1;
+  vessels.forEach((v) => { v.scale.set(1, vs, vs); });
+  coldDots.forEach((d, i) => { d.visible = !!W_.vesselCold; });
+  coldLight.intensity = W_.vesselCold ? 3.0 + Math.sin(f * 0.4) * 0.8 : 0;
+  // tongue rises to press the roof during the fix
+  tongue.position.y = 1.45 + (W_.tongueUp || 0) * 0.75;
+  // brain chamber: pulse, artery dilation follows the gauge, flow dots rise
+  const pulse = 1 + 0.05 * (W_.brainPulse || 0);
+  brainLobes.forEach((b) => { b.scale.setScalar(pulse); });
+  const artScale = 1 + 0.3 * (W_.gauge || 0);
+  arteries.forEach((a) => { a.scale.setScalar(artScale); });
+  needlePivot.rotation.z = 0.9 - 1.8 * (W_.gauge || 0);
+  flowDots.forEach((d, i) => {
+    const t = ((f * 0.03 + i * 0.125) % 1);
+    const a = i * Math.PI / 4;
+    d.position.set(Math.cos(a) * 0.9, 1.9 + t * 1.7, 0.3 + Math.sin(a) * 0.25);
+    d.visible = !!W_.flowDots;
+  });
+  warmLight.intensity = W_.warmGlow ? 3.2 : 0;
+  // nerve board: diagram vs referred-pain texture, crossed wires
+  diagramMesh.visible = W_.nerveBoard === 'diagram';
+  referredMesh.visible = W_.nerveBoard === 'referred';
+  crossWiresGroup.visible = !!W_.crossWires;
+  // forehead flash: red point light at the kid's head during the explosion
+  if (W_.foreheadFlash) {
+    dangerLight.position.set(0, 2.0, 1.4);
+    dangerLight.intensity = 4.0 * (0.7 + 0.3 * Math.sin(f * 0.6));
   } else {
     dangerLight.intensity = 0;
   }
-  // cracks grow from the square corners
-  const crack = W_.crack || 0;
-  crackMeshes.forEach((cm) => { cm.scale.x = 0.05 + crack * 0.95; cm.visible = crack > 0.01; });
-  // green stress-flow dots orbit the round window
-  flowDots.forEach((d, i) => {
-    const a = f * 0.05 + i * Math.PI / 4;
-    d.position.set(Math.cos(a) * 0.85, 2.5 + Math.sin(a) * 0.85, 0.16);
-    d.visible = !!W_.flowDots;
-  });
   // clouds drift slowly across the sky
   for (const c of clouds) {
     c.g.position.x = ((c.baseX + f * 0.008 + 35) % 70) - 35;

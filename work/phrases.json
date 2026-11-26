@@ -1,314 +1,243 @@
 {
- "duration": 47.241833,
+ "duration": 47.230208,
  "frames30": 1417,
- "source": "silence-align (cost 8.87)",
+ "source": "silence-align (cost 2.50)",
  "segments": [
   [
-   0.170917,
-   1.081958
+   0.203708,
+   1.182917
   ],
   [
-   1.207875,
-   1.433542
+   1.321625,
+   2.645083
   ],
   [
-   1.813,
-   2.294833
+   2.931792,
+   3.609208
   ],
   [
-   2.809417,
-   3.930083
+   3.772042,
+   4.8825
   ],
   [
-   4.068042,
-   5.01475
+   5.42975,
+   6.313833
   ],
   [
-   5.150875,
-   5.45375
+   6.71275,
+   8.411667
   ],
   [
-   5.950708,
-   7.455875
+   9.080875,
+   10.507583
   ],
   [
-   8.016167,
-   8.464792
+   10.87775,
+   11.76525
   ],
   [
-   8.697792,
-   9.112625
+   11.887667,
+   12.68875
   ],
   [
-   9.234,
-   9.438167
+   13.298708,
+   14.880167
   ],
   [
-   9.810208,
-   10.452625
+   15.465667,
+   16.120125
   ],
   [
-   10.613958,
-   10.777167
+   16.268792,
+   17.145083
   ],
   [
-   10.917875,
-   11.513292
+   17.680792,
+   19.9475
   ],
   [
-   11.635458,
-   12.196583
+   20.563667,
+   21.025625
   ],
   [
-   12.87825,
-   13.015083
+   21.161333,
+   21.825208
   ],
   [
-   13.1715,
-   13.484667
+   22.249042,
+   22.3655
   ],
   [
-   13.643625,
-   14.447
+   22.502417,
+   24.67825
   ],
   [
-   14.719458,
-   16.056667
+   25.459208,
+   26.267792
   ],
   [
-   16.200625,
-   16.35775
+   26.879167,
+   28.998917
   ],
   [
-   17.041667,
-   18.512
+   29.458417,
+   30.72025
   ],
   [
-   18.753583,
-   19.20625
+   30.842792,
+   31.15125
   ],
   [
-   19.343375,
-   20.115375
+   31.819583,
+   33.406333
   ],
   [
-   20.24025,
-   20.38175
+   33.934208,
+   34.749
   ],
   [
-   20.54175,
-   20.994917
+   34.896958,
+   35.949875
   ],
   [
-   21.177542,
-   21.395542
+   36.712042,
+   37.653917
   ],
   [
-   22.122083,
-   23.419833
+   37.817458,
+   38.28075
   ],
   [
-   23.797542,
-   25.267792
+   39.1785,
+   39.83725
   ],
   [
-   25.520167,
-   25.624792
+   40.407375,
+   42.097417
   ],
   [
-   25.762708,
-   25.965917
+   42.75075,
+   43.768667
   ],
   [
-   26.626667,
-   27.509625
+   44.047875,
+   44.860125
   ],
   [
-   27.640542,
-   27.841708
-  ],
-  [
-   28.134667,
-   28.942375
-  ],
-  [
-   29.162792,
-   29.366417
-  ],
-  [
-   29.518875,
-   30.353
-  ],
-  [
-   30.943125,
-   33.470042
-  ],
-  [
-   34.095792,
-   35.693625
-  ],
-  [
-   36.208292,
-   36.920167
-  ],
-  [
-   37.13725,
-   37.337667
-  ],
-  [
-   37.493625,
-   37.791542
-  ],
-  [
-   38.438125,
-   40.74775
-  ],
-  [
-   41.371208,
-   43.194458
-  ],
-  [
-   43.332292,
-   43.585958
-  ],
-  [
-   44.040083,
-   45.094875
-  ],
-  [
-   45.435625,
-   45.898458
-  ],
-  [
-   46.194875,
-   46.947708
+   45.2465,
+   46.835333
   ]
  ],
  "phrases": [
   {
-   "text": "Look at the window when you fly.",
-   "s": 0.171,
-   "e": 1.434
+   "text": "You take one big gulp of an ice-cold drink,",
+   "s": 0.204,
+   "e": 2.645
   },
   {
-   "text": "It's round.",
-   "s": 1.813,
-   "e": 2.295
+   "text": "and suddenly your forehead explodes.",
+   "s": 2.932,
+   "e": 4.883
   },
   {
-   "text": "That little curve is why the plane stays in one piece.",
-   "s": 2.809,
-   "e": 5.454
+   "text": "That is a brain freeze,",
+   "s": 5.43,
+   "e": 6.314
   },
   {
-   "text": "Every jet is a metal balloon.",
-   "s": 5.951,
-   "e": 7.456
+   "text": "and it is your brain trying to save itself.",
+   "s": 6.713,
+   "e": 8.412
   },
   {
-   "text": "Up high,",
-   "s": 8.016,
-   "e": 8.465
+   "text": "The cold hits the roof of your mouth,",
+   "s": 9.081,
+   "e": 10.508
   },
   {
-   "text": "the air is thin,",
-   "s": 8.698,
-   "e": 9.113
+   "text": "where blood vessels sit just under the skin.",
+   "s": 10.878,
+   "e": 12.689
   },
   {
-   "text": "so the cabin is pumped full of air to keep you breathing.",
-   "s": 9.234,
-   "e": 10.777
+   "text": "They slam shut to keep the cold out.",
+   "s": 13.299,
+   "e": 14.88
   },
   {
-   "text": "That pressure pushes on the skin,",
-   "s": 10.918,
-   "e": 12.197
+   "text": "But your brain is picky about temperature.",
+   "s": 15.466,
+   "e": 17.145
   },
   {
-   "text": "over and over,",
-   "s": 12.878,
-   "e": 13.485
+   "text": "It panics and orders warm blood to rush up.",
+   "s": 17.681,
+   "e": 19.948
   },
   {
-   "text": "every flight.",
-   "s": 13.644,
-   "e": 14.447
+   "text": "The vessels fly open again,",
+   "s": 20.564,
+   "e": 21.825
   },
   {
-   "text": "Cut a square hole in that skin,",
-   "s": 14.719,
-   "e": 16.358
+   "text": "and the pressure spike trips the pain nerves around them.",
+   "s": 22.249,
+   "e": 24.678
   },
   {
-   "text": "and all the force piles up in the four sharp corners.",
-   "s": 17.042,
-   "e": 20.115
+   "text": "Here is the weird part.",
+   "s": 25.459,
+   "e": 26.268
   },
   {
-   "text": "Tiny cracks start there.",
-   "s": 20.24,
-   "e": 21.396
+   "text": "Those nerves report through the trigeminal nerve,",
+   "s": 26.879,
+   "e": 28.999
   },
   {
-   "text": "And with every takeoff and landing,",
-   "s": 22.122,
-   "e": 25.268
+   "text": "the same cable that serves your forehead.",
+   "s": 29.458,
+   "e": 31.151
   },
   {
-   "text": "they grow.",
-   "s": 25.52,
-   "e": 25.966
+   "text": "So your brain gets the wires crossed,",
+   "s": 31.82,
+   "e": 33.406
   },
   {
-   "text": "In 1954,",
-   "s": 26.627,
-   "e": 27.842
+   "text": "and feels the pain in your forehead instead of your mouth.",
+   "s": 33.934,
+   "e": 35.95
   },
   {
-   "text": "two Comet jets broke apart in mid-air.",
-   "s": 28.135,
-   "e": 30.353
+   "text": "Doctors call that referred pain.",
+   "s": 36.712,
+   "e": 38.281
   },
   {
-   "text": "The cracks had started at the corners of the square windows.",
-   "s": 30.943,
-   "e": 33.47
+   "text": "The fix is simple.",
+   "s": 39.178,
+   "e": 39.837
   },
   {
-   "text": "So engineers changed the shape.",
-   "s": 34.096,
-   "e": 35.694
+   "text": "Press your warm tongue to the roof of your mouth.",
+   "s": 40.407,
+   "e": 42.097
   },
   {
-   "text": "No corners,",
-   "s": 36.208,
-   "e": 36.92
+   "text": "The vessels calm down,",
+   "s": 42.751,
+   "e": 43.769
   },
   {
-   "text": "no pile-up.",
-   "s": 37.137,
-   "e": 37.792
+   "text": "the signal stops,",
+   "s": 44.048,
+   "e": 44.86
   },
   {
-   "text": "The stress spreads smoothly around the curve.",
-   "s": 38.438,
-   "e": 40.748
-  },
-  {
-   "text": "That's why every window today is round.",
-   "s": 41.371,
-   "e": 43.586
-  },
-  {
-   "text": "Not a style choice.",
-   "s": 44.04,
-   "e": 45.095
-  },
-  {
-   "text": "A lesson written in metal.",
-   "s": 45.436,
-   "e": 46.948
+   "text": "and your brain goes back to guard duty.",
+   "s": 45.246,
+   "e": 46.835
   }
  ]
 }

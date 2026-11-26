@@ -174,3 +174,133 @@ export function radial(col = '0,0,0', a = 0.55) {
   gr.addColorStop(0, `rgba(${col},${a})`); gr.addColorStop(0.55, `rgba(${col},${a * 0.6})`); gr.addColorStop(1, `rgba(${col},0)`);
   g.fillStyle = gr; g.fillRect(0, 0, 128, 128); return c;
 }
+
+/** Warm sidewalk tiles for the cafe patio floor */
+export function sidewalk(seed = 7) {
+  const [c, g] = cv(512, 512), r = rng(seed);
+  g.fillStyle = '#c9b8a3'; g.fillRect(0, 0, 512, 512);
+  for (let i = 0; i < 1400; i++) {
+    g.fillStyle = `rgba(${120 + r() * 80},${100 + r() * 70},${80 + r() * 60},${0.05 + r() * 0.08})`;
+    g.fillRect(r() * 512, r() * 512, 2 + r() * 3, 2 + r() * 3);
+  }
+  // tile grid + warm grout lines
+  g.strokeStyle = '#8f7d68'; g.lineWidth = 4;
+  for (let x = 0; x <= 512; x += 128) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, 512); g.stroke(); }
+  for (let y = 0; y <= 512; y += 128) { g.beginPath(); g.moveTo(0, y); g.lineTo(512, y); g.stroke(); }
+  // a sunny yellow center line like a patio border
+  g.fillStyle = '#f5c418'; g.fillRect(0, 248, 512, 10);
+  return c;
+}
+
+/** Blueprint poster: head profile with the three trigeminal nerve branches */
+export function nerveDiagram() {
+  const [c, g] = cv(768, 1024);
+  g.fillStyle = '#184e82'; g.fillRect(0, 0, 768, 1024);
+  g.strokeStyle = 'rgba(140,210,255,0.22)'; g.lineWidth = 2;
+  for (let x = 0; x <= 768; x += 48) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, 1024); g.stroke(); }
+  for (let y = 0; y <= 1024; y += 48) { g.beginPath(); g.moveTo(0, y); g.lineTo(768, y); g.stroke(); }
+  g.strokeStyle = '#ffffff'; g.lineWidth = 10; g.strokeRect(28, 28, 712, 968);
+  // header band
+  g.fillStyle = '#f5c418'; g.fillRect(48, 52, 672, 118);
+  g.strokeStyle = '#241726'; g.lineWidth = 6; g.strokeRect(48, 52, 672, 118);
+  g.fillStyle = '#241726'; g.font = '900 50px Arial Black, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillText('TRIGEMINAL NERVE', 384, 112);
+  g.fillStyle = '#ffffff'; g.font = '900 34px Arial Black, sans-serif';
+  g.fillText('ONE CABLE, THREE BRANCHES', 384, 210);
+  // head profile (side view, facing left): big round skull + jaw
+  g.strokeStyle = '#ffffff'; g.lineWidth = 9;
+  g.beginPath();
+  g.arc(400, 470, 190, Math.PI * 0.55, Math.PI * 1.95);
+  g.lineTo(250, 700); g.lineTo(330, 700); g.lineTo(360, 760); g.lineTo(430, 760);
+  g.stroke();
+  // brain blob inside the skull
+  g.fillStyle = '#ff8fb1';
+  g.beginPath(); g.ellipse(400, 450, 110, 88, 0, 0, 7); g.fill();
+  g.strokeStyle = '#c24b72'; g.lineWidth = 6;
+  g.beginPath(); g.moveTo(340, 430); g.quadraticCurveTo(400, 400, 460, 430); g.stroke();
+  g.beginPath(); g.moveTo(340, 470); g.quadraticCurveTo(400, 445, 460, 470); g.stroke();
+  // nerve trunk from the brainstem down to the cheek junction
+  g.strokeStyle = '#ffd60a'; g.lineWidth = 12; g.lineCap = 'round';
+  g.beginPath(); g.moveTo(380, 540); g.lineTo(330, 640); g.stroke();
+  g.fillStyle = '#ffd60a';
+  g.beginPath(); g.arc(330, 640, 14, 0, 7); g.fill();
+  // branch 1: ophthalmic -> forehead (red)
+  g.strokeStyle = '#ff3b30'; g.lineWidth = 10;
+  g.beginPath(); g.moveTo(330, 640); g.quadraticCurveTo(260, 560, 270, 420); g.stroke();
+  g.fillStyle = '#ff3b30';
+  g.beginPath(); g.arc(270, 420, 12, 0, 7); g.fill();
+  g.font = 'bold 32px Arial, sans-serif'; g.textAlign = 'left';
+  g.fillText('FOREHEAD', 300, 400);
+  // branch 2: maxillary -> palate (green)
+  g.strokeStyle = '#4cd964'; g.lineWidth = 10;
+  g.beginPath(); g.moveTo(330, 640); g.quadraticCurveTo(300, 690, 380, 700); g.stroke();
+  g.fillStyle = '#4cd964';
+  g.beginPath(); g.arc(380, 700, 12, 0, 7); g.fill();
+  g.fillText('PALATE', 410, 712);
+  // branch 3: mandibular -> jaw (cyan)
+  g.strokeStyle = '#4dd0e1'; g.lineWidth = 10;
+  g.beginPath(); g.moveTo(330, 640); g.lineTo(420, 740); g.stroke();
+  g.fillStyle = '#4dd0e1';
+  g.beginPath(); g.arc(420, 740, 12, 0, 7); g.fill();
+  g.fillText('JAW', 440, 752);
+  // footer
+  g.fillStyle = '#ffffff'; g.font = 'bold 30px monospace'; g.textAlign = 'center';
+  g.fillText('SAME WIRE, WRONG ADDRESS', 384, 880);
+  g.fillStyle = '#ffd60a'; g.font = 'bold 28px Arial, sans-serif';
+  g.fillText('PAIN REPORTS TO THE FOREHEAD', 384, 930);
+  return c;
+}
+
+/** Blueprint poster: cold in the mouth, pain in the forehead (referred pain) */
+export function referredPain() {
+  const [c, g] = cv(768, 1024);
+  g.fillStyle = '#184e82'; g.fillRect(0, 0, 768, 1024);
+  g.strokeStyle = 'rgba(140,210,255,0.22)'; g.lineWidth = 2;
+  for (let x = 0; x <= 768; x += 48) { g.beginPath(); g.moveTo(x, 0); g.lineTo(x, 1024); g.stroke(); }
+  for (let y = 0; y <= 1024; y += 48) { g.beginPath(); g.moveTo(0, y); g.lineTo(768, y); g.stroke(); }
+  g.strokeStyle = '#ffffff'; g.lineWidth = 10; g.strokeRect(28, 28, 712, 968);
+  g.fillStyle = '#ff3b30'; g.fillRect(48, 52, 672, 118);
+  g.strokeStyle = '#f5c418'; g.lineWidth = 6; g.strokeRect(48, 52, 672, 118);
+  g.fillStyle = '#ffffff'; g.font = '900 52px Arial Black, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  g.fillText('REFERRED PAIN', 384, 112);
+  g.fillStyle = '#ffffff'; g.font = '900 34px Arial Black, sans-serif';
+  g.fillText('COLD HERE ...', 200, 240);
+  g.fillText('... HURTS THERE', 560, 240);
+  // left: ice cube in the mouth
+  g.fillStyle = '#7dd3fc';
+  g.beginPath(); g.moveTo(120, 330); g.lineTo(280, 330); g.lineTo(260, 470); g.lineTo(140, 470); g.closePath(); g.fill();
+  g.strokeStyle = '#ffffff'; g.lineWidth = 6; g.stroke();
+  g.fillStyle = '#ffffff'; g.font = '900 44px Arial Black, sans-serif';
+  g.fillText('COLD', 200, 540);
+  g.fillStyle = '#bfe9ff'; g.font = 'bold 30px Arial, sans-serif';
+  g.fillText('PALATE', 200, 580);
+  // right: forehead with red pain star
+  g.fillStyle = '#ff8a80';
+  g.beginPath(); g.arc(568, 400, 90, 0, 7); g.fill();
+  g.strokeStyle = '#ffffff'; g.lineWidth = 6; g.stroke();
+  g.fillStyle = '#ff3b30';
+  for (let i = 0; i < 8; i++) {
+    const a = i * Math.PI / 4, r1 = 55, r2 = 22;
+    g.beginPath();
+    g.moveTo(568 + Math.cos(a) * r1, 400 + Math.sin(a) * r1);
+    g.lineTo(568 + Math.cos(a + Math.PI / 8) * r2, 400 + Math.sin(a + Math.PI / 8) * r2);
+    g.lineTo(568 + Math.cos(a + Math.PI / 4) * r1, 400 + Math.sin(a + Math.PI / 4) * r1);
+    g.closePath(); g.fill();
+  }
+  g.fillStyle = '#ff3b30'; g.font = '900 44px Arial Black, sans-serif';
+  g.fillText('OUCH!', 568, 540);
+  g.fillStyle = '#ffb3ab'; g.font = 'bold 30px Arial, sans-serif';
+  g.fillText('FOREHEAD', 568, 580);
+  // big crossed arrow from cold to pain
+  g.strokeStyle = '#ffd60a'; g.lineWidth = 12; g.lineCap = 'round';
+  g.beginPath(); g.moveTo(300, 400); g.lineTo(460, 400); g.stroke();
+  g.beginPath(); g.moveTo(430, 372); g.lineTo(468, 400); g.lineTo(430, 428); g.stroke();
+  // footer
+  g.fillStyle = '#ffffff'; g.font = 'bold 30px monospace';
+  g.fillText('THE BRAIN MIXES UP THE ADDRESS', 384, 700);
+  g.fillStyle = '#ffd60a'; g.font = 'bold 28px Arial, sans-serif';
+  g.fillText('SAME NERVE, WRONG SPOT', 384, 760);
+  g.fillStyle = '#ffffff'; g.font = 'bold 26px Arial, sans-serif';
+  g.fillText('NOT DANGEROUS - JUST CONFUSED', 384, 860);
+  return c;
+}

@@ -11,6 +11,10 @@ export const CAST = {
   engineer:  { jacket: "#f2c22e", pants: "#2b3648", shoes: "#3a2e28", shoeTrim: "#241726", skin: "#f5c9a0", hardhat: "#f5c418", vest: true, stout: true },
   travelerA: { jacket: "#e05a47", pants: "#383e4c", shoes: "#f2ece1", shoeTrim: "#28b8a8", skin: "#ecd0b6", hair: "#2b211c" },
   travelerB: { jacket: "#3fa36c", pants: "#434c5e", shoes: "#ffffff", shoeTrim: "#3b82f6", skin: "#f5c9a0", cap: "#f08a2c" },
+  /** Brain-freeze hero: kid in a red hoodie with a slushie */
+  kid:     { jacket: "#e05a47", pants: "#2b3648", shoes: "#f4f6f8", shoeTrim: "#28b8a8", skin: SKIN,      hair: "#2b211c", hoodie: true },
+  /** Friendly doctor in a white coat for the nerve-board shots */
+  doctor:  { jacket: "#f8fafc", pants: "#2b3648", shoes: "#3a2e28", shoeTrim: "#241726", skin: "#f5c9a0", hair: "#6b7280" },
 };
 
 /** Hard hat for the safety inspector */
@@ -37,6 +41,7 @@ export const mallFront = (p, key, opts = {}) => {
     light = rad(-120), step = 0, rub = 0, hop = 0,
   } = opts;
   const lid = lidOf(blink), skin = O.skin ?? SKIN;
+  let cupDraw = null; // slushie cup is drawn after the head so it sits in front of the face
   const H = headBlob(seed, 118, facing), W = 2 * H.a, HH = 2 * H.b, u = W / 100;
   const torsoL = O.stout ? 1.10 : 1.06, legsL = 1.38, sole = 975 - hop * 95;
   const torsoBot = sole - legsL * HH - bob * HH, chin = torsoBot - torsoL * HH, hc = chin - H.b, hipY = torsoBot - 0.12 * HH;
@@ -81,6 +86,7 @@ export const mallFront = (p, key, opts = {}) => {
       case "up": return { pts: [s, [X(16), s[1] - 0.28 * HH], [X(24), s[1] - 0.72 * HH]], front: false };
       case "panic": return { pts: [s, [X(22), s[1] - 0.22 * HH], [X(32), s[1] - 0.65 * HH]], front: false };
       case "cheek": return { pts: [s, [X(16), s[1] + 0.05 * HH], [cx + side * (H.a + 2 * u), hc + 0.24 * H.b]], front: false };
+      case "drink": return { pts: [s, [X(16), s[1] - 0.02 * HH], [cx + side * (H.a * 0.6), hc + 0.35 * H.b]], front: true, cup: true };
       case "hip": return { pts: [s, [X(22), s[1] + 0.3 * HH], [tcx + side * T.a * 0.95, torsoBot - 0.28 * HH]], front: false };
       case "cross": return { pts: [s, [X(2), s[1] + 0.36 * HH], [tcx - side * 0.45 * T.a, s[1] + 0.32 * HH]], front: true };
       case "board": return { pts: [s, [X(10), s[1] + 0.38 * HH], [tcx + side * 0.4 * T.a, torsoBot - 0.25 * HH]], front: true, clipboard: true };
@@ -93,6 +99,7 @@ export const mallFront = (p, key, opts = {}) => {
     p.stroke(curve(a.pts[0], a.pts[1], a.pts[2]), 5.4 * u, armCol);
     const [hx, hy] = a.pts[2];
     p.dot(hx, hy, 5.6 * u);
+    if (a.cup) cupDraw = { hx, hy };
     if (a.finger) {
       const dx = a.pts[2][0] - a.pts[1][0], dy = a.pts[2][1] - a.pts[1][1], l = Math.hypot(dx, dy) || 1;
       p.stroke([[hx, hy], [hx + dx / l * 14 * u, hy + dy / l * 14 * u]], 2.6 * u);
@@ -153,6 +160,24 @@ export const mallFront = (p, key, opts = {}) => {
   }
   faceFront(p, cx, hc, W, expr, facing, look, lid, !!O.hardhat, skin, null, !!O.stout);
   p.rot = null;
+
+  // slushie cup held to the mouth — drawn last so it sits in front of the face
+  if (cupDraw) {
+    const { hx, hy } = cupDraw;
+    const side = Math.sign(hx - cx) || 1;
+    const oldRot = p.rot;
+    p.rot = [rad(-16 * side), hx, hy];
+    // cup body (big icy-blue trapezoid)
+    p.poly([[hx - 28 * u, hy - 8 * u], [hx + 28 * u, hy - 8 * u], [hx + 21 * u, hy + 58 * u], [hx - 21 * u, hy + 58 * u]], "#7dd3fc", 3 * u);
+    // pink slushie dome on top
+    p.ell(hx, hy - 8 * u, 28 * u, 15 * u, "#ff8fb1", 2.6 * u);
+    // white highlight on the cup
+    p.stroke([[hx - 19 * u, hy + 8 * u], [hx - 15 * u, hy + 44 * u]], 3 * u, "#ffffff");
+    // straw: drawn last so it sits on top, reaching left past the dome to the mouth
+    p.stroke([[hx - 4 * u * side, hy - 10 * u], [hx - 45 * u * side, hy - 2 * u]], 3.6 * u, "#ffffff");
+    p.stroke([[hx - 4 * u * side, hy - 10 * u], [hx - 25 * u * side, hy - 6 * u]], 1.8 * u, "#ff3b30");
+    p.rot = oldRot;
+  }
 };
 
 // ---------------- Custom 2D FX Cards ----------------
@@ -256,6 +281,39 @@ export const fxMotion = (p, t) => {
     const y = 340 + i * 75, len = 120 + (i % 2) * 70;
     p.stroke([[120 + t * 90, y], [120 + len + t * 90, y]], 14, "#ffffff");
     p.stroke([[120 + t * 90, y], [120 + len + t * 90, y]], 7, INK);
+  }
+  g.restore();
+};
+
+/** Floating bold "?" marks for the "weird part" beat */
+export const fxQuestion = (p, t) => {
+  const g = p.g; g.save();
+  const marks = [[230, 380, 1.0, 0], [320, 300, 0.8, 0.3], [390, 420, 0.65, 0.55]];
+  for (const [x, y, sc, ph] of marks) {
+    const k = Math.sin(((t + ph) % 1) * Math.PI);
+    const bob = Math.sin((t + ph) * Math.PI * 2) * 22;
+    g.globalAlpha = 0.35 + 0.65 * k;
+    g.fillStyle = "#241726";
+    g.font = `900 ${Math.round(150 * sc)}px Arial Black, sans-serif`;
+    g.textAlign = "center"; g.textBaseline = "middle";
+    g.fillText("?", x, y + bob);
+  }
+  g.restore();
+};
+
+/** Drifting snowflakes for the cold palate macro */
+export const fxSnow = (p, t) => {
+  const g = p.g; g.save();
+  for (let i = 0; i < 6; i++) {
+    const x = 120 + i * 78, y = 120 + ((t * 520 + i * 137) % 640);
+    const sway = Math.sin(t * Math.PI * 2 + i * 1.7) * 18;
+    g.globalAlpha = 0.9;
+    g.strokeStyle = "#dff3ff"; g.lineWidth = 9; g.lineCap = "round";
+    for (let a = 0; a < 3; a++) {
+      const ang = a * Math.PI / 3 + 0.3;
+      const dx = Math.cos(ang) * 26, dy = Math.sin(ang) * 26;
+      g.beginPath(); g.moveTo(x + sway - dx, y - dy); g.lineTo(x + sway + dx, y + dy); g.stroke();
+    }
   }
   g.restore();
 };
