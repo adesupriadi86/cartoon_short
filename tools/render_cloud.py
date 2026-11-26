@@ -42,7 +42,9 @@ def render_chunk(args):
         opts.add_argument("--hatch-webgl-allowed-domains-file=/home/hatch/workspace/tmp/remotion-tmp/webgl-policy.txt")
         opts.add_argument("--hatch-webgl-allowed-domains-sha256=8097045f0459c96c4cdc76e3a1af4e0f43f640b4b59c43d6db35e3641c0264c6")
     opts.set_capability("goog:loggingPrefs", {"browser": "ALL"})
-    driver = webdriver.Chrome(service=Service(os.environ.get("CHROMEDRIVER", "/usr/bin/chromedriver")), options=opts)
+    chromedriver = os.environ.get("CHROMEDRIVER")
+    service = Service(chromedriver) if chromedriver else None  # None -> Selenium Manager finds the driver
+    driver = webdriver.Chrome(service=service, options=opts)
     try:
         driver.get("about:blank")
         # Inject canvas + error catcher + Blob ES module graph

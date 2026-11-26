@@ -60,6 +60,10 @@ on:
         default: '2'
         required: true
 
+permissions:
+  contents: read
+  actions: write
+
 jobs:
   render:
     runs-on: ubuntu-latest
@@ -85,9 +89,11 @@ jobs:
       - name: Install Python deps
         run: pip install selenium numpy pillow
 
-      - name: Install Chrome + ChromeDriver
+      - name: Install Chrome
         uses: browser-actions/setup-chrome@v1
-      - uses: browser-actions/setup-chromedriver@v1
+        # No setup-chromedriver action exists (browser-actions has none);
+        # Selenium Manager (built into Selenium) downloads the matching
+        # ChromeDriver automatically when CHROMEDRIVER is unset.
 
       - name: Sync engine files + build toon.js
         run: |
@@ -100,8 +106,9 @@ jobs:
       - name: Render frames ${{ matrix.range }}
         run: |
           export CHROME_BIN="$(which google-chrome)"
-          export CHROMEDRIVER="$(which chromedriver)"
-          python3 tools/render_cloud.py frames "${{ matrix.range }}" "${{ inputs.step }}" 0.92 "${{ inputs.workers }}"
+          STEP="${{ inputs.step }}"; [ -z "$STEP" ] && STEP=2
+          WORKERS="${{ inputs.workers }}"; [ -z "$WORKERS" ] && WORKERS=2
+          python3 tools/render_cloud.py frames "${{ matrix.range }}" "$STEP" 0.92 "$WORKERS"
 
       - name: Upload frames
         uses: actions/upload-artifact@v4
