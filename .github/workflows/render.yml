@@ -146,16 +146,31 @@ jobs:
         # later runs. Source: https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
         # (ffmpeg + ffprobe in one tarball, no apt needed). If the static
         # download ever fails, fall back to apt so the job still works.
+        # Robustness: the download is retried and the tarball is verified
+        # with `xz -t` before extracting -- run 45850777745 died on
+        # `tar: Error is not recoverable` from a truncated download, and
+        # the step must fall back to apt instead of failing outright.
         run: |
           set -e
           if [ -x "$HOME/ffmpeg-static/ffmpeg" ] && [ -x "$HOME/ffmpeg-static/ffprobe" ]; then
             echo "ffmpeg restored from cache: $($HOME/ffmpeg-static/ffmpeg -version | head -1)"
           else
             mkdir -p "$HOME/ffmpeg-static"
-            if curl -fsSL -o /tmp/ffmpeg.tar.xz https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz; then
-              tar -xJf /tmp/ffmpeg.tar.xz -C /tmp
-              cp /tmp/ffmpeg-*-amd64-static/ffmpeg /tmp/ffmpeg-*-amd64-static/ffprobe "$HOME/ffmpeg-static/"
+            OK=0
+            for i in 1 2 3; do
               rm -rf /tmp/ffmpeg-*-amd64-static /tmp/ffmpeg.tar.xz
+              if curl -fsSL --retry 2 -o /tmp/ffmpeg.tar.xz https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz \
+                 && xz -t /tmp/ffmpeg.tar.xz \
+                 && tar -xJf /tmp/ffmpeg.tar.xz -C /tmp \
+                 && cp /tmp/ffmpeg-*-amd64-static/ffmpeg /tmp/ffmpeg-*-amd64-static/ffprobe "$HOME/ffmpeg-static/"; then
+                OK=1
+                break
+              fi
+              echo "Static download attempt $i failed, retrying..."
+              sleep 2
+            done
+            rm -rf /tmp/ffmpeg-*-amd64-static /tmp/ffmpeg.tar.xz
+            if [ "$OK" = "1" ]; then
               echo "ffmpeg downloaded (will be cached for the next run)"
             else
               echo "Static download failed, falling back to apt"
