@@ -130,9 +130,44 @@ jobs:
           path: frames-all
           merge-multiple: true
 
+      - name: Restore cached ffmpeg
+        uses: actions/cache@v4
+        id: ffmpeg-cache
+        with:
+          path: ~/ffmpeg-static
+          key: ffmpeg-static-v1
+
+      - name: Install ffmpeg (cached static build, apt fallback)
+        # Why: the finish job used to `apt-get install ffmpeg` every run.
+        # On 2026-11-26 that download ran at 82 KB/s and took 14 min for
+        # the airplane short (vs ~5 s on the escalator run), while the
+        # render itself stayed ~1.7 min. A static build cached by
+        # actions/cache is downloaded once, then restored in seconds on
+        # later runs. Source: https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
+        # (ffmpeg + ffprobe in one tarball, no apt needed). If the static
+        # download ever fails, fall back to apt so the job still works.
+        run: |
+          set -e
+          if [ -x "$HOME/ffmpeg-static/ffmpeg" ] && [ -x "$HOME/ffmpeg-static/ffprobe" ]; then
+            echo "ffmpeg restored from cache: $($HOME/ffmpeg-static/ffmpeg -version | head -1)"
+          else
+            mkdir -p "$HOME/ffmpeg-static"
+            if curl -fsSL -o /tmp/ffmpeg.tar.xz https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz; then
+              tar -xJf /tmp/ffmpeg.tar.xz -C /tmp
+              cp /tmp/ffmpeg-*-amd64-static/ffmpeg /tmp/ffmpeg-*-amd64-static/ffprobe "$HOME/ffmpeg-static/"
+              rm -rf /tmp/ffmpeg-*-amd64-static /tmp/ffmpeg.tar.xz
+              echo "ffmpeg downloaded (will be cached for the next run)"
+            else
+              echo "Static download failed, falling back to apt"
+              sudo apt-get update && sudo apt-get install -y ffmpeg
+            fi
+          fi
+          if [ -x "$HOME/ffmpeg-static/ffmpeg" ]; then echo "$HOME/ffmpeg-static" >> "$GITHUB_PATH"; fi
+          which ffmpeg && ffmpeg -version | head -1
+
       - name: Stitch + encode + QA
         run: |
-          if ! which ffmpeg >/dev/null 2>&1; then sudo apt-get update && sudo apt-get install -y ffmpeg; fi
+          which ffmpeg >/dev/null 2>&1 || { echo "ffmpeg missing after install step"; exit 1; }
           mkdir -p frames
           cp frames-all/*.jpg frames/
           python3 -c "import os, shutil; total=1417; [shutil.copy2(f'frames/f{f:04d}.jpg', f'frames/f{f+1:04d}.jpg') for f in range(0, total, 2) if os.path.exists(f'frames/f{f:04d}.jpg') and f+1 < total]; print('frames:', len(os.listdir('frames')))"
