@@ -1,4 +1,4 @@
-// ---------------- Modern Mall & Escalator Cast (built on toonbase.js Pen / blob / face helpers) ----------------
+// ---------------- Airplane Cast (built on toonbase.js Pen / blob / face helpers) ----------------
 FACE.smug = { eye: ["lid", "lid"], brow: [-2, 3], mouth: "smirk" };
 FACE.panic = { eye: ["shock", "shock"], brow: [-5, 5], mouth: "O" };
 FACE.wince = { eye: ["squeeze", "squeeze"], brow: [-4, 4], mouth: "teeth" };
@@ -6,11 +6,11 @@ FACE.curious = { eye: ["dot", "dot"], brow: [-3, 2], mouth: "o" };
 FACE.knowing = { eye: ["lid", "dot"], brow: [3, -4], mouth: "smirk" };
 
 export const CAST = {
-  shopper:   { jacket: "#e0483e", pants: "#2f4b7c", shoes: "#f4f6f8", shoeTrim: "#28b8a8", skin: SKIN,      hair: "#4a3020", hoodie: true,  lace: true },
-  inspector: { jacket: "#f2c22e", pants: "#2b3648", shoes: "#3a2e28", shoeTrim: "#241726", skin: "#f5c9a0", hardhat: "#f5c418", vest: true, stout: true },
-  mallA:     { jacket: "#3c8dbc", pants: "#383e4c", shoes: "#f2ece1", shoeTrim: "#e05a47", skin: "#ecd0b6", hair: "#2b211c" },
-  mallB:     { jacket: "#8c58b8", pants: "#34495e", shoes: "#f6d365", shoeTrim: "#241726", skin: "#c99067", hair: "#1e1714", dress: "#9b59b6" },
-  mallC:     { jacket: "#3fa36c", pants: "#434c5e", shoes: "#ffffff", shoeTrim: "#3b82f6", skin: "#f5c9a0", cap: "#f08a2c" },
+  passenger: { jacket: "#2f6fb2", pants: "#2b3648", shoes: "#f4f6f8", shoeTrim: "#f5c418", skin: SKIN,      hair: "#2b211c", hoodie: true },
+  pilot:     { jacket: "#1f2a3a", pants: "#1f2a3a", shoes: "#241726", shoeTrim: "#f5c418", skin: "#f5c9a0", cap: "#1f2a3a" },
+  engineer:  { jacket: "#f2c22e", pants: "#2b3648", shoes: "#3a2e28", shoeTrim: "#241726", skin: "#f5c9a0", hardhat: "#f5c418", vest: true, stout: true },
+  travelerA: { jacket: "#e05a47", pants: "#383e4c", shoes: "#f2ece1", shoeTrim: "#28b8a8", skin: "#ecd0b6", hair: "#2b211c" },
+  travelerB: { jacket: "#3fa36c", pants: "#434c5e", shoes: "#ffffff", shoeTrim: "#3b82f6", skin: "#f5c9a0", cap: "#f08a2c" },
 };
 
 /** Hard hat for the safety inspector */

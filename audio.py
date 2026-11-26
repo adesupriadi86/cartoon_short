@@ -1,9 +1,9 @@
-"""Synthesized upbeat mall-groove music bed + frame-accurate cartoon SFX for
-'Why Escalators Have Brushes on the Side', mixed under untouched voice.mp3.
+"""Synthesized upbeat music bed + frame-accurate cartoon SFX for
+'Why Airplane Windows Are Round', mixed under untouched voice.mp3.
 Audio mix contract:
 - Voiceover untouched (zero time-stretching, zero pitch/EQ edits)
 - Music bed measured against gated voice RMS and set to exactly -6.0 dB (50% of voice RMS)
-- Music cuts DEAD SILENT at 45.55s (right before 'It's warning you to move.' at 45.74s)
+- Music cuts DEAD SILENT at 45.20s (right before 'A lesson written in metal.' at 45.44s)
 - SFX peaks strictly capped at <= 0.7x voice peak
 """
 import numpy as np, subprocess, wave
@@ -45,7 +45,7 @@ def env(n, a=0.004, r=0.22):
     t = np.arange(n) / SR
     return (np.minimum(1.0, t / max(a, 1e-4)) * np.exp(-t / r)).astype(np.float32)
 
-# ---------------- MUSIC BED (quirky modern mall pizzicato + rhythmic synth pulse) ----------------
+# ---------------- MUSIC BED (bright marimba + rhythmic synth pulse) ----------------
 music = np.zeros(N, np.float32)
 BPM = 114.0
 beat = 60.0 / BPM
@@ -76,14 +76,14 @@ def hihat():
     n = int(0.06 * SR); t = np.arange(n) / SR
     return hp_fast((rng.standard_normal(n) * np.exp(-t * 65)).astype(np.float32), 6500) * 0.35
 
-# Upbeat mall progression (C - Am - F - G) shifts to tense minor pulse during cutaway (11.2s - 30.8s)
+# Bright progression (C - Am - F - G) shifts to tense minor pulse during the danger section (14.5s - 33.8s)
 prog_bright = [(48, [60, 64, 67]), (45, [57, 60, 64]), (41, [53, 57, 60]), (43, [55, 59, 62])]
 prog_tense  = [(45, [57, 60, 64]), (41, [53, 57, 60]), (40, [52, 55, 59]), (40, [52, 56, 59])]
 
-MUSIC_STOP = 45.52  # Cuts DEAD SILENT right before "It's warning you to move." (45.74s)
+MUSIC_STOP = 45.20  # Cuts DEAD SILENT right before "A lesson written in metal." (45.44s)
 bar = 0; tt = 0.0
 while tt < MUSIC_STOP:
-    tense = 11.2 <= tt < 30.8
+    tense = 14.5 <= tt < 33.8
     root, ch = (prog_tense if tense else prog_bright)[bar % 4]
     place(music, pad_chord([midi(m) for m in ch], beat * 4 * 0.96), tt, 0.14 if tense else 0.11)
     for b in range(4):
@@ -93,7 +93,6 @@ while tt < MUSIC_STOP:
             place(music, kick(), tb, 0.42)
         place(music, hihat(), tb + beat * 0.5, 0.30)
         place(music, bass_note(midi(root), 0.35), tb, 0.34)
-        # bouncy marimba arpeggio
         note = ch[(b + bar) % 3] + (12 if not tense else 0)
         place(music, marimba(midi(note), 0.24), tb + (0.0 if b % 2 == 0 else beat * 0.5), 0.18 if not tense else 0.14)
     bar += 1
@@ -110,10 +109,9 @@ sfx = np.zeros(N, np.float32)
 F = lambda fr: fr / 30.0
 def noise(d): return rng.standard_normal(int(d * SR)).astype(np.float32)
 
-def brush_swish(d=0.35):
+def whoosh(d=0.42):
     n = int(d * SR); t = np.arange(n) / SR
-    s = hp_fast(lp_fast(noise(d), 4800), 1400) * np.sin(np.pi * t / d) ** 1.5
-    return s * 0.65
+    return (lp_fast(noise(d), 1600) * np.sin(np.pi * t / d) ** 2 * 0.65).astype(np.float32)
 
 def sparkle_ping():
     n = int(0.45 * SR); t = np.arange(n) / SR
@@ -125,16 +123,19 @@ def alarm_beep(f0=880, d=0.22):
     s = (np.sin(2 * np.pi * f0 * t) + 0.3 * np.sin(6 * np.pi * f0 * t)) * np.minimum(1, t / 0.008) * np.exp(-t * 9)
     return (s * 0.5).astype(np.float32)
 
-def whoosh(d=0.42):
-    n = int(d * SR); t = np.arange(n) / SR
-    return (lp_fast(noise(d), 1600) * np.sin(np.pi * t / d) ** 2 * 0.65).astype(np.float32)
+def crack_snap():
+    """Sharp metal crack: noise snap + bright ping decay."""
+    d = 0.30; n = int(d * SR); t = np.arange(n) / SR
+    snap = hp_fast(noise(d), 3000) * np.exp(-t * 30)
+    ping = np.sin(2 * np.pi * 2400 * t) * np.exp(-t * 18) + 0.5 * np.sin(2 * np.pi * 3400 * t) * np.exp(-t * 24)
+    return ((snap * 0.9 + ping * 0.5) * 0.7).astype(np.float32)
 
-def gear_grind(d=1.9):
-    n = int(d * SR); t = np.arange(n) / SR
-    clanks = (np.mod(np.cumsum(np.full(n, 16.0)) / SR, 1.0) < 0.14).astype(np.float32)
-    s = lp_fast(clanks * (0.6 + 0.4 * noise(d)), 1400) + lp_fast(noise(d), 180) * 1.4
-    s *= np.minimum(1, t / 0.1) * np.minimum(1, (d - t) / 0.2).clip(0)
-    return (s * 0.55).astype(np.float32)
+def deep_boom():
+    """Low distant boom for the Comet breakup beat (tasteful, no crash noise)."""
+    d = 1.6; n = int(d * SR); t = np.arange(n) / SR
+    sub = np.sin(2 * np.pi * (70 * np.exp(-t * 3) + 38) * t) * np.exp(-t * 2.0) * 1.0
+    rumble = lp_fast(noise(d), 220) * np.exp(-t * 2.5) * 0.8
+    return (sub + rumble).astype(np.float32)
 
 def zap_sfx():
     d = 0.26; n = int(d * SR); t = np.arange(n) / SR
@@ -142,40 +143,30 @@ def zap_sfx():
     s = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 11) + hp_fast(noise(d), 2200) * np.exp(-t * 18) * 0.4
     return (s * 0.65).astype(np.float32)
 
-def boing_hop():
-    d = 0.38; n = int(d * SR); t = np.arange(n) / SR
-    f = 220 + 440 * (1 - np.exp(-t * 10)) + 45 * np.sin(2 * np.pi * 24 * t)
-    return (np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t * 6.5) * 0.6).astype(np.float32)
-
 def twist_sting():
-    """Punchy dramatic impact sting right on 'It's warning you to move.' after dead silence!"""
+    """Punchy dramatic impact sting right on 'A lesson written in metal.' after dead silence!"""
     d = 1.4; n = int(d * SR); t = np.arange(n) / SR
     sub = np.sin(2 * np.pi * (68 * np.exp(-t * 4) + 42) * t) * np.exp(-t * 2.2) * 1.1
     hit = lp_fast(noise(d), 1100) * np.exp(-t * 10) * 0.75
     ch = sum(np.sin(2 * np.pi * midi(m) * t) for m in [57, 60, 64, 69]) * np.exp(-t * 3.8) * 0.35
     return (sub + hit + ch).astype(np.float32)
 
-# Place all SFX synced to exact frames from PLAN.md
-place(sfx, brush_swish(0.32), F(12), 0.7)       # shoe rubbing bristles
-place(sfx, sparkle_ping(),    F(34), 0.7)       # sparkle pop
-place(sfx, brush_swish(0.30), F(56), 0.65)
-place(sfx, alarm_beep(780),   F(93), 0.85)      # Shot 2 danger reveal kick
-place(sfx, whoosh(0.45),      F(171), 0.65)     # Shot 3 wide crane reveal
-place(sfx, brush_swish(0.32), F(262), 0.65)     # Shot 4 free shoe shine
-place(sfx, sparkle_ping(),    F(286), 0.7)
-place(sfx, whoosh(0.35),      F(336), 0.75)     # Shot 5 white flash -> silent alarm
-place(sfx, alarm_beep(920),   F(371), 0.85)     # "silent alarm"
-place(sfx, alarm_beep(920),   F(392), 0.6)
-place(sfx, whoosh(0.40),      F(427), 0.55)     # Shot 6 moving steps
-place(sfx, whoosh(0.38),      F(639), 0.60)     # Shot 8 macro push-in on razor gap
-place(sfx, brush_swish(0.45), F(760), 0.70)     # Shot 9 shoelace slipping
-place(sfx, gear_grind(1.95),  F(870), 0.90)     # Shot 10 "the gears don't stop."
-place(sfx, whoosh(0.35),      F(925), 0.70)     # Shot 11 white flash -> safety code
-place(sfx, sparkle_ping(),    F(950), 0.65)
-place(sfx, zap_sfx(),         F(1038), 0.90)    # Shot 12 bristles touch ankle ZAP!
-place(sfx, boing_hop(),       F(1112), 0.85)    # Shot 13 brain flinches & pulls foot away!
-place(sfx, sparkle_ping(),    F(1265), 0.60)    # Shot 14 "remember."
-place(sfx, twist_sting(),     F(1372), 1.00)    # Shot 15 POST-SILENCE TWIST STING!
+# Place all SFX synced to exact frames from phrases.json
+place(sfx, whoosh(0.45),      F(6), 0.70)      # hook: jet flyby
+place(sfx, sparkle_ping(),    F(60), 0.70)     # "It's round" reveal
+place(sfx, whoosh(0.40),      F(190), 0.60)    # metal balloon
+place(sfx, whoosh(0.38),      F(280), 0.60)    # thin air / cabin pressure
+place(sfx, alarm_beep(780),   F(340), 0.80)    # pressure pushes on the skin
+place(sfx, alarm_beep(920),   F(460), 0.85)    # square hole: force piles into corners
+place(sfx, crack_snap(),      F(625), 0.90)    # tiny cracks start
+place(sfx, crack_snap(),      F(720), 0.80)    # cracks grow with every flight
+place(sfx, deep_boom(),       F(810), 0.90)    # 1954: Comet breaks apart
+place(sfx, whoosh(0.35),      F(950), 0.60)    # investigators: cracks found
+place(sfx, sparkle_ping(),    F(1040), 0.65)   # engineers change the shape
+place(sfx, sparkle_ping(),    F(1100), 0.60)   # no corners
+place(sfx, whoosh(0.38),      F(1170), 0.65)   # stress spreads around the curve
+place(sfx, sparkle_ping(),    F(1255), 0.60)   # that's why every window is round
+place(sfx, twist_sting(),     F(1365), 1.00)   # POST-SILENCE TWIST STING!
 
 # ---------------- EXACT -6.0 dB GATED-RMS MUSIC MIX + 0.7x SFX PEAK CAP ----------------
 voice = load_voice()
@@ -189,7 +180,6 @@ def gated_rms(x, thresh=0.015):
 v_rms = gated_rms(voice, 0.015)
 v_peak = float(np.max(np.abs(voice)) + 1e-9)
 
-# Light speech-ducking envelope on music, then normalize gated RMS to EXACTLY -6.0 dB (0.5012x) of voice RMS
 ve = np.convolve(np.abs(voice), np.ones(int(0.06 * SR)) / int(0.06 * SR), "same")
 duck = 1.0 - 0.25 * np.clip(ve / (v_peak * 0.25), 0, 1)
 music_d = music * duck
@@ -197,13 +187,11 @@ m_rms = gated_rms(music_d[:i_stop], 0.005)
 target_m_rms = v_rms * (10 ** (-6.0 / 20.0))  # exact -6.0 dB (50.1% of voice RMS)
 music_scaled = music_d * (target_m_rms / max(m_rms, 1e-9))
 
-# Cap SFX peaks strictly at <= 0.70x voice peak
 s_peak = float(np.max(np.abs(sfx)) + 1e-9)
 sfx_scale = min(1.0, (0.68 * v_peak) / s_peak)
 sfx_scaled = sfx * sfx_scale
 
 mix = voice + music_scaled + sfx_scaled
-# Gentle headroom safety (no heavy distortion; finish.sh applies linear loudnorm to -14 LUFS)
 peak_all = float(np.max(np.abs(mix)) + 1e-9)
 if peak_all > 0.96:
     mix = mix * (0.96 / peak_all)

@@ -49,7 +49,7 @@ on:
     inputs:
       title:
         description: 'Output title (dashes instead of spaces)'
-        default: 'Why-Escalators-Have-Brushes-on-the-Side'
+        default: 'Why-Airplane-Windows-Are-Round'
         required: true
       step:
         description: 'Render step (2 = on twos, half the frames)'

@@ -24,13 +24,13 @@ const toon = (opts) => new THREE.MeshToonMaterial({ gradientMap: grad, ...opts }
 const texM = (c, rx_ = 1, ry_ = 1, color = '#ffffff') => toon({ map: P.tex(c, rx_, ry_), color });
 
 const M = {
-  floor: texM(P.mallTile(1), 16, 16),
-  wall: texM(P.mallWall(5, '#f5efe4', '#dfd1bc'), 4, 2),
-  wallAccent: texM(P.mallWall(6, '#e3eef7', '#b8d0e6'), 3, 2),
-  step: texM(P.stepMetal(2), 1, 1),
-  skirt: texM(P.skirtMetal(3), 4, 1),
-  bristle: texM(P.bristleTex(4), 10, 1),
-  hazard: texM(P.hazardStripe(), 8, 1),
+  runway: texM(P.tarmac(3), 10, 1),
+  grass: toon({ color: '#6fae5f' }),
+  fuselage: texM(P.fuselageTex(1), 1, 1),
+  fuselageComet: toon({ color: '#c9ced6' }),
+  windowGlass: new THREE.MeshBasicMaterial({ map: P.tex(P.windowGlass(2), 1, 1) }),
+  panel: toon({ color: '#dfe6ec' }),
+  panelDark: toon({ color: '#465260' }),
   steel: toon({ color: '#b0bcc8' }),
   steelDark: toon({ color: '#465260' }),
   steelBright: toon({ color: '#dde6ef' }),
@@ -38,20 +38,20 @@ const M = {
   yellow: toon({ color: '#f5c418' }),
   red: toon({ color: '#e63946' }),
   redGlow: new THREE.MeshBasicMaterial({ color: '#ff3b30' }),
+  greenGlow: new THREE.MeshBasicMaterial({ color: '#4cd964' }),
   orange: toon({ color: '#f47b20' }),
   teal: toon({ color: '#28b8a8' }),
   white: toon({ color: '#f8fafc' }),
+  blue: toon({ color: '#1f6fb2' }),
+  seatBlue: toon({ color: '#2f6fb2' }),
+  cloud: toon({ color: '#ffffff' }),
   wood: toon({ color: '#9c6b43' }),
-  pot: toon({ color: '#c96f4a' }),
-  leaf: toon({ color: '#3b8c52' }),
-  leafLight: toon({ color: '#58ad66' }),
+  hazard: texM(P.hazardStripe(), 8, 1),
   glass: new THREE.MeshToonMaterial({ gradientMap: grad, color: '#9ed8f5', transparent: true, opacity: 0.32, side: THREE.DoubleSide, depthWrite: false }),
-  shopA: texM(P.shopFront('SNEAKERS', '#2b5d8a', '#f5c418'), 1, 1),
-  shopB: texM(P.shopFront('COFFEE', '#7c4a32', '#f4d35e'), 1, 1),
-  shopC: texM(P.shopFront('ARCADE', '#5e3c99', '#4cc9f0'), 1, 1),
-  shopD: texM(P.shopFront('FASHION', '#b83b5e', '#f9ed69'), 1, 1),
-  codeBoard: new THREE.MeshBasicMaterial({ map: P.tex(P.safetyCodeBoard(), 1, 1) }),
-  warnGap: new THREE.MeshBasicMaterial({ map: P.tex(P.warnLabel('DANGER: GAP'), 1, 1) }),
+  blueprintBoard: new THREE.MeshBasicMaterial({ map: P.tex(P.blueprintStress(), 1, 1) }),
+  labelSquare: new THREE.MeshBasicMaterial({ map: P.tex(P.warnLabel('SQUARE'), 1, 1) }),
+  labelRound: new THREE.MeshBasicMaterial({ map: P.tex(P.textPlate('ROUND', '#2e9e4f', '#ffffff'), 1, 1) }),
+  finalePlate: new THREE.MeshBasicMaterial({ map: P.tex(P.textPlate('A LESSON WRITTEN IN METAL', '#1f6fb2', '#ffffff'), 1, 1) }),
 };
 
 // ---------- ink / normal-depth contract ----------
@@ -75,7 +75,7 @@ const add = (geo, mat, x = 0, y = 0, z = 0, parent = scene, opts = {}) => {
 };
 const box = (w, h, d) => new THREE.BoxGeometry(w, h, d);
 
-// ---------- sky dome (visible through mall skylights) ----------
+// ---------- sky dome ----------
 const skyU = { top: { value: new THREE.Color() }, hor: { value: new THREE.Color() } };
 const sky = new THREE.Mesh(new THREE.SphereGeometry(220, 24, 14), new THREE.ShaderMaterial({
   uniforms: skyU, side: THREE.BackSide, depthWrite: false, fog: false,
@@ -93,175 +93,159 @@ scene.add(sun); scene.add(sun.target);
 const dangerLight = new THREE.PointLight('#ff3b30', 0, 8); dangerLight.position.set(0, 3.0, 1.4); scene.add(dangerLight);
 scene.fog = new THREE.Fog('#e6eef8', 24, 95);
 
-// ---------- 3D SHOPPING MALL ATRIUM ----------
+// ---------- AIRFIELD: grass + runway strip + drifting clouds ----------
 const world = new THREE.Group(); scene.add(world);
-// lower floor
-const floor = add(box(64, 0.4, 48), M.floor, 0, -0.2, 0, world, { cast: false });
-// upper mezzanine (starts at x = 8.0, y = 6.4) + side balconies
-add(box(24, 0.45, 44), M.floor, 20, 6.18, 0, world, { cast: false });
-add(box(48, 0.45, 14), M.floor, -4, 6.18, -13, world, { cast: false });
-add(box(48, 0.45, 14), M.floor, -4, 6.18, 13, world, { cast: false });
-// mezzanine railing bars
-for (const z of [-6.2, 6.2]) {
-  add(box(26, 0.1, 0.14), M.steelBright, -5, 7.35, z, world);
-  add(box(26, 0.9, 0.06), M.glass, -5, 6.88, z, world, { cast: false, ndSkip: true });
-  for (let x = -16; x <= 8; x += 4) add(box(0.14, 1.0, 0.14), M.steelDark, x, 6.9, z, world);
-}
-// back mall walls & bright colorful storefronts
-add(box(64, 15, 0.8), M.wall, 0, 7.5, -16, world, { cast: false });
-add(box(64, 15, 0.8), M.wallAccent, 0, 7.5, 16, world, { cast: false });
-add(box(0.8, 15, 34), M.wall, 24, 7.5, 0, world, { cast: false });
-add(box(0.8, 15, 34), M.wallAccent, -24, 7.5, 0, world, { cast: false });
+// grass field (big) + runway strip the jet sits on
+add(box(240, 0.2, 240), M.grass, 0, -0.3, 0, world, { cast: false });
+add(box(140, 0.2, 12), M.runway, 0, -0.1, 0, world, { cast: false });
 
-// storefronts on lower & upper levels (non-mirrored faces pointing into the atrium)
-const addShop = (mat, x, y, z, ry = 0) => {
-  const m = add(box(6.2, 4.2, 0.3), mat, x, y, z, world, { cast: false }); m.rotation.y = ry; return m;
-};
-addShop(M.shopA, -9, 2.2, -15.4, 0);
-addShop(M.shopB, 0, 2.2, -15.4, 0);
-addShop(M.shopC, 9, 2.2, -15.4, 0);
-addShop(M.shopD, -7, 8.8, -15.4, 0);
-addShop(M.shopA, 2, 8.8, -15.4, 0);
-addShop(M.shopB, 11, 8.8, -15.4, 0);
-addShop(M.shopC, 23.4, 8.8, -4.5, -Math.PI / 2);
-addShop(M.shopD, 23.4, 8.8, 4.5, -Math.PI / 2);
-
-// skylight atrium roof beams (open sky above!)
-for (let x = -18; x <= 18; x += 6) {
-  add(box(0.45, 0.5, 32), M.steelBright, x, 14.8, 0, world, { cast: false });
-}
-for (const z of [-10, -4, 4, 10]) {
-  add(box(44, 0.35, 0.35), M.steel, 0, 14.8, z, world, { cast: false });
-}
-// mall columns
-for (const x of [-14, -4, 8, 18]) for (const z of [-6.5, 6.5]) {
-  add(new THREE.CylinderGeometry(0.42, 0.46, 14.8, 12), M.steelBright, x, 7.4, z, world);
-}
-// potted indoor mall trees & wooden benches
-const addPlant = (x, y, z) => {
-  const g = new THREE.Group(); g.position.set(x, y, z); world.add(g);
-  add(new THREE.CylinderGeometry(0.48, 0.36, 0.72, 10), M.pot, 0, 0.36, 0, g);
-  add(new THREE.CylinderGeometry(0.09, 0.12, 1.3, 8), M.wood, 0, 1.2, 0, g);
-  add(new THREE.SphereGeometry(0.82, 10, 8), M.leaf, 0, 2.15, 0, g);
-  add(new THREE.SphereGeometry(0.58, 10, 8), M.leafLight, 0.38, 2.55, 0.2, g);
-  add(new THREE.SphereGeometry(0.52, 10, 8), M.leafLight, -0.35, 2.45, -0.2, g);
-};
-addPlant(-10.5, 0, -3.8); addPlant(-10.5, 0, 3.8); addPlant(2, 0, -4.5); addPlant(2, 0, 4.5);
-addPlant(10.5, 6.4, -3.5); addPlant(10.5, 6.4, 3.5);
-for (const [bx, bz] of [[-12, -1.8], [-12, 2.2], [5, -5.2]]) {
-  const bg = new THREE.Group(); bg.position.set(bx, 0, bz); world.add(bg);
-  add(box(2.0, 0.14, 0.65), M.wood, 0, 0.48, 0, bg);
-  for (const s of [-0.8, 0.8]) add(box(0.14, 0.46, 0.56), M.steelDark, s, 0.23, 0, bg);
-}
-
-// ---------- WORKING 3D ESCALATOR (x: -8 -> +8, y: 0 -> 6.4) ----------
-const ESC_LEN = Math.hypot(16, 6.4); // ~17.23m
-const ESC_ANG = Math.atan2(6.4, 16); // ~0.3805 rad
-const escGroup = new THREE.Group(); world.add(escGroup);
-
-// lower & upper steel landing comb plates with yellow safety line
-add(box(2.6, 0.12, 2.0), M.steel, -9.3, 0.06, 0, escGroup);
-add(box(0.24, 0.14, 1.65), M.yellow, -8.08, 0.07, 0, escGroup);
-add(box(2.6, 0.12, 2.0), M.steel, 9.3, 6.46, 0, escGroup);
-add(box(0.24, 0.14, 1.65), M.yellow, 8.08, 6.47, 0, escGroup);
-
-// inclined chassis truss underneath steps
-const chassis = new THREE.Group();
-chassis.position.set(0, 3.2, 0); chassis.rotation.z = ESC_ANG; escGroup.add(chassis);
-add(box(ESC_LEN + 0.6, 1.05, 1.48), M.steelDark, 0, -0.78, 0, chassis);
-// side outer casings
-const frontCasing = add(box(ESC_LEN + 0.8, 1.15, 0.14), M.steel, 0, -0.68, 0.94, chassis);
-add(box(ESC_LEN + 0.8, 1.15, 0.14), M.steel, 0, -0.68, -0.94, chassis);
-
-// stationary stainless-steel SKIRT WALLS (z = ±0.84, leaving 0.06m razor-thin gap from steps at ±0.78!)
-const backSkirt = add(box(ESC_LEN + 0.4, 0.42, 0.08), M.skirt, 0, 0.14, -0.84, chassis);
-const frontSkirt = add(box(ESC_LEN + 0.4, 0.42, 0.08), M.skirt, 0, 0.14, 0.84, chassis);
-// glowing red danger strip inside the razor-thin gap (z = ±0.80, visible in mechanical/danger shots)
-const dangerGapStrip = add(box(ESC_LEN, 0.05, 0.055), M.redGlow, 0, -0.02, 0.80, chassis, { cast: false, ndSkip: true });
-dangerGapStrip.visible = false;
-
-// SKIRT DEFLECTOR BRUSHES (black rail + protruding stiff dark nylon bristles on both sides!)
-const brushGroup = new THREE.Group(); chassis.add(brushGroup);
-for (const s of [-1, 1]) {
-  // black aluminum deflector rail mounted on stationary skirt wall
-  add(box(ESC_LEN + 0.2, 0.065, 0.06), M.handrail, 0, 0.17, s * 0.80, brushGroup);
-  // stiff dark bristle strip jutting inward toward the step edge
-  add(box(ESC_LEN + 0.2, 0.048, 0.12), M.bristle, 0, 0.17, s * 0.72, brushGroup);
-  // subtle yellow highlight trim along top of deflector housing
-  add(box(ESC_LEN + 0.2, 0.018, 0.04), M.yellow, 0, 0.21, s * 0.80, brushGroup);
-}
-
-// Glass balustrades & moving black handrails
-const frontBalustrade = new THREE.Group(); chassis.add(frontBalustrade);
-for (const [s, parent] of [[-1, chassis], [1, frontBalustrade]]) {
-  add(box(ESC_LEN + 0.4, 0.62, 0.05), M.glass, 0, 0.62, s * 0.90, parent, { cast: false, ndSkip: true });
-  add(box(ESC_LEN + 0.8, 0.08, 0.12), M.handrail, 0, 0.95, s * 0.90, parent);
-  // curved end newels
-  for (const ex of [-ESC_LEN / 2 - 0.35, ESC_LEN / 2 + 0.35]) {
-    const nw = add(new THREE.CylinderGeometry(0.24, 0.24, 0.12, 14), M.handrail, ex, 0.72, s * 0.90, parent);
-    nw.rotation.x = Math.PI / 2;
-  }
-}
-
-// 28 Animated 3D Escalator Steps (each step is level horizontally, climbing along the slope!)
-const NUM_STEPS = 28;
-const stepMeshes = [];
-const stepGeo = box(0.60, 0.25, 1.54); // width 1.54 -> z from -0.77 to +0.77 (razor gap to skirt at ±0.84!)
-for (let i = 0; i < NUM_STEPS; i++) {
-  const sm = add(stepGeo, M.step, 0, 0, 0, escGroup);
-  // bright yellow riser lip on front edge of each step
-  add(box(0.05, 0.24, 1.54), M.yellow, -0.30, 0, 0, sm);
-  stepMeshes.push(sm);
-}
-
-// ---------- EXPOSED 3D MECHANICAL GEAR CHAMBER (for Cutaway & "gears don't stop" shots) ----------
-const gearChamber = new THREE.Group(); world.add(gearChamber); gearChamber.visible = false;
-// dark industrial housing behind the gears
-add(box(5.6, 3.4, 1.6), M.steelDark, 0, 1.85, -0.4, gearChamber);
-add(box(5.8, 0.24, 1.8), M.hazard, 0, 0.3, -0.3, gearChamber);
-// diegetic mechanical warning plate inside chamber
-const warnPlate = add(box(2.2, 0.62, 0.08), M.warnGap, 0, 3.18, 0.52, gearChamber, { cast: false });
-
-const makeGear = (radius, teeth, thick, mat) => {
+// drifting cartoon clouds (3 puffs each)
+const clouds = [];
+for (let i = 0; i < 12; i++) {
   const g = new THREE.Group();
-  add(new THREE.CylinderGeometry(radius, radius, thick, 20), mat, 0, 0, 0, g).rotation.x = Math.PI / 2;
-  add(new THREE.CylinderGeometry(radius * 0.34, radius * 0.34, thick + 0.08, 12), M.steelBright, 0, 0, 0, g).rotation.x = Math.PI / 2;
-  for (let i = 0; i < teeth; i++) {
-    const a = (i / teeth) * Math.PI * 2;
-    const t = add(box(radius * 0.26, radius * 0.28, thick * 0.94), mat, Math.cos(a) * (radius + radius * 0.1), Math.sin(a) * (radius + radius * 0.1), 0, g);
-    t.rotation.z = a;
+  const cx = -32 + (i * 5.7) % 64, cy = 9 + (i % 4) * 2.2, cz = -18 + (i * 3.1) % 26;
+  g.position.set(cx, cy, cz);
+  const s = 0.8 + (i % 3) * 0.35;
+  add(new THREE.SphereGeometry(1.25 * s, 10, 8), M.cloud, 0, 0, 0, g, { cast: false });
+  add(new THREE.SphereGeometry(0.9 * s, 10, 8), M.cloud, 1.3 * s, -0.15, 0.2, g, { cast: false });
+  add(new THREE.SphereGeometry(0.8 * s, 10, 8), M.cloud, -1.2 * s, -0.2, -0.1, g, { cast: false });
+  world.add(g);
+  clouds.push({ g, baseX: cx });
+}
+
+// ---------- HERO JET BUILDER (fuselage along X, nose +X, windows on +Z side) ----------
+const makeJet = ({ square = false, fuselageMat = M.fuselage } = {}) => {
+  const g = new THREE.Group();
+  // fuselage tube (axis along X) + nose + tail cone
+  const tube = add(new THREE.CylinderGeometry(1.15, 1.15, 14, 24), fuselageMat, 0, 0, 0, g);
+  tube.rotation.z = Math.PI / 2;
+  const nose = add(new THREE.SphereGeometry(1.15, 20, 14), fuselageMat, 7, 0, 0, g);
+  nose.scale.set(1.6, 1, 1);
+  const tail = add(new THREE.CylinderGeometry(0.25, 1.15, 2.4, 16), fuselageMat, -8, 0, 0, g);
+  tail.rotation.z = Math.PI / 2;
+  // tail fin (swept) + horizontal stabilizers
+  const fin = add(box(1.8, 2.8, 0.16), M.blue, -7.4, 1.3, 0, g);
+  fin.rotation.z = -0.3;
+  add(box(1.8, 0.12, 3.6), M.blue, -7.6, 0.35, 0, g);
+  // swept wings (two halves) + engines
+  for (const s of [-1, 1]) {
+    const wing = add(box(3.4, 0.14, 5.2), M.steelBright, 0.2, -0.4, s * 2.9, g);
+    wing.rotation.y = -s * 0.28;
+    const eng = add(new THREE.CylinderGeometry(0.45, 0.45, 2.0, 14), M.steel, 0.6, -0.85, s * 2.3, g);
+    eng.rotation.z = Math.PI / 2;
+    const intake = add(new THREE.CircleGeometry(0.38, 14), M.handrail, 1.62, -0.85, s * 2.3, g, { cast: false });
+    intake.rotation.y = Math.PI / 2;
   }
+  // cockpit windows on the nose
+  for (const s of [-1, 1]) {
+    const cw = add(new THREE.PlaneGeometry(0.55, 0.38), M.windowGlass, 7.75, 0.45, s * 0.42, g, { cast: false });
+    cw.rotation.y = s * 0.55;
+  }
+  // passenger windows along the fuselage side (y +0.35, z +1.16, slightly proud of the skin)
+  for (let i = 0; i < 9; i++) {
+    const x = -5.6 + i * 1.4;
+    if (square) {
+      add(new THREE.PlaneGeometry(0.6, 0.6), M.windowGlass, x, 0.35, 1.16, g, { cast: false });
+      add(box(0.72, 0.08, 0.06), M.steelDark, x, 0.68, 1.16, g, { cast: false });
+      add(box(0.72, 0.08, 0.06), M.steelDark, x, 0.02, 1.16, g, { cast: false });
+      add(box(0.08, 0.72, 0.06), M.steelDark, x - 0.32, 0.35, 1.16, g, { cast: false });
+      add(box(0.08, 0.72, 0.06), M.steelDark, x + 0.32, 0.35, 1.16, g, { cast: false });
+    } else {
+      const disc = add(new THREE.CircleGeometry(0.30, 20), M.windowGlass, x, 0.35, 1.16, g, { cast: false });
+      const ring = add(new THREE.TorusGeometry(0.30, 0.07, 10, 20), M.steelBright, x, 0.35, 1.16, g, { cast: false });
+    }
+  }
+  // pressure arrows (children of the jet, shown in balloon / thin-air / pressure shots)
+  const arrows = new THREE.Group(); g.add(arrows);
+  for (let i = 0; i < 6; i++) {
+    const a = new THREE.Group();
+    a.position.set(-5 + i * 2, 2.1, 0);
+    add(new THREE.CylinderGeometry(0.07, 0.07, 0.7, 8), M.yellow, 0, 0, 0, a, { cast: false });
+    const tip = add(new THREE.ConeGeometry(0.2, 0.5, 10), M.yellow, 0, -0.55, 0, a, { cast: false });
+    tip.rotation.x = Math.PI;
+    arrows.add(a);
+  }
+  g.userData.arrows = arrows;
+  // landing gear (visible only on the ground)
+  const gear = new THREE.Group(); g.add(gear);
+  for (const [gx, gz] of [[4.6, 0.75], [4.6, -0.75], [-0.8, 0]]) {
+    add(box(0.12, 1.15, 0.12), M.steelDark, gx, -1.72, gz, gear);
+    const wheel = add(new THREE.CylinderGeometry(0.28, 0.28, 0.18, 12), M.handrail, gx, -2.3, gz, gear);
+    wheel.rotation.x = Math.PI / 2;
+  }
+  g.userData.gear = gear;
   return g;
 };
-const gears = [
-  { g: makeGear(0.76, 12, 0.26, M.steel), x: -0.78, y: 1.55, z: 0.45, spd: 1.9 },
-  { g: makeGear(0.58, 10, 0.28, M.orange), x: 0.18, y: 2.08, z: 0.48, spd: -2.5 },
-  { g: makeGear(0.74, 12, 0.26, M.steel), x: 0.85, y: 1.15, z: 0.45, spd: 1.9 },
-  { g: makeGear(0.50, 8, 0.28, M.red), x: -0.15, y: 0.95, z: 0.52, spd: 3.2 },
-  { g: makeGear(0.48, 8, 0.26, M.yellow), x: -0.68, y: 2.52, z: 0.48, spd: -2.9 },
-];
-for (const it of gears) { it.g.position.set(it.x, it.y, it.z); gearChamber.add(it.g); }
 
-// ---------- 3D HERO SNEAKER + DANGLING RED SHOELACE PROP (for close-up shots) ----------
-const sneaker = new THREE.Group(); world.add(sneaker); sneaker.visible = false;
-// chunky white cartoon sneaker with teal trim & red dangling shoelace
-add(box(0.56, 0.11, 0.28), M.white, 0, 0.055, 0, sneaker);           // sole
-add(box(0.46, 0.18, 0.25), M.teal, -0.03, 0.19, 0, sneaker);         // upper
-add(box(0.20, 0.12, 0.25), M.white, 0.21, 0.15, 0, sneaker);         // toe cap
-add(box(0.18, 0.18, 0.22), M.white, -0.14, 0.34, 0, sneaker);        // ankle cuff / sock
-add(new THREE.CylinderGeometry(0.085, 0.095, 0.55, 12), toon({ color: '#2f4b7c' }), -0.14, 0.62, 0, sneaker); // pant leg
-// dangling red shoelace segments
-const laceSegs = [];
-for (let i = 0; i < 6; i++) {
-  const seg = add(new THREE.CylinderGeometry(0.014, 0.014, 0.09, 6), M.red, 0.05 + i * 0.02, 0.16 - i * 0.055, 0.15 + i * 0.025, sneaker);
-  laceSegs.push(seg);
+const jetGroup = makeJet({}); world.add(jetGroup);
+const cometGroup = makeJet({ square: true, fuselageMat: M.fuselageComet });
+cometGroup.position.set(-14, 7.5, -5); cometGroup.rotation.y = 0.5; cometGroup.scale.setScalar(0.85);
+world.add(cometGroup); cometGroup.visible = false;
+
+// ---------- CABIN INTERIOR SET (x ~18, for its_round / why_round) ----------
+const cabinGroup = new THREE.Group(); world.add(cabinGroup); cabinGroup.visible = false;
+add(box(6, 0.1, 3.4), M.panel, 18, 0.05, 0.2, cabinGroup, { cast: false });
+add(box(5.5, 3.2, 0.15), M.panel, 18, 1.6, -0.9, cabinGroup, { cast: false });
+add(box(5.5, 0.5, 0.18), M.seatBlue, 18, 0.35, -0.82, cabinGroup, { cast: false });
+add(box(5.0, 0.55, 0.9), M.steelBright, 18, 2.95, -0.55, cabinGroup);
+// round cabin window + frame
+add(new THREE.TorusGeometry(0.55, 0.09, 10, 24), M.white, 18.3, 1.9, -0.80, cabinGroup, { cast: false });
+add(new THREE.CircleGeometry(0.55, 24), M.windowGlass, 18.3, 1.9, -0.79, cabinGroup, { cast: false });
+// seat backs flanking the passenger
+for (const sx of [16.4, 19.9]) {
+  add(box(0.9, 1.0, 0.25), M.seatBlue, sx, 0.85, 0.5, cabinGroup);
+  add(box(0.7, 0.3, 0.28), M.steelBright, sx, 1.45, 0.5, cabinGroup);
 }
 
-// ---------- 3D SAFETY CODE BLUEPRINT STAND (Shot 11) ----------
-const codeStand = new THREE.Group(); codeStand.position.set(10.6, 6.4, -1.0); codeStand.rotation.y = -Math.PI / 2; world.add(codeStand); codeStand.visible = false;
-add(box(1.95, 2.55, 0.12), M.steelDark, 0, 1.55, 0, codeStand);
-add(new THREE.PlaneGeometry(1.82, 2.42), M.codeBoard, 0, 1.55, 0.075, codeStand, { cast: false });
-for (const s of [-0.72, 0.72]) add(box(0.12, 0.35, 0.65), M.steelDark, s, 0.18, 0, codeStand);
+// ---------- COMPARISON PANEL (one stand, swaps square <-> round window) ----------
+const panelsGroup = new THREE.Group(); world.add(panelsGroup); panelsGroup.visible = false;
+add(box(3.4, 2.8, 0.15), M.panel, 0, 2.4, 0, panelsGroup);
+add(box(3.6, 0.18, 0.2), M.panelDark, 0, 0.95, 0, panelsGroup);
+add(box(3.6, 0.18, 0.2), M.panelDark, 0, 3.85, 0, panelsGroup);
+// label plates above the panel (toggle square / round)
+const labelSquareMesh = add(new THREE.PlaneGeometry(1.7, 0.53), M.labelSquare, 0, 4.35, 0.12, panelsGroup, { cast: false });
+const labelRoundMesh = add(new THREE.PlaneGeometry(1.7, 0.53), M.labelRound, 0, 4.35, 0.12, panelsGroup, { cast: false });
+// --- square window assembly ---
+const squareAssembly = new THREE.Group(); panelsGroup.add(squareAssembly);
+add(new THREE.PlaneGeometry(0.95, 0.95), M.windowGlass, 0, 2.5, 0.09, squareAssembly, { cast: false });
+add(box(1.07, 0.08, 0.06), M.steelDark, 0, 3.0, 0.1, squareAssembly, { cast: false });
+add(box(1.07, 0.08, 0.06), M.steelDark, 0, 2.0, 0.1, squareAssembly, { cast: false });
+add(box(0.08, 1.07, 0.06), M.steelDark, -0.52, 2.5, 0.1, squareAssembly, { cast: false });
+add(box(0.08, 1.07, 0.06), M.steelDark, 0.52, 2.5, 0.1, squareAssembly, { cast: false });
+// red corner glow spheres + growing crack lines (one per corner, 45 deg outward)
+const cornerGlows = [];
+const crackMeshes = [];
+const crackGeo = box(0.75, 0.05, 0.02); crackGeo.translate(0.375, 0, 0);
+const CORNERS = [
+  { x: -0.52, y: 3.0, a: Math.PI * 0.75 }, { x: 0.52, y: 3.0, a: Math.PI * 0.25 },
+  { x: -0.52, y: 2.0, a: Math.PI * 1.25 }, { x: 0.52, y: 2.0, a: Math.PI * 1.75 },
+];
+for (const c of CORNERS) {
+  cornerGlows.push(add(new THREE.SphereGeometry(0.09, 10, 8), M.redGlow, c.x, c.y, 0.16, squareAssembly, { cast: false, ndSkip: true }));
+  const cm = add(crackGeo, M.handrail, c.x, c.y, 0.14, squareAssembly, { cast: false });
+  cm.rotation.z = c.a; cm.scale.x = 0.05; crackMeshes.push(cm);
+}
+// --- round window assembly ---
+const roundAssembly = new THREE.Group(); panelsGroup.add(roundAssembly); roundAssembly.visible = false;
+add(new THREE.TorusGeometry(0.55, 0.09, 10, 24), M.steelBright, 0, 2.5, 0.1, roundAssembly, { cast: false });
+add(new THREE.CircleGeometry(0.55, 24), M.windowGlass, 0, 2.5, 0.09, roundAssembly, { cast: false });
+// stress flow dots orbiting the round window
+const flowDots = [];
+for (let i = 0; i < 8; i++) {
+  flowDots.push(add(new THREE.SphereGeometry(0.07, 8, 6), M.greenGlow, 0, 2.5, 0.16, roundAssembly, { cast: false, ndSkip: true }));
+}
+
+// ---------- BLUEPRINT BOARD STAND (engineers_fix / no_corners) ----------
+const boardGroup = new THREE.Group(); world.add(boardGroup); boardGroup.visible = false;
+add(box(2.6, 3.4, 0.12), M.steelDark, 0, 1.9, 0, boardGroup);
+add(new THREE.PlaneGeometry(2.4, 3.2), M.blueprintBoard, 0, 1.9, 0.075, boardGroup, { cast: false });
+for (const s of [-0.95, 0.95]) add(box(0.12, 0.35, 0.65), M.steelDark, s, 0.18, 0, boardGroup);
+
+// ---------- FINALE TITLE PLATE STAND (lesson_finale) ----------
+const finaleGroup = new THREE.Group(); world.add(finaleGroup); finaleGroup.visible = false;
+add(box(4.8, 1.5, 0.12), M.steelDark, 0, 3.4, 3.2, finaleGroup);
+add(new THREE.PlaneGeometry(4.6, 1.44), M.finalePlate, 0, 3.4, 3.27, finaleGroup, { cast: false });
+for (const s of [-1.9, 1.9]) add(box(0.12, 2.7, 0.12), M.steelDark, s, 1.35, 3.2, finaleGroup);
 
 // ---------- 2D CHARACTER & FX CARDS ----------
 const CW = 1200, CH = 2000, CM = 2.15;
@@ -366,51 +350,61 @@ function placeSun(L, focus) {
 }
 
 function updateWorld(W_, f) {
-  // Continuously climbing escalator steps!
-  const speed = 0.042; // cycles/sec * length
-  const phase = (f / 30) * 1.15;
-  for (let i = 0; i < NUM_STEPS; i++) {
-    const u = ((i + phase) % NUM_STEPS) / NUM_STEPS; // 0..1 along escalator
-    const x = -8.0 + u * 16.0;
-    const y = u * 6.4 - 0.125;
-    stepMeshes[i].position.set(x, y, 0);
+  // hero jet: flying high or parked on the runway
+  jetGroup.visible = !!W_.jet;
+  if (W_.jet === 'fly') {
+    jetGroup.position.set(0, 7.5, -2);
+    jetGroup.rotation.set(0, 0, 0.05 + Math.sin(f * 0.02) * 0.015);
+    jetGroup.userData.gear.visible = false;
+  } else if (W_.jet === 'ground') {
+    jetGroup.position.set(0, 2.6, 0);
+    jetGroup.rotation.set(0, 0, 0);
+    jetGroup.userData.gear.visible = true;
   }
-  // Cutaway mode: hide front glass & casing to reveal spinning gears underneath!
-  const cut = !!W_.cutaway;
-  frontBalustrade.visible = !cut;
-  frontCasing.visible = !cut;
-  frontSkirt.visible = !W_.hideFrontSkirt;
-  brushGroup.visible = W_.showBrushes !== false;
-  gearChamber.visible = !!W_.showGears;
-  chassis.visible = !W_.showGears;
-  for (const sm of stepMeshes) sm.visible = !W_.showGears;
-  dangerGapStrip.visible = !!W_.dangerGlow;
-  if (W_.dangerGlow) {
+  jetGroup.userData.arrows.visible = !!W_.pressureArrows;
+  if (W_.pressureArrows) {
+    jetGroup.userData.arrows.children.forEach((a, i) => {
+      a.scale.setScalar(1 + 0.18 * Math.sin(f * 0.28 + i * 1.1));
+    });
+  }
+  // 1950s Comet in the sky, gentle bob
+  cometGroup.visible = !!W_.comet;
+  if (W_.comet) cometGroup.position.y = 7.5 + Math.sin(f * 0.05) * 0.15;
+  // sets
+  cabinGroup.visible = !!W_.cabin;
+  panelsGroup.visible = !!W_.panels;
+  boardGroup.visible = !!W_.board;
+  finaleGroup.visible = !!W_.finalePlate;
+  // square vs round window on the comparison panel
+  const round = !!W_.roundPanel;
+  squareAssembly.visible = !round;
+  roundAssembly.visible = round;
+  labelSquareMesh.visible = !round;
+  labelRoundMesh.visible = round;
+  // red corner glow pulse on the square window
+  const glow = !!W_.cornerGlow && !round;
+  cornerGlows.forEach((cg) => { cg.visible = glow; });
+  if (glow) {
     const pulse = 0.65 + 0.35 * Math.sin(f * 0.45);
     M.redGlow.color.setRGB(1.0, 0.15 * pulse, 0.12 * pulse);
+    dangerLight.position.set(0, 2.6, 1.6);
     dangerLight.intensity = 3.5 * pulse;
   } else {
     dangerLight.intensity = 0;
   }
-  // Spin interlocking gears relentlessly
-  if (W_.showGears) {
-    for (const it of gears) it.g.rotation.z = (f / 30) * it.spd;
+  // cracks grow from the square corners
+  const crack = W_.crack || 0;
+  crackMeshes.forEach((cm) => { cm.scale.x = 0.05 + crack * 0.95; cm.visible = crack > 0.01; });
+  // green stress-flow dots orbit the round window
+  flowDots.forEach((d, i) => {
+    const a = f * 0.05 + i * Math.PI / 4;
+    d.position.set(Math.cos(a) * 0.85, 2.5 + Math.sin(a) * 0.85, 0.16);
+    d.visible = !!W_.flowDots;
+  });
+  // clouds drift slowly across the sky
+  for (const c of clouds) {
+    c.g.position.x = ((c.baseX + f * 0.008 + 35) % 70) - 35;
   }
-  // 3D Sneaker + dangling shoelace prop
-  sneaker.visible = !!W_.sneaker;
-  if (W_.sneaker) {
-    const s = W_.sneaker;
-    sneaker.position.set(s.x, s.y, s.z);
-    sneaker.rotation.set(s.rx || 0, s.ry || 0, s.rz || 0);
-    sneaker.scale.setScalar(s.scale || 1);
-    const pull = s.lacePull || 0;
-    laceSegs.forEach((seg, idx) => {
-      seg.position.set(0.06 + idx * 0.025, 0.16 - idx * (0.048 + pull * 0.02), 0.14 + idx * (0.025 + pull * 0.03));
-      seg.rotation.z = Math.sin(f * 0.35 + idx) * 0.18 + pull * 0.4;
-    });
-  }
-  // Safety code board
-  codeStand.visible = !!W_.codeStand;
 }
 
 function drawActors(list, cam) {

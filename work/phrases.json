@@ -1,234 +1,314 @@
 {
- "duration": 47.220292,
+ "duration": 47.241833,
  "frames30": 1417,
- "source": "silence-align (cost 3.12)",
+ "source": "silence-align (cost 8.87)",
  "segments": [
   [
-   0.197458,
-   2.659208
+   0.170917,
+   1.081958
   ],
   [
-   3.005042,
-   5.613292
+   1.207875,
+   1.433542
   ],
   [
-   5.779167,
-   7.663125
+   1.813,
+   2.294833
   ],
   [
-   8.359083,
-   9.821375
+   2.809417,
+   3.930083
   ],
   [
-   9.999125,
-   10.853125
+   4.068042,
+   5.01475
   ],
   [
-   11.330583,
-   12.02575
+   5.150875,
+   5.45375
   ],
   [
-   12.287833,
-   13.510125
+   5.950708,
+   7.455875
   ],
   [
-   14.10925,
-   14.3985
+   8.016167,
+   8.464792
   ],
   [
-   14.5395,
-   16.241958
+   8.697792,
+   9.112625
   ],
   [
-   16.381208,
-   17.230708
+   9.234,
+   9.438167
   ],
   [
-   17.677833,
-   19.6865
+   9.810208,
+   10.452625
   ],
   [
-   19.814708,
-   20.530167
+   10.613958,
+   10.777167
   ],
   [
-   21.15375,
-   23.972792
+   10.917875,
+   11.513292
   ],
   [
-   24.322167,
-   25.238125
+   11.635458,
+   12.196583
   ],
   [
-   25.535875,
-   26.471458
+   12.87825,
+   13.015083
   ],
   [
-   26.751125,
-   28.370375
+   13.1715,
+   13.484667
   ],
   [
-   28.670542,
-   29.806708
+   13.643625,
+   14.447
   ],
   [
-   30.416083,
-   32.999292
+   14.719458,
+   16.056667
   ],
   [
-   33.704792,
-   34.698292
+   16.200625,
+   16.35775
   ],
   [
-   34.87775,
-   36.144167
+   17.041667,
+   18.512
   ],
   [
-   36.467167,
-   36.96725
+   18.753583,
+   19.20625
   ],
   [
-   37.11,
-   37.52975
+   19.343375,
+   20.115375
   ],
   [
-   37.660583,
-   38.24525
+   20.24025,
+   20.38175
   ],
   [
-   38.378333,
-   38.751708
+   20.54175,
+   20.994917
   ],
   [
-   39.26775,
-   39.569542
+   21.177542,
+   21.395542
   ],
   [
-   39.954167,
-   41.139542
+   22.122083,
+   23.419833
   ],
   [
-   41.276958,
-   41.931
+   23.797542,
+   25.267792
   ],
   [
-   42.193708,
-   42.7105
+   25.520167,
+   25.624792
   ],
   [
-   43.088583,
-   45.221083
+   25.762708,
+   25.965917
   ],
   [
-   45.585125,
-   46.866333
+   26.626667,
+   27.509625
+  ],
+  [
+   27.640542,
+   27.841708
+  ],
+  [
+   28.134667,
+   28.942375
+  ],
+  [
+   29.162792,
+   29.366417
+  ],
+  [
+   29.518875,
+   30.353
+  ],
+  [
+   30.943125,
+   33.470042
+  ],
+  [
+   34.095792,
+   35.693625
+  ],
+  [
+   36.208292,
+   36.920167
+  ],
+  [
+   37.13725,
+   37.337667
+  ],
+  [
+   37.493625,
+   37.791542
+  ],
+  [
+   38.438125,
+   40.74775
+  ],
+  [
+   41.371208,
+   43.194458
+  ],
+  [
+   43.332292,
+   43.585958
+  ],
+  [
+   44.040083,
+   45.094875
+  ],
+  [
+   45.435625,
+   45.898458
+  ],
+  [
+   46.194875,
+   46.947708
   ]
  ],
  "phrases": [
   {
-   "text": "Stop cleaning your shoes on those escalator brushes,",
-   "s": 0.197,
-   "e": 2.659
+   "text": "Look at the window when you fly.",
+   "s": 0.171,
+   "e": 1.434
   },
   {
-   "text": "because you're actually shoving your foot straight into the most dangerous spot on the whole machine.",
-   "s": 3.005,
-   "e": 7.663
+   "text": "It's round.",
+   "s": 1.813,
+   "e": 2.295
   },
   {
-   "text": "Almost everyone thinks they're a free shoe shine.",
-   "s": 8.359,
-   "e": 10.853
+   "text": "That little curve is why the plane stays in one piece.",
+   "s": 2.809,
+   "e": 5.454
   },
   {
-   "text": "In reality,",
-   "s": 11.331,
-   "e": 12.026
+   "text": "Every jet is a metal balloon.",
+   "s": 5.951,
+   "e": 7.456
   },
   {
-   "text": "they're a silent alarm.",
-   "s": 12.288,
-   "e": 13.51
+   "text": "Up high,",
+   "s": 8.016,
+   "e": 8.465
   },
   {
-   "text": "See,",
-   "s": 14.109,
-   "e": 14.399
+   "text": "the air is thin,",
+   "s": 8.698,
+   "e": 9.113
   },
   {
-   "text": "an escalator's metal steps are constantly moving,",
-   "s": 14.54,
-   "e": 17.231
+   "text": "so the cabin is pumped full of air to keep you breathing.",
+   "s": 9.234,
+   "e": 10.777
   },
   {
-   "text": "while the side wall next to them stays completely still.",
-   "s": 17.678,
-   "e": 20.53
+   "text": "That pressure pushes on the skin,",
+   "s": 10.918,
+   "e": 12.197
   },
   {
-   "text": "That leaves a razor-thin gap right along the edge,",
-   "s": 21.154,
-   "e": 23.973
+   "text": "over and over,",
+   "s": 12.878,
+   "e": 13.485
   },
   {
-   "text": "and if a shoelace,",
-   "s": 24.322,
-   "e": 25.238
+   "text": "every flight.",
+   "s": 13.644,
+   "e": 14.447
   },
   {
-   "text": "baggy pant leg,",
-   "s": 25.536,
-   "e": 26.471
+   "text": "Cut a square hole in that skin,",
+   "s": 14.719,
+   "e": 16.358
   },
   {
-   "text": "or soft sneaker slips in,",
-   "s": 26.751,
-   "e": 28.37
+   "text": "and all the force piles up in the four sharp corners.",
+   "s": 17.042,
+   "e": 20.115
   },
   {
-   "text": "the gears don't stop.",
-   "s": 28.671,
-   "e": 29.807
+   "text": "Tiny cracks start there.",
+   "s": 20.24,
+   "e": 21.396
   },
   {
-   "text": "That's why safety codes require skirt deflectors.",
-   "s": 30.416,
-   "e": 32.999
+   "text": "And with every takeoff and landing,",
+   "s": 22.122,
+   "e": 25.268
   },
   {
-   "text": "The second those stiff bristles touch your ankle,",
-   "s": 33.705,
-   "e": 36.967
+   "text": "they grow.",
+   "s": 25.52,
+   "e": 25.966
   },
   {
-   "text": "your brain flinches and pulls your foot away.",
-   "s": 37.11,
-   "e": 38.752
+   "text": "In 1954,",
+   "s": 26.627,
+   "e": 27.842
   },
   {
-   "text": "So,",
-   "s": 39.268,
-   "e": 39.57
+   "text": "two Comet jets broke apart in mid-air.",
+   "s": 28.135,
+   "e": 30.353
   },
   {
-   "text": "next time you go in for a free shine,",
-   "s": 39.954,
-   "e": 41.931
+   "text": "The cracks had started at the corners of the square windows.",
+   "s": 30.943,
+   "e": 33.47
   },
   {
-   "text": "remember.",
-   "s": 42.194,
-   "e": 42.711
+   "text": "So engineers changed the shape.",
+   "s": 34.096,
+   "e": 35.694
   },
   {
-   "text": "The escalator isn't cleaning your shoes.",
-   "s": 43.089,
-   "e": 45.221
+   "text": "No corners,",
+   "s": 36.208,
+   "e": 36.92
   },
   {
-   "text": "It's warning you to move.",
-   "s": 45.585,
-   "e": 46.866
+   "text": "no pile-up.",
+   "s": 37.137,
+   "e": 37.792
+  },
+  {
+   "text": "The stress spreads smoothly around the curve.",
+   "s": 38.438,
+   "e": 40.748
+  },
+  {
+   "text": "That's why every window today is round.",
+   "s": 41.371,
+   "e": 43.586
+  },
+  {
+   "text": "Not a style choice.",
+   "s": 44.04,
+   "e": 45.095
+  },
+  {
+   "text": "A lesson written in metal.",
+   "s": 45.436,
+   "e": 46.948
   }
  ]
 }
