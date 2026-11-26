@@ -132,7 +132,7 @@ jobs:
 
       - name: Stitch + encode + QA
         run: |
-          which ffmpeg || sudo apt-get install -y ffmpeg
+          if ! which ffmpeg >/dev/null 2>&1; then sudo apt-get update && sudo apt-get install -y ffmpeg; fi
           mkdir -p frames
           cp frames-all/*.jpg frames/
           python3 -c "import os, shutil; total=1417; [shutil.copy2(f'frames/f{f:04d}.jpg', f'frames/f{f+1:04d}.jpg') for f in range(0, total, 2) if os.path.exists(f'frames/f{f:04d}.jpg') and f+1 < total]; print('frames:', len(os.listdir('frames')))"
