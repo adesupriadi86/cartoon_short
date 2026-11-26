@@ -162,7 +162,13 @@ jobs:
               sudo apt-get update && sudo apt-get install -y ffmpeg
             fi
           fi
-          if [ -x "$HOME/ffmpeg-static/ffmpeg" ]; then echo "$HOME/ffmpeg-static" >> "$GITHUB_PATH"; fi
+          # GITHUB_PATH only affects later steps, not this shell, so export
+          # the dir here too -- otherwise `which ffmpeg` below fails even
+          # though the binary is installed (that killed run 45850132346).
+          if [ -x "$HOME/ffmpeg-static/ffmpeg" ]; then
+            echo "$HOME/ffmpeg-static" >> "$GITHUB_PATH"
+            export PATH="$HOME/ffmpeg-static:$PATH"
+          fi
           which ffmpeg && ffmpeg -version | head -1
 
       - name: Stitch + encode + QA
