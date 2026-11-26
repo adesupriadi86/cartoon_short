@@ -1,0 +1,234 @@
+{
+ "duration": 47.220292,
+ "frames30": 1417,
+ "source": "silence-align (cost 3.12)",
+ "segments": [
+  [
+   0.197458,
+   2.659208
+  ],
+  [
+   3.005042,
+   5.613292
+  ],
+  [
+   5.779167,
+   7.663125
+  ],
+  [
+   8.359083,
+   9.821375
+  ],
+  [
+   9.999125,
+   10.853125
+  ],
+  [
+   11.330583,
+   12.02575
+  ],
+  [
+   12.287833,
+   13.510125
+  ],
+  [
+   14.10925,
+   14.3985
+  ],
+  [
+   14.5395,
+   16.241958
+  ],
+  [
+   16.381208,
+   17.230708
+  ],
+  [
+   17.677833,
+   19.6865
+  ],
+  [
+   19.814708,
+   20.530167
+  ],
+  [
+   21.15375,
+   23.972792
+  ],
+  [
+   24.322167,
+   25.238125
+  ],
+  [
+   25.535875,
+   26.471458
+  ],
+  [
+   26.751125,
+   28.370375
+  ],
+  [
+   28.670542,
+   29.806708
+  ],
+  [
+   30.416083,
+   32.999292
+  ],
+  [
+   33.704792,
+   34.698292
+  ],
+  [
+   34.87775,
+   36.144167
+  ],
+  [
+   36.467167,
+   36.96725
+  ],
+  [
+   37.11,
+   37.52975
+  ],
+  [
+   37.660583,
+   38.24525
+  ],
+  [
+   38.378333,
+   38.751708
+  ],
+  [
+   39.26775,
+   39.569542
+  ],
+  [
+   39.954167,
+   41.139542
+  ],
+  [
+   41.276958,
+   41.931
+  ],
+  [
+   42.193708,
+   42.7105
+  ],
+  [
+   43.088583,
+   45.221083
+  ],
+  [
+   45.585125,
+   46.866333
+  ]
+ ],
+ "phrases": [
+  {
+   "text": "Stop cleaning your shoes on those escalator brushes,",
+   "s": 0.197,
+   "e": 2.659
+  },
+  {
+   "text": "because you're actually shoving your foot straight into the most dangerous spot on the whole machine.",
+   "s": 3.005,
+   "e": 7.663
+  },
+  {
+   "text": "Almost everyone thinks they're a free shoe shine.",
+   "s": 8.359,
+   "e": 10.853
+  },
+  {
+   "text": "In reality,",
+   "s": 11.331,
+   "e": 12.026
+  },
+  {
+   "text": "they're a silent alarm.",
+   "s": 12.288,
+   "e": 13.51
+  },
+  {
+   "text": "See,",
+   "s": 14.109,
+   "e": 14.399
+  },
+  {
+   "text": "an escalator's metal steps are constantly moving,",
+   "s": 14.54,
+   "e": 17.231
+  },
+  {
+   "text": "while the side wall next to them stays completely still.",
+   "s": 17.678,
+   "e": 20.53
+  },
+  {
+   "text": "That leaves a razor-thin gap right along the edge,",
+   "s": 21.154,
+   "e": 23.973
+  },
+  {
+   "text": "and if a shoelace,",
+   "s": 24.322,
+   "e": 25.238
+  },
+  {
+   "text": "baggy pant leg,",
+   "s": 25.536,
+   "e": 26.471
+  },
+  {
+   "text": "or soft sneaker slips in,",
+   "s": 26.751,
+   "e": 28.37
+  },
+  {
+   "text": "the gears don't stop.",
+   "s": 28.671,
+   "e": 29.807
+  },
+  {
+   "text": "That's why safety codes require skirt deflectors.",
+   "s": 30.416,
+   "e": 32.999
+  },
+  {
+   "text": "The second those stiff bristles touch your ankle,",
+   "s": 33.705,
+   "e": 36.967
+  },
+  {
+   "text": "your brain flinches and pulls your foot away.",
+   "s": 37.11,
+   "e": 38.752
+  },
+  {
+   "text": "So,",
+   "s": 39.268,
+   "e": 39.57
+  },
+  {
+   "text": "next time you go in for a free shine,",
+   "s": 39.954,
+   "e": 41.931
+  },
+  {
+   "text": "remember.",
+   "s": 42.194,
+   "e": 42.711
+  },
+  {
+   "text": "The escalator isn't cleaning your shoes.",
+   "s": 43.089,
+   "e": 45.221
+  },
+  {
+   "text": "It's warning you to move.",
+   "s": 45.585,
+   "e": 46.866
+  }
+ ]
+}

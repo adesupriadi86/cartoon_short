@@ -1,0 +1,141 @@
+# Render the cartoon short on GitHub Actions (parallel SwiftShader render)
+#
+# Git alone does not render anything -- it only stores the files. This workflow
+# runs the render on GitHub's CI machines: 8 jobs in parallel, each rendering
+# one slice of the frames, then a finish job stitches them into the MP4.
+#
+# Why it is faster: one video needs ~709 frames on twos. Locally (1.5 shared
+# cores) that took 26 min. Here 8 runners work at once, so wall time is roughly
+# the slowest slice (~90 frames) + setup, about 4-6 minutes.
+# Still no GPU anywhere: every runner uses SwiftShader (CPU WebGL), just in
+# parallel. The 3D look stays exactly the same as the local render.
+#
+# Costs (checked 2026-11-26):
+# - Public repo: standard Linux runners are FREE and unlimited, 4 vCPU / 16 GB.
+# - Private repo, GitHub Free: 2,000 Linux minutes/month included, runner is
+#   2 vCPU / 8 GB. One video costs ~8 jobs x ~5 min = ~40 min, so ~50 videos
+#   a month fit in the free allowance. Free artifact storage is 500 MB, so
+#   keep retention short (frames ~130 MB + mp4 ~69 MB per run).
+# - Use a PRIVATE repo if this kit/template is not meant to be public.
+#
+# What must be committed in the repo (this project folder is the repo root):
+#   web/ (cast.js, main.js, paint.js, story.js), engine/, tools/,
+#   audio.py, script.txt, voice.mp3, mix_raw.wav, work/ (words.json,
+#   phrases.json, subs.ass). Do NOT commit frames/ or out/ (CI rebuilds them).
+#   tools/render_cloud.py is used: it reads CHROME_BIN / CHROMEDRIVER from
+#   the environment, and only adds the Meta-Chromium policy flags when the
+#   browser is the Meta build, so it works unchanged on GitHub runners.
+#
+# How to run: push, then Actions tab -> "Render cartoon short" -> Run workflow.
+# The finished MP4 appears as the `video` artifact of the finish job.
+
+name: Render cartoon short
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'web/**'
+      - 'engine/**'
+      - 'tools/**'
+      - 'audio.py'
+      - 'script.txt'
+      - 'voice.mp3'
+      - 'mix_raw.wav'
+      - 'work/**'
+      - 'title.txt'
+      - '.github/workflows/render.yml'
+  workflow_dispatch:
+    inputs:
+      title:
+        description: 'Output title (dashes instead of spaces)'
+        default: 'Why-Escalators-Have-Brushes-on-the-Side'
+        required: true
+      step:
+        description: 'Render step (2 = on twos, half the frames)'
+        default: '2'
+        required: true
+      workers:
+        description: 'Parallel Chrome workers per job'
+        default: '2'
+        required: true
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { chunk: 0, range: '0-176' }
+          - { chunk: 1, range: '178-354' }
+          - { chunk: 2, range: '356-532' }
+          - { chunk: 3, range: '534-710' }
+          - { chunk: 4, range: '712-888' }
+          - { chunk: 5, range: '890-1066' }
+          - { chunk: 6, range: '1068-1244' }
+          - { chunk: 7, range: '1246-1416' }
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python deps
+        run: pip install selenium numpy pillow
+
+      - name: Install Chrome + ChromeDriver
+        uses: browser-actions/setup-chrome@v1
+      - uses: browser-actions/setup-chromedriver@v1
+
+      - name: Sync engine files + build toon.js
+        run: |
+          mkdir -p web/lib frames
+          cp engine/index.html web/
+          cp engine/motion.js web/
+          cp engine/lib/three.module.js web/lib/
+          bash engine/build_toon.sh engine/toonbase.js web/cast.js web/toon.js
+
+      - name: Render frames ${{ matrix.range }}
+        run: |
+          export CHROME_BIN="$(which google-chrome)"
+          export CHROMEDRIVER="$(which chromedriver)"
+          python3 tools/render_cloud.py frames "${{ matrix.range }}" "${{ inputs.step }}" 0.92 "${{ inputs.workers }}"
+
+      - name: Upload frames
+        uses: actions/upload-artifact@v4
+        with:
+          name: frames-${{ matrix.chunk }}
+          path: frames/
+          retention-days: 2
+
+  finish:
+    needs: render
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Collect all frame chunks
+        uses: actions/download-artifact@v4
+        with:
+          pattern: frames-*
+          path: frames-all
+          merge-multiple: true
+
+      - name: Stitch + encode + QA
+        run: |
+          which ffmpeg || sudo apt-get install -y ffmpeg
+          mkdir -p frames
+          cp frames-all/*.jpg frames/
+          python3 -c "import os, shutil; total=1417; [shutil.copy2(f'frames/f{f:04d}.jpg', f'frames/f{f+1:04d}.jpg') for f in range(0, total, 2) if os.path.exists(f'frames/f{f:04d}.jpg') and f+1 < total]; print('frames:', len(os.listdir('frames')))"
+          TITLE="${{ inputs.title }}"
+          if [ -z "$TITLE" ]; then TITLE="$(cat title.txt 2>/dev/null || echo "${{ github.event.repository.name }}")"; fi
+          bash tools/finish.sh "$TITLE" "work/subs.ass"
+
+      - name: Upload finished video
+        uses: actions/upload-artifact@v4
+        with:
+          name: video
+          path: out/*.mp4
+          retention-days: 7

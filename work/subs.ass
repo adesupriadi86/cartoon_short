@@ -1,0 +1,140 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
+Style: Default,DejaVu Sans,78,&H00FFFFFF,&H0000D7FF,&H0018121E,&H80000000,-1,0,0,0,100,100,0,0,1,9,4,2,70,70,360,1
+
+[Events]
+Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
+
+Dialogue: 0,0:00:00.20,0:00:00.39,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}STOP{\c&H00FFFFFF&\fscx100\fscy100} CLEANING YOUR
+Dialogue: 0,0:00:00.39,0:00:00.77,Default,,0,0,0,,STOP {\c&H0018D8FF&\fscx108\fscy108}CLEANING{\c&H00FFFFFF&\fscx100\fscy100} YOUR
+Dialogue: 0,0:00:00.77,0:00:00.96,Default,,0,0,0,,STOP CLEANING {\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:00.96,0:00:01.14,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}SHOES{\c&H00FFFFFF&\fscx100\fscy100} ON THOSE
+Dialogue: 0,0:00:01.14,0:00:01.33,Default,,0,0,0,,SHOES {\c&H0018D8FF&\fscx108\fscy108}ON{\c&H00FFFFFF&\fscx100\fscy100} THOSE
+Dialogue: 0,0:00:01.33,0:00:01.52,Default,,0,0,0,,SHOES ON {\c&H0018D8FF&\fscx108\fscy108}THOSE{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:01.52,0:00:02.28,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}ESCALATOR{\c&H00FFFFFF&\fscx100\fscy100} BRUSHES,
+Dialogue: 0,0:00:02.28,0:00:02.66,Default,,0,0,0,,ESCALATOR {\c&H0018D8FF&\fscx108\fscy108}BRUSHES,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:03.00,0:00:03.38,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}BECAUSE{\c&H00FFFFFF&\fscx100\fscy100} YOU'RE ACTUALLY
+Dialogue: 0,0:00:03.38,0:00:03.56,Default,,0,0,0,,BECAUSE {\c&H0018D8FF&\fscx108\fscy108}YOU'RE{\c&H00FFFFFF&\fscx100\fscy100} ACTUALLY
+Dialogue: 0,0:00:03.56,0:00:04.12,Default,,0,0,0,,BECAUSE YOU'RE {\c&H0018D8FF&\fscx108\fscy108}ACTUALLY{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:04.12,0:00:04.50,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}SHOVING{\c&H00FFFFFF&\fscx100\fscy100} YOUR FOOT
+Dialogue: 0,0:00:04.50,0:00:04.68,Default,,0,0,0,,SHOVING {\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100} FOOT
+Dialogue: 0,0:00:04.68,0:00:04.87,Default,,0,0,0,,SHOVING YOUR {\c&H0018D8FF&\fscx108\fscy108}FOOT{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:04.87,0:00:05.05,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}STRAIGHT{\c&H00FFFFFF&\fscx100\fscy100} INTO THE
+Dialogue: 0,0:00:05.05,0:00:05.43,Default,,0,0,0,,STRAIGHT {\c&H0018D8FF&\fscx108\fscy108}INTO{\c&H00FFFFFF&\fscx100\fscy100} THE
+Dialogue: 0,0:00:05.43,0:00:05.61,Default,,0,0,0,,STRAIGHT INTO {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:05.61,0:00:05.80,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}MOST{\c&H00FFFFFF&\fscx100\fscy100} DANGEROUS SPOT
+Dialogue: 0,0:00:05.80,0:00:06.36,Default,,0,0,0,,MOST {\c&H0018D8FF&\fscx108\fscy108}DANGEROUS{\c&H00FFFFFF&\fscx100\fscy100} SPOT
+Dialogue: 0,0:00:06.36,0:00:06.54,Default,,0,0,0,,MOST DANGEROUS {\c&H0018D8FF&\fscx108\fscy108}SPOT{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:06.54,0:00:06.73,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}ON{\c&H00FFFFFF&\fscx100\fscy100} THE WHOLE
+Dialogue: 0,0:00:06.73,0:00:06.92,Default,,0,0,0,,ON {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} WHOLE
+Dialogue: 0,0:00:06.92,0:00:07.29,Default,,0,0,0,,ON THE {\c&H0018D8FF&\fscx108\fscy108}WHOLE{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:07.29,0:00:07.66,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}MACHINE.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:08.36,0:00:08.81,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}ALMOST{\c&H00FFFFFF&\fscx100\fscy100} EVERYONE THINKS
+Dialogue: 0,0:00:08.81,0:00:09.49,Default,,0,0,0,,ALMOST {\c&H0018D8FF&\fscx108\fscy108}EVERYONE{\c&H00FFFFFF&\fscx100\fscy100} THINKS
+Dialogue: 0,0:00:09.49,0:00:09.72,Default,,0,0,0,,ALMOST EVERYONE {\c&H0018D8FF&\fscx108\fscy108}THINKS{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:09.72,0:00:09.95,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THEY'RE{\c&H00FFFFFF&\fscx100\fscy100} A FREE
+Dialogue: 0,0:00:09.95,0:00:10.17,Default,,0,0,0,,THEY'RE {\c&H0018D8FF&\fscx108\fscy108}A{\c&H00FFFFFF&\fscx100\fscy100} FREE
+Dialogue: 0,0:00:10.17,0:00:10.40,Default,,0,0,0,,THEY'RE A {\c&H0018D8FF&\fscx108\fscy108}FREE{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:10.40,0:00:10.63,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}SHOE{\c&H00FFFFFF&\fscx100\fscy100} SHINE.
+Dialogue: 0,0:00:10.63,0:00:10.85,Default,,0,0,0,,SHOE {\c&H0018D8FF&\fscx108\fscy108}SHINE.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:11.33,0:00:11.50,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}IN{\c&H00FFFFFF&\fscx100\fscy100} REALITY,
+Dialogue: 0,0:00:11.50,0:00:12.03,Default,,0,0,0,,IN {\c&H0018D8FF&\fscx108\fscy108}REALITY,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:12.29,0:00:12.49,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THEY'RE{\c&H00FFFFFF&\fscx100\fscy100} A SILENT
+Dialogue: 0,0:00:12.49,0:00:12.70,Default,,0,0,0,,THEY'RE {\c&H0018D8FF&\fscx108\fscy108}A{\c&H00FFFFFF&\fscx100\fscy100} SILENT
+Dialogue: 0,0:00:12.70,0:00:13.10,Default,,0,0,0,,THEY'RE A {\c&H0018D8FF&\fscx108\fscy108}SILENT{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:13.10,0:00:13.51,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}ALARM.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:14.11,0:00:14.40,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}SEE,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:14.54,0:00:14.73,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}AN{\c&H00FFFFFF&\fscx100\fscy100} ESCALATOR'S METAL
+Dialogue: 0,0:00:14.73,0:00:15.50,Default,,0,0,0,,AN {\c&H0018D8FF&\fscx108\fscy108}ESCALATOR'S{\c&H00FFFFFF&\fscx100\fscy100} METAL
+Dialogue: 0,0:00:15.50,0:00:15.88,Default,,0,0,0,,AN ESCALATOR'S {\c&H0018D8FF&\fscx108\fscy108}METAL{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:15.88,0:00:16.08,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}STEPS{\c&H00FFFFFF&\fscx100\fscy100} ARE CONSTANTLY
+Dialogue: 0,0:00:16.08,0:00:16.27,Default,,0,0,0,,STEPS {\c&H0018D8FF&\fscx108\fscy108}ARE{\c&H00FFFFFF&\fscx100\fscy100} CONSTANTLY
+Dialogue: 0,0:00:16.27,0:00:16.85,Default,,0,0,0,,STEPS ARE {\c&H0018D8FF&\fscx108\fscy108}CONSTANTLY{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:16.85,0:00:17.23,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}MOVING,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:17.68,0:00:18.09,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}WHILE{\c&H00FFFFFF&\fscx100\fscy100} THE SIDE
+Dialogue: 0,0:00:18.09,0:00:18.29,Default,,0,0,0,,WHILE {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} SIDE
+Dialogue: 0,0:00:18.29,0:00:18.49,Default,,0,0,0,,WHILE THE {\c&H0018D8FF&\fscx108\fscy108}SIDE{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:18.49,0:00:18.70,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}WALL{\c&H00FFFFFF&\fscx100\fscy100} NEXT TO
+Dialogue: 0,0:00:18.70,0:00:18.90,Default,,0,0,0,,WALL {\c&H0018D8FF&\fscx108\fscy108}NEXT{\c&H00FFFFFF&\fscx100\fscy100} TO
+Dialogue: 0,0:00:18.90,0:00:19.10,Default,,0,0,0,,WALL NEXT {\c&H0018D8FF&\fscx108\fscy108}TO{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:19.10,0:00:19.31,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THEM{\c&H00FFFFFF&\fscx100\fscy100} STAYS COMPLETELY
+Dialogue: 0,0:00:19.31,0:00:19.51,Default,,0,0,0,,THEM {\c&H0018D8FF&\fscx108\fscy108}STAYS{\c&H00FFFFFF&\fscx100\fscy100} COMPLETELY
+Dialogue: 0,0:00:19.51,0:00:20.33,Default,,0,0,0,,THEM STAYS {\c&H0018D8FF&\fscx108\fscy108}COMPLETELY{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:20.33,0:00:20.53,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}STILL.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:21.15,0:00:21.37,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THAT{\c&H00FFFFFF&\fscx100\fscy100} LEAVES A
+Dialogue: 0,0:00:21.37,0:00:21.80,Default,,0,0,0,,THAT {\c&H0018D8FF&\fscx108\fscy108}LEAVES{\c&H00FFFFFF&\fscx100\fscy100} A
+Dialogue: 0,0:00:21.80,0:00:22.02,Default,,0,0,0,,THAT LEAVES {\c&H0018D8FF&\fscx108\fscy108}A{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:22.02,0:00:22.67,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}RAZOR-THIN{\c&H00FFFFFF&\fscx100\fscy100} GAP RIGHT
+Dialogue: 0,0:00:22.67,0:00:22.89,Default,,0,0,0,,RAZOR-THIN {\c&H0018D8FF&\fscx108\fscy108}GAP{\c&H00FFFFFF&\fscx100\fscy100} RIGHT
+Dialogue: 0,0:00:22.89,0:00:23.11,Default,,0,0,0,,RAZOR-THIN GAP {\c&H0018D8FF&\fscx108\fscy108}RIGHT{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:23.11,0:00:23.54,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}ALONG{\c&H00FFFFFF&\fscx100\fscy100} THE EDGE,
+Dialogue: 0,0:00:23.54,0:00:23.76,Default,,0,0,0,,ALONG {\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} EDGE,
+Dialogue: 0,0:00:23.76,0:00:23.97,Default,,0,0,0,,ALONG THE {\c&H0018D8FF&\fscx108\fscy108}EDGE,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:24.32,0:00:24.50,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}AND{\c&H00FFFFFF&\fscx100\fscy100} IF A
+Dialogue: 0,0:00:24.50,0:00:24.69,Default,,0,0,0,,AND {\c&H0018D8FF&\fscx108\fscy108}IF{\c&H00FFFFFF&\fscx100\fscy100} A
+Dialogue: 0,0:00:24.69,0:00:24.87,Default,,0,0,0,,AND IF {\c&H0018D8FF&\fscx108\fscy108}A{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:24.87,0:00:25.24,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}SHOELACE,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:25.54,0:00:26.00,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}BAGGY{\c&H00FFFFFF&\fscx100\fscy100} PANT LEG,
+Dialogue: 0,0:00:26.00,0:00:26.24,Default,,0,0,0,,BAGGY {\c&H0018D8FF&\fscx108\fscy108}PANT{\c&H00FFFFFF&\fscx100\fscy100} LEG,
+Dialogue: 0,0:00:26.24,0:00:26.47,Default,,0,0,0,,BAGGY PANT {\c&H0018D8FF&\fscx108\fscy108}LEG,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:26.75,0:00:27.02,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}OR{\c&H00FFFFFF&\fscx100\fscy100} SOFT SNEAKER
+Dialogue: 0,0:00:27.02,0:00:27.29,Default,,0,0,0,,OR {\c&H0018D8FF&\fscx108\fscy108}SOFT{\c&H00FFFFFF&\fscx100\fscy100} SNEAKER
+Dialogue: 0,0:00:27.29,0:00:27.83,Default,,0,0,0,,OR SOFT {\c&H0018D8FF&\fscx108\fscy108}SNEAKER{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:27.83,0:00:28.10,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}SLIPS{\c&H00FFFFFF&\fscx100\fscy100} IN,
+Dialogue: 0,0:00:28.10,0:00:28.37,Default,,0,0,0,,SLIPS {\c&H0018D8FF&\fscx108\fscy108}IN,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:28.67,0:00:28.95,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} GEARS DON'T
+Dialogue: 0,0:00:28.95,0:00:29.24,Default,,0,0,0,,THE {\c&H0018D8FF&\fscx108\fscy108}GEARS{\c&H00FFFFFF&\fscx100\fscy100} DON'T
+Dialogue: 0,0:00:29.24,0:00:29.52,Default,,0,0,0,,THE GEARS {\c&H0018D8FF&\fscx108\fscy108}DON'T{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:29.52,0:00:29.81,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}STOP.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:30.42,0:00:30.61,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THAT'S{\c&H00FFFFFF&\fscx100\fscy100} WHY SAFETY
+Dialogue: 0,0:00:30.61,0:00:30.81,Default,,0,0,0,,THAT'S {\c&H0018D8FF&\fscx108\fscy108}WHY{\c&H00FFFFFF&\fscx100\fscy100} SAFETY
+Dialogue: 0,0:00:30.81,0:00:31.41,Default,,0,0,0,,THAT'S WHY {\c&H0018D8FF&\fscx108\fscy108}SAFETY{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:31.41,0:00:31.81,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}CODES{\c&H00FFFFFF&\fscx100\fscy100} REQUIRE SKIRT
+Dialogue: 0,0:00:31.81,0:00:32.20,Default,,0,0,0,,CODES {\c&H0018D8FF&\fscx108\fscy108}REQUIRE{\c&H00FFFFFF&\fscx100\fscy100} SKIRT
+Dialogue: 0,0:00:32.20,0:00:32.40,Default,,0,0,0,,CODES REQUIRE {\c&H0018D8FF&\fscx108\fscy108}SKIRT{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:32.40,0:00:33.00,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}DEFLECTORS.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:33.70,0:00:34.00,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} SECOND THOSE
+Dialogue: 0,0:00:34.00,0:00:34.59,Default,,0,0,0,,THE {\c&H0018D8FF&\fscx108\fscy108}SECOND{\c&H00FFFFFF&\fscx100\fscy100} THOSE
+Dialogue: 0,0:00:34.59,0:00:34.89,Default,,0,0,0,,THE SECOND {\c&H0018D8FF&\fscx108\fscy108}THOSE{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:34.89,0:00:35.19,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}STIFF{\c&H00FFFFFF&\fscx100\fscy100} BRISTLES TOUCH
+Dialogue: 0,0:00:35.19,0:00:35.78,Default,,0,0,0,,STIFF {\c&H0018D8FF&\fscx108\fscy108}BRISTLES{\c&H00FFFFFF&\fscx100\fscy100} TOUCH
+Dialogue: 0,0:00:35.78,0:00:36.08,Default,,0,0,0,,STIFF BRISTLES {\c&H0018D8FF&\fscx108\fscy108}TOUCH{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:36.08,0:00:36.37,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100} ANKLE,
+Dialogue: 0,0:00:36.37,0:00:36.97,Default,,0,0,0,,YOUR {\c&H0018D8FF&\fscx108\fscy108}ANKLE,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:37.11,0:00:37.27,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100} BRAIN FLINCHES
+Dialogue: 0,0:00:37.27,0:00:37.44,Default,,0,0,0,,YOUR {\c&H0018D8FF&\fscx108\fscy108}BRAIN{\c&H00FFFFFF&\fscx100\fscy100} FLINCHES
+Dialogue: 0,0:00:37.44,0:00:37.77,Default,,0,0,0,,YOUR BRAIN {\c&H0018D8FF&\fscx108\fscy108}FLINCHES{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:37.77,0:00:37.93,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}AND{\c&H00FFFFFF&\fscx100\fscy100} PULLS YOUR
+Dialogue: 0,0:00:37.93,0:00:38.09,Default,,0,0,0,,AND {\c&H0018D8FF&\fscx108\fscy108}PULLS{\c&H00FFFFFF&\fscx100\fscy100} YOUR
+Dialogue: 0,0:00:38.09,0:00:38.26,Default,,0,0,0,,AND PULLS {\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:38.26,0:00:38.42,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}FOOT{\c&H00FFFFFF&\fscx100\fscy100} AWAY.
+Dialogue: 0,0:00:38.42,0:00:38.75,Default,,0,0,0,,FOOT {\c&H0018D8FF&\fscx108\fscy108}AWAY.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:39.27,0:00:39.57,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}SO,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:39.95,0:00:40.17,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}NEXT{\c&H00FFFFFF&\fscx100\fscy100} TIME YOU
+Dialogue: 0,0:00:40.17,0:00:40.39,Default,,0,0,0,,NEXT {\c&H0018D8FF&\fscx108\fscy108}TIME{\c&H00FFFFFF&\fscx100\fscy100} YOU
+Dialogue: 0,0:00:40.39,0:00:40.61,Default,,0,0,0,,NEXT TIME {\c&H0018D8FF&\fscx108\fscy108}YOU{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:40.61,0:00:40.83,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}GO{\c&H00FFFFFF&\fscx100\fscy100} IN FOR
+Dialogue: 0,0:00:40.83,0:00:41.05,Default,,0,0,0,,GO {\c&H0018D8FF&\fscx108\fscy108}IN{\c&H00FFFFFF&\fscx100\fscy100} FOR
+Dialogue: 0,0:00:41.05,0:00:41.27,Default,,0,0,0,,GO IN {\c&H0018D8FF&\fscx108\fscy108}FOR{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:41.27,0:00:41.49,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}A{\c&H00FFFFFF&\fscx100\fscy100} FREE SHINE,
+Dialogue: 0,0:00:41.49,0:00:41.71,Default,,0,0,0,,A {\c&H0018D8FF&\fscx108\fscy108}FREE{\c&H00FFFFFF&\fscx100\fscy100} SHINE,
+Dialogue: 0,0:00:41.71,0:00:41.93,Default,,0,0,0,,A FREE {\c&H0018D8FF&\fscx108\fscy108}SHINE,{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:42.19,0:00:42.71,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}REMEMBER.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:43.09,0:00:43.30,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}THE{\c&H00FFFFFF&\fscx100\fscy100} ESCALATOR ISN'T
+Dialogue: 0,0:00:43.30,0:00:44.16,Default,,0,0,0,,THE {\c&H0018D8FF&\fscx108\fscy108}ESCALATOR{\c&H00FFFFFF&\fscx100\fscy100} ISN'T
+Dialogue: 0,0:00:44.16,0:00:44.37,Default,,0,0,0,,THE ESCALATOR {\c&H0018D8FF&\fscx108\fscy108}ISN'T{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:44.37,0:00:44.80,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}CLEANING{\c&H00FFFFFF&\fscx100\fscy100} YOUR SHOES.
+Dialogue: 0,0:00:44.80,0:00:45.01,Default,,0,0,0,,CLEANING {\c&H0018D8FF&\fscx108\fscy108}YOUR{\c&H00FFFFFF&\fscx100\fscy100} SHOES.
+Dialogue: 0,0:00:45.01,0:00:45.22,Default,,0,0,0,,CLEANING YOUR {\c&H0018D8FF&\fscx108\fscy108}SHOES.{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:45.59,0:00:45.80,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}IT'S{\c&H00FFFFFF&\fscx100\fscy100} WARNING YOU
+Dialogue: 0,0:00:45.80,0:00:46.23,Default,,0,0,0,,IT'S {\c&H0018D8FF&\fscx108\fscy108}WARNING{\c&H00FFFFFF&\fscx100\fscy100} YOU
+Dialogue: 0,0:00:46.23,0:00:46.44,Default,,0,0,0,,IT'S WARNING {\c&H0018D8FF&\fscx108\fscy108}YOU{\c&H00FFFFFF&\fscx100\fscy100}
+Dialogue: 0,0:00:46.44,0:00:46.65,Default,,0,0,0,,{\c&H0018D8FF&\fscx108\fscy108}TO{\c&H00FFFFFF&\fscx100\fscy100} MOVE.
+Dialogue: 0,0:00:46.65,0:00:46.87,Default,,0,0,0,,TO {\c&H0018D8FF&\fscx108\fscy108}MOVE.{\c&H00FFFFFF&\fscx100\fscy100}
