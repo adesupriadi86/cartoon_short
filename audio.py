@@ -1,9 +1,9 @@
 """Synthesized upbeat music bed + frame-accurate cartoon SFX for
-'What If Sharks Disappeared', mixed under untouched voice.mp3.
+'Why Airplane Windows Are Round', mixed under untouched voice.mp3.
 Audio mix contract:
 - Voiceover untouched (zero time-stretching, zero pitch/EQ edits)
 - Music bed measured against gated voice RMS and set to exactly -6.0 dB (50% of voice RMS)
-- Music cuts DEAD SILENT at 43.99s (right before 'The ocean's scariest animal turns out to be its guardian.' at 44.19s)
+- Music cuts DEAD SILENT at 45.20s (right before 'A lesson written in metal.' at 45.44s)
 - SFX peaks strictly capped at <= 0.7x voice peak
 """
 import numpy as np, subprocess, wave
@@ -76,14 +76,14 @@ def hihat():
     n = int(0.06 * SR); t = np.arange(n) / SR
     return hp_fast((rng.standard_normal(n) * np.exp(-t * 65)).astype(np.float32), 6500) * 0.35
 
-# Bright progression (C - Am - F - G) shifts to tense minor pulse during the danger section (12.0s - 37.0s: rays explode through the 71% decline)
+# Bright progression (C - Am - F - G) shifts to tense minor pulse during the danger section (14.5s - 33.8s)
 prog_bright = [(48, [60, 64, 67]), (45, [57, 60, 64]), (41, [53, 57, 60]), (43, [55, 59, 62])]
 prog_tense  = [(45, [57, 60, 64]), (41, [53, 57, 60]), (40, [52, 55, 59]), (40, [52, 56, 59])]
 
-MUSIC_STOP = 43.99  # Cuts DEAD SILENT right before "The ocean's scariest animal turns out to be its guardian." (44.19s)
+MUSIC_STOP = 45.20  # Cuts DEAD SILENT right before "A lesson written in metal." (45.44s)
 bar = 0; tt = 0.0
 while tt < MUSIC_STOP:
-    tense = 12.0 <= tt < 37.0
+    tense = 14.5 <= tt < 33.8
     root, ch = (prog_tense if tense else prog_bright)[bar % 4]
     place(music, pad_chord([midi(m) for m in ch], beat * 4 * 0.96), tt, 0.14 if tense else 0.11)
     for b in range(4):
@@ -131,7 +131,7 @@ def crack_snap():
     return ((snap * 0.9 + ping * 0.5) * 0.7).astype(np.float32)
 
 def deep_boom():
-    """Low distant boom for the ray-swarm explosion beat (tasteful, no crash noise)."""
+    """Low distant boom for the Comet breakup beat (tasteful, no crash noise)."""
     d = 1.6; n = int(d * SR); t = np.arange(n) / SR
     sub = np.sin(2 * np.pi * (70 * np.exp(-t * 3) + 38) * t) * np.exp(-t * 2.0) * 1.0
     rumble = lp_fast(noise(d), 220) * np.exp(-t * 2.5) * 0.8
@@ -144,31 +144,29 @@ def zap_sfx():
     return (s * 0.65).astype(np.float32)
 
 def twist_sting():
-    """Punchy dramatic impact sting right on 'The ocean's scariest animal turns out to be its guardian.' after dead silence!"""
+    """Punchy dramatic impact sting right on 'A lesson written in metal.' after dead silence!"""
     d = 1.4; n = int(d * SR); t = np.arange(n) / SR
     sub = np.sin(2 * np.pi * (68 * np.exp(-t * 4) + 42) * t) * np.exp(-t * 2.2) * 1.1
     hit = lp_fast(noise(d), 1100) * np.exp(-t * 10) * 0.75
     ch = sum(np.sin(2 * np.pi * midi(m) * t) for m in [57, 60, 64, 69]) * np.exp(-t * 3.8) * 0.35
     return (sub + hit + ch).astype(np.float32)
 
-# Place all SFX synced to exact frames from phrases.json (sharks beats)
-place(sfx, whoosh(0.45),      F(6), 0.70)      # hook: every shark vanishes
-place(sfx, zap_sfx(),         F(214), 0.85)    # "It is fear." reveal
-place(sfx, whoosh(0.40),      F(249), 0.60)    # "Off the coast of America" — chain reaction starts
-place(sfx, alarm_beep(780),   F(360), 0.80)    # "Big sharks declined"
-place(sfx, deep_boom(),       F(395), 0.90)    # cownose rays explode to forty million
-place(sfx, crack_snap(),      F(486), 0.90)    # rays wipe out the scallops, fishery collapses
-place(sfx, sparkle_ping(),    F(642), 0.70)    # "In Shark Bay" location reveal
-place(sfx, whoosh(0.38),      F(687), 0.60)    # tiger sharks do not even need to hunt
-place(sfx, sparkle_ping(),    F(751), 0.65)    # turtles and dugongs scared off the seagrass
-place(sfx, sparkle_ping(),    F(865), 0.65)    # seagrass stores carbon, shelters baby fish
-place(sfx, alarm_beep(920),   F(958), 0.85)    # "fallen seventy-one percent since nineteen seventy"
-place(sfx, whoosh(0.35),      F(1102), 0.60)   # "Take the rest away"
-place(sfx, zap_sfx(),         F(1134), 0.80)   # "the dominoes keep falling"
-place(sfx, sparkle_ping(),    F(1186), 0.60)   # "the fish we eat depend on that balance too"
-place(sfx, sparkle_ping(),    F(1268), 0.65)   # "No sharks,"
-place(sfx, sparkle_ping(),    F(1293), 0.65)   # "no balance."
-place(sfx, twist_sting(),     F(1325), 1.00)   # POST-SILENCE TWIST STING!
+# Place all SFX synced to exact frames from phrases.json
+place(sfx, whoosh(0.45),      F(6), 0.70)      # hook: jet flyby
+place(sfx, sparkle_ping(),    F(60), 0.70)     # "It's round" reveal
+place(sfx, whoosh(0.40),      F(190), 0.60)    # metal balloon
+place(sfx, whoosh(0.38),      F(280), 0.60)    # thin air / cabin pressure
+place(sfx, alarm_beep(780),   F(340), 0.80)    # pressure pushes on the skin
+place(sfx, alarm_beep(920),   F(460), 0.85)    # square hole: force piles into corners
+place(sfx, crack_snap(),      F(625), 0.90)    # tiny cracks start
+place(sfx, crack_snap(),      F(720), 0.80)    # cracks grow with every flight
+place(sfx, deep_boom(),       F(810), 0.90)    # 1954: Comet breaks apart
+place(sfx, whoosh(0.35),      F(950), 0.60)    # investigators: cracks found
+place(sfx, sparkle_ping(),    F(1040), 0.65)   # engineers change the shape
+place(sfx, sparkle_ping(),    F(1100), 0.60)   # no corners
+place(sfx, whoosh(0.38),      F(1170), 0.65)   # stress spreads around the curve
+place(sfx, sparkle_ping(),    F(1255), 0.60)   # that's why every window is round
+place(sfx, twist_sting(),     F(1365), 1.00)   # POST-SILENCE TWIST STING!
 
 # ---------------- EXACT -6.0 dB GATED-RMS MUSIC MIX + 0.7x SFX PEAK CAP ----------------
 voice = load_voice()

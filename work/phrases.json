@@ -1,230 +1,314 @@
 {
- "duration": 47.210333,
- "frames30": 1416,
- "source": "silence-align (cost 2.44)",
+ "duration": 47.241833,
+ "frames30": 1417,
+ "source": "silence-align (cost 8.87)",
  "segments": [
   [
-   0.1725,
-   1.534958
+   0.170917,
+   1.081958
   ],
   [
-   1.713625,
-   2.447333
+   1.207875,
+   1.433542
   ],
   [
-   2.993625,
-   4.9105
+   1.813,
+   2.294833
   ],
   [
-   5.301042,
-   6.465417
+   2.809417,
+   3.930083
   ],
   [
-   6.588417,
-   6.780667
+   4.068042,
+   5.01475
   ],
   [
-   7.144208,
-   7.340208
+   5.150875,
+   5.45375
   ],
   [
-   7.5065,
-   7.683625
+   5.950708,
+   7.455875
   ],
   [
-   8.306708,
-   9.365583
+   8.016167,
+   8.464792
   ],
   [
-   9.556333,
-   11.408667
+   8.697792,
+   9.112625
   ],
   [
-   12.008875,
-   12.928583
+   9.234,
+   9.438167
   ],
   [
-   13.179917,
-   14.938167
+   9.810208,
+   10.452625
   ],
   [
-   15.0845,
-   15.612042
+   10.613958,
+   10.777167
   ],
   [
-   16.204833,
-   18.424458
+   10.917875,
+   11.513292
   ],
   [
-   18.644083,
-   19.436875
+   11.635458,
+   12.196583
   ],
   [
-   19.566458,
-   20.839958
+   12.87825,
+   13.015083
   ],
   [
-   21.42025,
-   21.798417
+   13.1715,
+   13.484667
   ],
   [
-   21.921792,
-   22.613458
+   13.643625,
+   14.447
   ],
   [
-   22.908667,
-   24.55275
+   14.719458,
+   16.056667
   ],
   [
-   25.037542,
-   28.350625
+   16.200625,
+   16.35775
   ],
   [
-   28.839792,
-   31.416167
+   17.041667,
+   18.512
   ],
   [
-   31.95375,
-   36.19925
+   18.753583,
+   19.20625
   ],
   [
-   36.76175,
-   37.623333
+   19.343375,
+   20.115375
   ],
   [
-   37.822333,
-   38.6485
+   20.24025,
+   20.38175
   ],
   [
-   38.793708,
-   39.01525
+   20.54175,
+   20.994917
   ],
   [
-   39.552875,
-   41.747833
+   21.177542,
+   21.395542
   ],
   [
-   42.268292,
-   42.923083
+   22.122083,
+   23.419833
   ],
   [
-   43.111125,
-   43.7545
+   23.797542,
+   25.267792
   ],
   [
-   44.186333,
-   45.513708
+   25.520167,
+   25.624792
   ],
   [
-   45.672375,
-   46.901708
+   25.762708,
+   25.965917
+  ],
+  [
+   26.626667,
+   27.509625
+  ],
+  [
+   27.640542,
+   27.841708
+  ],
+  [
+   28.134667,
+   28.942375
+  ],
+  [
+   29.162792,
+   29.366417
+  ],
+  [
+   29.518875,
+   30.353
+  ],
+  [
+   30.943125,
+   33.470042
+  ],
+  [
+   34.095792,
+   35.693625
+  ],
+  [
+   36.208292,
+   36.920167
+  ],
+  [
+   37.13725,
+   37.337667
+  ],
+  [
+   37.493625,
+   37.791542
+  ],
+  [
+   38.438125,
+   40.74775
+  ],
+  [
+   41.371208,
+   43.194458
+  ],
+  [
+   43.332292,
+   43.585958
+  ],
+  [
+   44.040083,
+   45.094875
+  ],
+  [
+   45.435625,
+   45.898458
+  ],
+  [
+   46.194875,
+   46.947708
   ]
  ],
  "phrases": [
   {
-   "text": "What if every shark on Earth vanished tomorrow?",
-   "s": 0.172,
-   "e": 2.447
+   "text": "Look at the window when you fly.",
+   "s": 0.171,
+   "e": 1.434
   },
   {
-   "text": "Sharks sit at the top of the ocean's food chain,",
-   "s": 2.994,
-   "e": 4.91
+   "text": "It's round.",
+   "s": 1.813,
+   "e": 2.295
   },
   {
-   "text": "but their real power is not eating.",
-   "s": 5.301,
-   "e": 6.781
+   "text": "That little curve is why the plane stays in one piece.",
+   "s": 2.809,
+   "e": 5.454
   },
   {
-   "text": "It is fear.",
-   "s": 7.144,
-   "e": 7.684
+   "text": "Every jet is a metal balloon.",
+   "s": 5.951,
+   "e": 7.456
   },
   {
-   "text": "Off the coast of America,",
-   "s": 8.307,
-   "e": 9.366
+   "text": "Up high,",
+   "s": 8.016,
+   "e": 8.465
   },
   {
-   "text": "scientists watched the chain reaction happen.",
-   "s": 9.556,
-   "e": 11.409
+   "text": "the air is thin,",
+   "s": 8.698,
+   "e": 9.113
   },
   {
-   "text": "Big sharks declined,",
-   "s": 12.009,
-   "e": 12.929
+   "text": "so the cabin is pumped full of air to keep you breathing.",
+   "s": 9.234,
+   "e": 10.777
   },
   {
-   "text": "and cownose rays exploded to around forty million.",
-   "s": 13.18,
-   "e": 15.612
+   "text": "That pressure pushes on the skin,",
+   "s": 10.918,
+   "e": 12.197
   },
   {
-   "text": "The rays helped wipe out so many bay scallops that a century-old fishery collapsed completely.",
-   "s": 16.205,
-   "e": 20.84
+   "text": "over and over,",
+   "s": 12.878,
+   "e": 13.485
   },
   {
-   "text": "In Shark Bay,",
-   "s": 21.42,
-   "e": 21.798
+   "text": "every flight.",
+   "s": 13.644,
+   "e": 14.447
   },
   {
-   "text": "Australia,",
-   "s": 21.922,
-   "e": 22.613
+   "text": "Cut a square hole in that skin,",
+   "s": 14.719,
+   "e": 16.358
   },
   {
-   "text": "tiger sharks do not even need to hunt.",
-   "s": 22.909,
-   "e": 24.553
+   "text": "and all the force piles up in the four sharp corners.",
+   "s": 17.042,
+   "e": 20.115
   },
   {
-   "text": "Just being nearby scares turtles and dugongs away from the seagrass.",
-   "s": 25.038,
-   "e": 28.351
+   "text": "Tiny cracks start there.",
+   "s": 20.24,
+   "e": 21.396
   },
   {
-   "text": "That seagrass stores carbon and shelters baby fish.",
-   "s": 28.84,
-   "e": 31.416
+   "text": "And with every takeoff and landing,",
+   "s": 22.122,
+   "e": 25.268
   },
   {
-   "text": "Oceanic sharks and rays have already fallen seventy-one percent since nineteen seventy.",
-   "s": 31.954,
-   "e": 36.199
+   "text": "they grow.",
+   "s": 25.52,
+   "e": 25.966
   },
   {
-   "text": "Take the rest away,",
-   "s": 36.762,
-   "e": 37.623
+   "text": "In 1954,",
+   "s": 26.627,
+   "e": 27.842
   },
   {
-   "text": "and the dominoes keep falling.",
-   "s": 37.822,
-   "e": 39.015
+   "text": "two Comet jets broke apart in mid-air.",
+   "s": 28.135,
+   "e": 30.353
   },
   {
-   "text": "And the fish we eat depend on that balance too.",
-   "s": 39.553,
-   "e": 41.748
+   "text": "The cracks had started at the corners of the square windows.",
+   "s": 30.943,
+   "e": 33.47
   },
   {
-   "text": "No sharks,",
-   "s": 42.268,
-   "e": 42.923
+   "text": "So engineers changed the shape.",
+   "s": 34.096,
+   "e": 35.694
   },
   {
-   "text": "no balance.",
-   "s": 43.111,
-   "e": 43.755
+   "text": "No corners,",
+   "s": 36.208,
+   "e": 36.92
   },
   {
-   "text": "The ocean's scariest animal turns out to be its guardian.",
-   "s": 44.186,
-   "e": 46.902
+   "text": "no pile-up.",
+   "s": 37.137,
+   "e": 37.792
+  },
+  {
+   "text": "The stress spreads smoothly around the curve.",
+   "s": 38.438,
+   "e": 40.748
+  },
+  {
+   "text": "That's why every window today is round.",
+   "s": 41.371,
+   "e": 43.586
+  },
+  {
+   "text": "Not a style choice.",
+   "s": 44.04,
+   "e": 45.095
+  },
+  {
+   "text": "A lesson written in metal.",
+   "s": 45.436,
+   "e": 46.948
   }
  ]
 }

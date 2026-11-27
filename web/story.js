@@ -1,52 +1,49 @@
-// Shot plan for "What If Sharks Disappeared" — timed to voice.mp3 (47.21 s, 30 fps, 1416 frames).
-// Phrase boundaries from tools/timing.py (silence-align, cost 2.44).
-import { M, clamp, lerp, lerp3, ramp, camFromKeys, idle, blinkAt, walk, q } from './motion.js';
+// Shot plan for "Why Airplane Windows Are Round" — timed to voice.mp3 (47.24 s, 30 fps, 1417 frames).
+import { M, clamp, lerp, lerp3, ramp, camFromKeys, idle, blinkAt, q } from './motion.js';
 
 export const FPS = 30, TOTAL = 1417;
 export const escY = () => 0;
 
 export const SHOTS = [
-  { id: 'hook_vanish',      a: 0,    b: 79,   light: 'reefDay' },
-  { id: 'top_predator',     a: 80,   b: 146,  light: 'reefDay' },
-  { id: 'real_power',       a: 147,  b: 203,  light: 'deepBlue' },
-  { id: 'it_is_fear',       a: 204,  b: 230,  light: 'deepBlue' },
-  { id: 'off_coast',        a: 231,  b: 280,  light: 'reefDay' },
-  { id: 'chain_reaction',   a: 281,  b: 342,  light: 'reefDay' },
-  { id: 'sharks_declined',  a: 343,  b: 387,  light: 'warningAmber' },
-  { id: 'rays_explode',     a: 388,  b: 468,  light: 'warningAmber' },
-  { id: 'scallops_gone',    a: 469,  b: 625,  light: 'reefDay' },
-  { id: 'shark_bay',        a: 626,  b: 736,  light: 'sharkBay' },
-  { id: 'fear_zones',       a: 737,  b: 850,  light: 'sharkBay' },
-  { id: 'seagrass_value',   a: 851,  b: 942,  light: 'sharkBay' },
-  { id: 'seventy_one',      a: 943,  b: 1085, light: 'warningAmber' },
-  { id: 'dominoes_fall',    a: 1086, b: 1170, light: 'reefDay' },
-  { id: 'fish_we_eat',      a: 1171, b: 1252, light: 'reefDay' },
-  { id: 'no_sharks',        a: 1253, b: 1312, light: 'deepBlue' },
-  { id: 'guard_finale',     a: 1313, b: 1416, light: 'finalePunch' },
+  { id: 'hook_window',    a: 0,    b: 43,   light: 'skyDay' },
+  { id: 'its_round',      a: 44,   b: 80,   light: 'skyDay' },
+  { id: 'curve_reason',   a: 81,   b: 177,  light: 'skyDay' },
+  { id: 'metal_balloon',  a: 178,  b: 239,  light: 'skyDay' },
+  { id: 'thin_air',       a: 240,  b: 326,  light: 'techNight' },
+  { id: 'pressure_push',  a: 327,  b: 440,  light: 'warningAmber' },
+  { id: 'square_hole',    a: 441,  b: 606,  light: 'warningAmber' },
+  { id: 'cracks_start',   a: 607,  b: 797,  light: 'warningAmber' },
+  { id: 'comet_1954',     a: 798,  b: 927,  light: 'techNight' },
+  { id: 'cracks_found',   a: 928,  b: 1021, light: 'blueprintCyan' },
+  { id: 'engineers_fix',  a: 1022, b: 1085, light: 'blueprintCyan' },
+  { id: 'no_corners',     a: 1086, b: 1152, light: 'blueprintCyan' },
+  { id: 'stress_spreads', a: 1153, b: 1240, light: 'skyDay' },
+  { id: 'why_round',      a: 1241, b: 1362, light: 'skyDay' },
+  { id: 'lesson_finale',  a: 1363, b: 1416, light: 'finalePunch' },
 ];
 export const shotAt = (f) => SHOTS.find((s) => f >= s.a && f <= s.b) || SHOTS[SHOTS.length - 1];
 
-// ---------- 5 Dynamic Lighting Moods (ocean-tuned) ----------
+// ---------- 5 Dynamic Lighting Moods ----------
 export const LIGHTS = {
-  reefDay: {
-    az: 135, el: 58, sky: '#d8ecff', ground: '#c9b183', hemi: 1.35, sun: '#fff4df', sunI: 2.3,
-    fog: '#9fd4ec', fogNear: 24, fogFar: 85, skyTop: '#1e7cc9', skyHor: '#bfe6f7',
+  skyDay: {
+    az: 135, el: 58, sky: '#d8ecff', ground: '#b8a892', hemi: 1.35, sun: '#fff4df', sunI: 2.3,
+    fog: '#e4f0fb', fogNear: 26, fogFar: 90, skyTop: '#3e8ae0', skyHor: '#cbe4fc',
     sat: 1.15, gain: '#ffffff', lift: '#000000', vig: 0.16, shadowExt: 16,
-  },
-  deepBlue: {
-    az: 150, el: 48, sky: '#7db8e8', ground: '#274b66', hemi: 1.1, sun: '#a8ceff', sunI: 2.0,
-    fog: '#123f63', fogNear: 16, fogFar: 60, skyTop: '#0d2f5e', skyHor: '#2a6ea8',
-    sat: 1.18, gain: '#dcecff', lift: '#020612', vig: 0.28, shadowExt: 14,
-  },
-  sharkBay: {
-    az: 125, el: 55, sky: '#d8f4ec', ground: '#b8a888', hemi: 1.38, sun: '#fff8e0', sunI: 2.4,
-    fog: '#a8e0d8', fogNear: 24, fogFar: 82, skyTop: '#1fa8a0', skyHor: '#c8f0e8',
-    sat: 1.16, gain: '#f2fbff', lift: '#00050a', vig: 0.16, shadowExt: 16,
   },
   warningAmber: {
     az: 35, el: 34, sky: '#ffc78c', ground: '#7a4a3a', hemi: 1.15, sun: '#ff9f45', sunI: 2.75,
     fog: '#e8a87c', fogNear: 22, fogFar: 75, skyTop: '#a64d32', skyHor: '#ffc278',
     sat: 1.22, gain: '#fff0dc', lift: '#0a0300', vig: 0.26, shadowExt: 16,
+  },
+  techNight: {
+    az: 160, el: 44, sky: '#5c88c9', ground: '#1c2b47', hemi: 1.15, sun: '#a8ceff', sunI: 2.25,
+    fog: '#172947', fogNear: 16, fogFar: 58, skyTop: '#0d1b36', skyHor: '#233f6b',
+    sat: 1.20, gain: '#dcecff', lift: '#020612', vig: 0.30, shadowExt: 14,
+  },
+  blueprintCyan: {
+    az: 125, el: 52, sky: '#bce8ff', ground: '#7fa2b8', hemi: 1.38, sun: '#ffffff', sunI: 2.35,
+    fog: '#cfe9f7', fogNear: 24, fogFar: 82, skyTop: '#2474b5', skyHor: '#bfe5fa',
+    sat: 1.16, gain: '#f2fbff', lift: '#00050a', vig: 0.16, shadowExt: 16,
   },
   finalePunch: {
     az: 110, el: 52, sky: '#d4eaff', ground: '#a69682', hemi: 1.38, sun: '#fff0cc', sunI: 2.65,
@@ -56,94 +53,89 @@ export const LIGHTS = {
 };
 export const lightFor = (S, f) => ({ ...LIGHTS[S.light] });
 
-// ---------- Cameras (all out front, +Z side, never inside a set) ----------
+// ---------- Cameras (all out front, +Z side, never inside the fuselage) ----------
 const CAMS = {
-  hook_vanish: [
-    { f: 0,  pos: [0.7, 2.6, 7.8], look: [0, 2.2, 0], fov: 40 },
-    { f: 79, pos: [0.5, 2.5, 7.2], look: [0, 2.2, 0], fov: 38, ease: 'smooth' },
+  hook_window: [
+    { f: 0,  pos: [11.5, 8.6, 7.5], look: [-1.0, 7.4, -2.0], fov: 44 },
+    { f: 43, pos: [10.0, 8.4, 6.5], look: [-0.5, 7.4, -2.0], fov: 42, ease: 'smooth' },
   ],
-  top_predator: [
-    { f: 80,  pos: [0.5, 2.6, 11.5], look: [0, 2.1, 0], fov: 42 },
-    { f: 146, pos: [0.3, 2.5, 11.0], look: [0, 2.1, 0], fov: 42, ease: 'smooth' },
+  its_round: [
+    { f: 44, pos: [17.2, 2.0, 6.2], look: [18.0, 1.8, -0.8], fov: 40 },
+    { f: 80, pos: [17.4, 2.0, 5.6], look: [18.0, 1.8, -0.8], fov: 38, ease: 'smooth' },
   ],
-  real_power: [
-    { f: 147, pos: [0.5, 2.6, 11.5], look: [0, 2.1, 0], fov: 42 },
-    { f: 203, pos: [0.3, 2.5, 11.0], look: [0, 2.1, 0], fov: 42, ease: 'smooth' },
+  curve_reason: [
+    { f: 81,  pos: [5.2, 3.8, 6.6],  look: [1.0, 2.9, 0.0], fov: 42 },
+    { f: 177, pos: [3.6, 3.5, 5.6],  look: [0.4, 2.9, 0.0], fov: 38, ease: 'smooth' },
   ],
-  it_is_fear: [
-    { f: 204, pos: [0.5, 2.4, 6.2], look: [0, 2.2, 0], fov: 40 },
-    { f: 230, pos: [0.4, 2.3, 5.8], look: [0, 2.2, 0], fov: 38, ease: 'smooth' },
+  metal_balloon: [
+    { f: 178, pos: [-7.5, 9.6, 8.5], look: [0.0, 7.4, -2.0], fov: 44 },
+    { f: 239, pos: [-5.8, 9.0, 7.2], look: [0.0, 7.4, -2.0], fov: 42, ease: 'smooth' },
   ],
-  off_coast: [
-    { f: 231, pos: [0.5, 2.6, 11.5], look: [0, 2.1, 0], fov: 42 },
-    { f: 280, pos: [0.3, 2.5, 11.0], look: [0, 2.1, 0], fov: 42, ease: 'smooth' },
+  thin_air: [
+    { f: 240, pos: [10.5, 10.8, 5.5], look: [1.5, 7.5, -2.0], fov: 44 },
+    { f: 326, pos: [9.0, 10.2, 4.8],  look: [1.0, 7.5, -2.0], fov: 42, ease: 'smooth' },
   ],
-  chain_reaction: [
-    { f: 281, pos: [0.6, 2.4, 7.4], look: [0, 1.9, 0], fov: 40 },
-    { f: 342, pos: [0.4, 2.3, 6.8], look: [0, 1.9, 0], fov: 38, ease: 'smooth' },
+  pressure_push: [
+    { f: 327, pos: [-6.5, 3.8, 7.2], look: [-4.0, 2.9, 0.0], fov: 40 },
+    { f: 440, pos: [-5.5, 3.6, 6.5], look: [-3.5, 2.9, 0.0], fov: 38, ease: 'smooth' },
   ],
-  sharks_declined: [
-    { f: 343, pos: [0.5, 2.6, 11.0], look: [0, 2.1, 0], fov: 42 },
-    { f: 387, pos: [0.3, 2.5, 10.5], look: [0, 2.1, 0], fov: 42, ease: 'smooth' },
+  square_hole: [
+    { f: 441, pos: [0.0, 3.2, 10.5], look: [0.0, 2.6, 0.0], fov: 42 },
+    { f: 520, pos: [-0.5, 3.1, 9.6], look: [0.0, 2.6, 0.0], fov: 40, ease: 'smooth' },
+    { f: 606, pos: [-0.8, 3.0, 9.0], look: [0.0, 2.6, 0.0], fov: 38, ease: 'smooth' },
   ],
-  rays_explode: [
-    { f: 388, pos: [0.6, 2.8, 7.6], look: [0, 2.3, 0], fov: 42 },
-    { f: 468, pos: [0.4, 2.7, 7.0], look: [0, 2.3, 0], fov: 40, ease: 'smooth' },
+  cracks_start: [
+    { f: 607, pos: [0.7, 3.4, 5.4], look: [0.15, 2.8, 0.0], fov: 34 },
+    { f: 797, pos: [0.6, 3.35, 5.0], look: [0.15, 2.8, 0.0], fov: 31, ease: 'smooth' },
   ],
-  scallops_gone: [
-    { f: 469, pos: [0.6, 2.4, 7.2], look: [0, 1.8, 0], fov: 40 },
-    { f: 625, pos: [0.4, 2.3, 6.6], look: [0, 1.8, 0], fov: 38, ease: 'smooth' },
+  comet_1954: [
+    { f: 798, pos: [-9.0, 8.6, 3.8],  look: [-14.0, 7.4, -5.0], fov: 40 },
+    { f: 927, pos: [-10.5, 8.2, 2.8], look: [-14.0, 7.4, -5.0], fov: 36, ease: 'smooth' },
   ],
-  shark_bay: [
-    { f: 626, pos: [0.7, 2.6, 7.2], look: [0, 2.2, 0], fov: 40 },
-    { f: 736, pos: [0.5, 2.5, 6.6], look: [0, 2.2, 0], fov: 38, ease: 'smooth' },
+  cracks_found: [
+    { f: 928,  pos: [-1.8, 3.4, 7.5], look: [-0.6, 2.0, 0.0], fov: 40 },
+    { f: 1021, pos: [-1.5, 3.3, 6.9], look: [-0.6, 2.0, 0.0], fov: 38, ease: 'smooth' },
   ],
-  fear_zones: [
-    { f: 737, pos: [0.7, 2.6, 7.2], look: [0, 2.2, 0], fov: 40 },
-    { f: 850, pos: [0.5, 2.5, 6.6], look: [0, 2.2, 0], fov: 38, ease: 'smooth' },
+  engineers_fix: [
+    { f: 1022, pos: [2.4, 2.4, 7.0],  look: [0.2, 1.9, 0.0], fov: 40 },
+    { f: 1085, pos: [2.0, 2.3, 6.4],  look: [0.2, 1.9, 0.0], fov: 38, ease: 'smooth' },
   ],
-  seagrass_value: [
-    { f: 851, pos: [0.6, 2.4, 7.0], look: [0, 2.0, 0], fov: 40 },
-    { f: 942, pos: [0.4, 2.3, 6.4], look: [0, 2.0, 0], fov: 38, ease: 'smooth' },
+  no_corners: [
+    { f: 1086, pos: [0.5, 2.1, 7.5], look: [0.0, 1.9, 0.0], fov: 36 },
+    { f: 1152, pos: [0.3, 2.0, 6.8], look: [0.0, 1.9, 0.0], fov: 34, ease: 'smooth' },
   ],
-  seventy_one: [
-    { f: 943,  pos: [0.5, 2.6, 11.5], look: [0, 2.1, 0], fov: 42 },
-    { f: 1085, pos: [0.3, 2.5, 11.0], look: [0, 2.1, 0], fov: 42, ease: 'smooth' },
+  stress_spreads: [
+    { f: 1153, pos: [0.0, 3.0, 9.5], look: [0.0, 2.6, 0.0], fov: 40 },
+    { f: 1240, pos: [0.0, 2.9, 8.6], look: [0.0, 2.6, 0.0], fov: 38, ease: 'smooth' },
   ],
-  dominoes_fall: [
-    { f: 1086, pos: [0.6, 2.4, 7.4], look: [0, 1.9, 0], fov: 40 },
-    { f: 1170, pos: [0.4, 2.3, 6.8], look: [0, 1.9, 0], fov: 38, ease: 'smooth' },
+  why_round: [
+    { f: 1241, pos: [17.2, 2.0, 6.2], look: [18.0, 1.8, -0.8], fov: 40 },
+    { f: 1362, pos: [17.4, 2.0, 5.6], look: [18.0, 1.8, -0.8], fov: 38, ease: 'smooth' },
   ],
-  fish_we_eat: [
-    { f: 1171, pos: [0.7, 2.6, 8.0], look: [0, 2.0, 0], fov: 40 },
-    { f: 1252, pos: [0.5, 2.5, 7.4], look: [0, 2.0, 0], fov: 38, ease: 'smooth' },
-  ],
-  no_sharks: [
-    { f: 1253, pos: [0.6, 2.6, 7.0], look: [0, 2.2, 0], fov: 40 },
-    { f: 1312, pos: [0.4, 2.5, 6.4], look: [0, 2.2, 0], fov: 38, ease: 'smooth' },
-  ],
-  guard_finale: [
-    { f: 1313, pos: [0.5, 4.0, 13.5], look: [0.0, 2.6, 2.0], fov: 46 },
-    { f: 1416, pos: [1.0, 4.2, 14.5], look: [0.0, 2.7, 2.0], fov: 46, ease: 'smooth' },
+  lesson_finale: [
+    { f: 1363, pos: [0.5, 4.6, 16.0], look: [0.0, 2.9, 1.5], fov: 44 },
+    { f: 1416, pos: [1.0, 4.8, 17.0], look: [0.0, 3.0, 1.5], fov: 46, ease: 'smooth' },
   ],
 };
 
 // Impact 7-frame flip-shakes synced to key dramatic beats
 const KICKS = [
-  { f: 214, a: 0.06 },
-  { f: 395, a: 0.06 },
-  { f: 958, a: 0.06 },
-  { f: 1325, a: 0.06 },
+  { f: 60,   a: 0.04 },
+  { f: 460,  a: 0.05 },
+  { f: 630,  a: 0.045 },
+  { f: 810,  a: 0.065 },
+  { f: 1365, a: 0.06 },
 ];
 
 export const camAt = (f) => {
   const S = shotAt(f);
   const c = camFromKeys(CAMS[S.id], f, { creep: 0.0008, kicks: KICKS });
   c.flash =
-    (f >= 214 && f < 220) ? (1 - (f - 214) / 6) * 0.85 :
-    (f >= 1325 && f < 1329) ? (1 - (f - 1325) / 4) * 0.45 : 0;
-  if (S.id === 'top_predator' || S.id === 'real_power' || S.id === 'off_coast' || S.id === 'sharks_declined' || S.id === 'seventy_one') c.shadowAt = [0, 1.6, 0];
-  else if (S.id === 'chain_reaction' || S.id === 'scallops_gone' || S.id === 'dominoes_fall' || S.id === 'fish_we_eat') c.shadowAt = [0, 2.0, 0];
+    (f >= 855 && f < 861) ? (1 - (f - 855) / 6) * 0.85 :
+    (f >= 1022 && f < 1028) ? (1 - (f - 1022) / 6) * 0.6 :
+    (f >= 1365 && f < 1369) ? (1 - (f - 1365) / 4) * 0.45 : 0;
+  if (S.id === 'engineers_fix' || S.id === 'no_corners') c.shadowAt = [0, 1.6, 0];
+  else if (S.id === 'square_hole' || S.id === 'cracks_start' || S.id === 'cracks_found' || S.id === 'stress_spreads') c.shadowAt = [0, 2.0, 0];
   else c.shadowAt = [0, 3.2, 0];
   return c;
 };
@@ -153,14 +145,13 @@ const dist = (a, b) => Math.hypot(a[0] - b[0], a[1] - b[1], a[2] - b[2]);
 export const dofAt = (f) => {
   const S = shotAt(f), C = camAt(f);
   const FOCUS = {
-    hook_vanish: [0.0, 2.2, 0.5], top_predator: [0.0, 2.1, 0.0], real_power: [0.0, 2.1, 0.0],
-    it_is_fear: [0.0, 2.2, 0.5], off_coast: [0.0, 2.1, 0.0], chain_reaction: [0.0, 1.9, 0.0],
-    sharks_declined: [0.0, 2.1, 0.0], rays_explode: [0.0, 2.3, 0.0], scallops_gone: [0.0, 1.8, 0.0],
-    shark_bay: [0.0, 2.2, 0.0], fear_zones: [0.0, 2.2, 0.0], seagrass_value: [0.0, 2.0, 0.0],
-    seventy_one: [0.0, 2.1, 0.0], dominoes_fall: [0.0, 1.9, 0.0], fish_we_eat: [0.0, 2.0, 0.0],
-    no_sharks: [0.0, 2.2, 0.5], guard_finale: [0.0, 2.9, 1.5],
+    hook_window: [0.0, 7.4, -2.0], its_round: [18.2, 1.85, -0.8], curve_reason: [0.7, 2.9, 0.0],
+    metal_balloon: [0.0, 7.4, -2.0], thin_air: [1.5, 7.5, -2.0], pressure_push: [-4.0, 2.9, 0.0],
+    square_hole: [0.0, 2.5, 0.0], cracks_start: [0.15, 2.8, 0.0], comet_1954: [-14.0, 7.4, -5.0],
+    cracks_found: [0.0, 2.3, 0.0], engineers_fix: [0.0, 1.9, 0.0], no_corners: [0.0, 1.9, 0.0],
+    stress_spreads: [0.0, 2.5, 0.0], why_round: [18.2, 1.85, -0.8], lesson_finale: [0.0, 2.9, 1.5],
   };
-  const CINF = { rays_explode: 9, it_is_fear: 8, sharks_declined: 8, seventy_one: 8, scallops_gone: 7, fear_zones: 7, seagrass_value: 6 };
+  const CINF = { its_round: 8, cracks_start: 10, stress_spreads: 9, no_corners: 7, cracks_found: 8, curve_reason: 5, pressure_push: 5 };
   return { focus: dist(C.pos, FOCUS[S.id]), cinf: CINF[S.id] ?? 4 };
 };
 
@@ -168,202 +159,88 @@ export const dofAt = (f) => {
 export const worldAt = (f) => {
   const S = shotAt(f);
   const W = {
-    reef: false, shark: false, sharkVanish: 0, board: 'none', dominoes: false, dominoFall: 0,
-    rays: false, rayCount: 0, scallops: false, scallopBare: 0, seagrass: false,
-    tiger: false, turtle: false, dugong: false, flee: 0, fishSchool: false,
-    gauge: 0, market: false, finalePlate: false, fearGlow: false, bubbles: true,
+    jet: null, comet: false, cabin: false, panels: false, board: false, finalePlate: false,
+    crack: 0, cornerGlow: false, flowDots: false, pressureArrows: false, clouds: true,
   };
   switch (S.id) {
-    case 'hook_vanish':
-      W.reef = true; W.shark = true;
-      W.sharkVanish = M.smooth(ramp(f, 62, 76));
+    case 'hook_window': W.jet = 'fly'; break;
+    case 'its_round': W.cabin = true; break;
+    case 'curve_reason': W.jet = 'ground'; break;
+    case 'metal_balloon': W.jet = 'fly'; W.pressureArrows = true; break;
+    case 'thin_air': W.jet = 'fly'; W.pressureArrows = true; break;
+    case 'pressure_push': W.jet = 'ground'; W.pressureArrows = true; break;
+    case 'square_hole': W.panels = true; W.cornerGlow = true; break;
+    case 'cracks_start':
+      W.panels = true; W.cornerGlow = true;
+      W.crack = M.smooth(ramp(f, 620, 780));
       break;
-    case 'top_predator': W.reef = true; W.board = 'food'; break;
-    case 'real_power': W.reef = true; W.board = 'food'; W.fearGlow = true; break;
-    case 'it_is_fear': W.reef = true; W.shark = true; W.fishSchool = true; break;
-    case 'off_coast': W.reef = true; W.board = 'map'; break;
-    case 'chain_reaction': W.reef = true; W.dominoes = true; W.dominoFall = M.smooth(ramp(f, 300, 335)); break;
-    case 'sharks_declined': W.reef = true; W.board = 'decline'; W.gauge = 1 - 0.6 * M.smooth(ramp(f, 350, 385)); break;
-    case 'rays_explode':
-      W.reef = true; W.rays = true;
-      W.rayCount = M.smooth(ramp(f, 395, 460));
-      break;
-    case 'scallops_gone':
-      W.reef = true; W.scallops = true; W.rays = true; W.rayCount = 1;
-      W.scallopBare = M.smooth(ramp(f, 500, 600));
-      break;
-    case 'shark_bay': W.reef = true; W.seagrass = true; W.tiger = true; W.turtle = true; W.dugong = true; break;
-    case 'fear_zones':
-      W.reef = true; W.seagrass = true; W.tiger = true; W.turtle = true; W.dugong = true;
-      W.flee = M.smooth(ramp(f, 745, 830));
-      break;
-    case 'seagrass_value': W.reef = true; W.seagrass = true; W.turtle = true; W.dugong = true; W.fishSchool = true; break;
-    case 'seventy_one': W.reef = true; W.board = 'chart71'; break;
-    case 'dominoes_fall': W.reef = true; W.dominoes = true; W.dominoFall = M.smooth(ramp(f, 1100, 1160)); break;
-    case 'fish_we_eat': W.reef = true; W.market = true; break;
-    case 'no_sharks': W.reef = true; break;
-    case 'guard_finale': W.reef = true; W.finalePlate = true; break;
+    case 'comet_1954': W.comet = true; break;
+    case 'cracks_found': W.panels = true; W.cornerGlow = true; W.crack = 1; break;
+    case 'engineers_fix': W.board = true; break;
+    case 'no_corners': W.board = true; break;
+    case 'stress_spreads': W.panels = true; W.roundPanel = true; W.flowDots = true; W.crack = 0; break;
+    case 'why_round': W.cabin = true; break;
+    case 'lesson_finale': W.jet = 'ground'; W.finalePlate = true; break;
   }
   return W;
 };
 
 // ---------- Actors ----------
-// Characters are flat toon cards in a 3D world. "Active" = walk across frame,
-// point, turn heads, react. Walkers use walk() + step phase so legs actually move.
 const A = (T, who, o, pos, extra = {}) => ({
   key: who + JSON.stringify(o),
   draw: (p) => T.mallFront(p, who, o),
   x: pos[0], y: pos[1], z: pos[2],
   ...extra,
 });
-// Walker: character crossing the frame left->right starting at shot start.
-const WK = (f, S, x0, speed = 1.0) => {
-  const w = walk(f, S.a, speed, 0.8);
-  return { x: x0 + w.dist, step: q(w.phase, 2) };
-};
-// Head turn: look sweeps from a to b across the shot.
-const TURN = (f, S, a, b, d0 = 8, d1 = 30) => q(a + (b - a) * M.smooth(ramp(f, S.a + d0, S.a + d1)), 2);
 
 export const actorsAt = (f, T) => {
   const S = shotAt(f), out = [];
-  const tint = S.light === 'warningAmber' ? '#ffe0c4' : S.light === 'deepBlue' ? '#c8e0ff' : '#ffffff';
-  const id1 = idle(f, 1), id2 = idle(f, 2), id3 = idle(f, 3), id4 = idle(f, 4);
-  const bg = (who, o, pos, seed) => A(T, who, { ...o, seed, blink: blinkAt(f, seed), bob: q(idle(f, seed).bob, 3) }, pos, { tint, s: 0.72 });
+  const tint = S.light === 'warningAmber' ? '#ffe0c4' : S.light === 'techNight' ? '#c8e0ff' : '#ffffff';
+  const id1 = idle(f, 1), id2 = idle(f, 2), id3 = idle(f, 3);
 
   switch (S.id) {
-    case 'hook_vanish': {
-      const wk = WK(f, S, -2.4, 1.0);
-      out.push(A(T, 'diver', { seed: 5, expr: 'grin', L: 'hang', R: 'point', facing: 0, look: 0, blink: blinkAt(f, 5), bob: q(id1.bob, 3), tilt: q(id1.tilt, 1) }, [0.9, 0, 0.5], { tint }));
-      out.push(A(T, 'marine', { seed: 11, expr: 'curious', L: 'hang', R: 'hang', facing: 0, look: TURN(f, S, -0.4, 0.3), blink: blinkAt(f, 11), bob: q(id2.bob, 3), step: wk.step, tilt: q(id2.tilt, 1) }, [wk.x, 0, 0.6], { tint }));
-      out.push(A(T, 'diver', { seed: 7, expr: 'grin', L: 'up', R: 'up', facing: 0, look: 0, blink: blinkAt(f, 7), bob: q(id3.bob, 3) }, [-1.3, 0, 0.5], { tint }));
-      out.push(bg('kid', { expr: 'grin', L: 'hang', R: 'point', facing: 0, look: 0 }, [-1.8, 0, -0.6], 9));
+    case 'its_round': {
+      out.push(A(T, 'passenger', {
+        seed: 5, expr: 'curious', L: 'hang', R: 'point', facing: -1, look: -0.4,
+        blink: blinkAt(f, 5), bob: q(id1.bob, 3), tilt: q(id1.tilt + 2, 1), headTilt: q(id1.headTilt, 1),
+      }, [17.7, 0, 0.55], { tint }));
       break;
     }
-    case 'top_predator': {
-      const wk = WK(f, S, -2.2, 0.9);
-      out.push(A(T, 'doctor', { seed: 21, expr: 'knowing', L: 'board', R: 'point', facing: -1, look: -0.2, blink: blinkAt(f, 21), bob: q(id2.bob, 3), tilt: q(id2.tilt, 1) }, [1.5, 0, 0.9], { tint }));
-      out.push(A(T, 'kid', { seed: 5, expr: 'curious', L: 'hip', R: 'point', facing: 0, look: TURN(f, S, -0.3, 0.4), blink: blinkAt(f, 5), bob: q(id1.bob, 3) }, [-1.4, 0, 0.6], { tint }));
-      out.push(A(T, 'marine', { seed: 11, expr: 'grin', L: 'hang', R: 'hang', facing: 0, look: 0, blink: blinkAt(f, 11), bob: q(id3.bob, 3), step: wk.step }, [wk.x, 0, 0.7], { tint }));
-      out.push(bg('diver', { expr: 'grin', L: 'hang', R: 'up', facing: 0, look: 0 }, [1.8, 0, -0.6], 13));
+    case 'cracks_found': {
+      out.push(A(T, 'engineer', {
+        seed: 21, expr: 'stern', L: 'board', R: 'point', facing: 1, look: 0.3,
+        blink: blinkAt(f, 21), bob: q(id2.bob, 3), headTilt: q(id2.headTilt, 1),
+      }, [-1.8, 0, 1.0], { tint }));
       break;
     }
-    case 'real_power': {
-      const wk = WK(f, S, -2.2, 0.9);
-      out.push(A(T, 'doctor', { seed: 21, expr: 'stern', L: 'board', R: 'point', facing: -1, look: -0.2, blink: blinkAt(f, 21), bob: q(id2.bob, 3) }, [1.5, 0, 0.9], { tint }));
-      out.push(A(T, 'kid', { seed: 5, expr: 'shock', L: 'cheek', R: 'cheek', facing: 0, look: 0, blink: 0, bob: q(id1.bob, 3) }, [-1.4, 0, 0.6], { tint }));
-      out.push(A(T, 'diver', { seed: 7, expr: 'panic', L: 'panic', R: 'panic', facing: 0, look: TURN(f, S, 0.3, -0.3), blink: blinkAt(f, 7), bob: q(id3.bob, 3), step: wk.step }, [wk.x, 0, 0.7], { tint }));
-      out.push(bg('marine', { expr: 'curious', L: 'hang', R: 'point', facing: 0, look: 0 }, [1.8, 0, -0.6], 15));
+    case 'engineers_fix': {
+      out.push(A(T, 'engineer', {
+        seed: 21, expr: 'grin', L: 'board', R: 'point', facing: -1, look: -0.2,
+        blink: blinkAt(f, 21), bob: q(id2.bob, 3), tilt: q(id2.tilt, 1),
+      }, [1.5, 0, 0.9], { tint }));
       break;
     }
-    case 'it_is_fear': {
-      out.push(A(T, 'diver', { seed: 5, expr: 'panic', L: 'panic', R: 'panic', facing: 0, look: 0, blink: 0, bob: q(id1.bob, 3) }, [0.9, 0, 0.5], { tint }));
-      out.push(A(T, 'diver', { seed: 7, expr: 'shock', L: 'cheek', R: 'cheek', facing: 0, look: 0, blink: 0, bob: q(id2.bob, 3) }, [-1.3, 0, 0.5], { tint }));
-      out.push(A(T, 'marine', { seed: 11, expr: 'panic', L: 'up', R: 'up', facing: 0, look: TURN(f, S, -0.3, 0.3, 2, 12), blink: blinkAt(f, 11), bob: q(id3.bob, 3) }, [0, 0, 0.7], { tint }));
-      out.push(bg('kid', { expr: 'shock', L: 'cheek', R: 'cheek', facing: 0, look: 0 }, [-1.8, 0, -0.6], 9));
+    case 'why_round': {
+      out.push(A(T, 'passenger', {
+        seed: 5, expr: 'grin', L: 'hip', R: 'thumb', facing: -1, look: -0.3,
+        blink: blinkAt(f, 5), bob: q(id1.bob, 3), headTilt: q(id1.headTilt, 1),
+      }, [17.7, 0, 0.55], { tint }));
       break;
     }
-    case 'off_coast': {
-      const wk = WK(f, S, -2.2, 0.9);
-      out.push(A(T, 'doctor', { seed: 21, expr: 'knowing', L: 'board', R: 'point', facing: -1, look: -0.2, blink: blinkAt(f, 21), bob: q(id2.bob, 3), tilt: q(id2.tilt, 1) }, [1.5, 0, 0.9], { tint }));
-      out.push(A(T, 'kid', { seed: 5, expr: 'curious', L: 'hip', R: 'point', facing: 0, look: TURN(f, S, -0.3, 0.4), blink: blinkAt(f, 5), bob: q(id1.bob, 3) }, [-1.4, 0, 0.6], { tint }));
-      out.push(A(T, 'marine', { seed: 11, expr: 'grin', L: 'hang', R: 'hang', facing: 0, look: 0, blink: blinkAt(f, 11), bob: q(id3.bob, 3), step: wk.step }, [wk.x, 0, 0.7], { tint }));
-      out.push(bg('fisherman', { expr: 'grin', L: 'hang', R: 'thumb', facing: 0, look: 0 }, [1.8, 0, -0.6], 17));
-      break;
-    }
-    case 'chain_reaction': {
-      const wk = WK(f, S, -2.2, 1.0);
-      out.push(A(T, 'doctor', { seed: 21, expr: 'knowing', L: 'board', R: 'point', facing: -1, look: -0.2, blink: blinkAt(f, 21), bob: q(id2.bob, 3) }, [1.5, 0, 0.9], { tint }));
-      out.push(A(T, 'kid', { seed: 5, expr: 'curious', L: 'hip', R: 'point', facing: 0, look: TURN(f, S, -0.4, 0.4), blink: blinkAt(f, 5), bob: q(id1.bob, 3) }, [-1.4, 0, 0.6], { tint }));
-      out.push(A(T, 'marine', { seed: 11, expr: 'grin', L: 'hang', R: 'hang', facing: 0, look: 0, blink: blinkAt(f, 11), bob: q(id3.bob, 3), step: wk.step }, [wk.x, 0, 0.7], { tint }));
-      out.push(bg('diver', { expr: 'grin', L: 'hang', R: 'point', facing: 0, look: 0 }, [1.8, 0, -0.6], 13));
-      break;
-    }
-    case 'sharks_declined': {
-      const wk = WK(f, S, -2.2, 0.9);
-      out.push(A(T, 'fisherman', { seed: 17, expr: 'wince', L: 'hip', R: 'cheek', facing: 0, look: 0, blink: blinkAt(f, 17), bob: q(id1.bob, 3) }, [-1.4, 0, 0.6], { tint }));
-      out.push(A(T, 'doctor', { seed: 21, expr: 'stern', L: 'board', R: 'point', facing: -1, look: -0.2, blink: blinkAt(f, 21), bob: q(id2.bob, 3) }, [1.5, 0, 0.9], { tint }));
-      out.push(A(T, 'marine', { seed: 11, expr: 'curious', L: 'hang', R: 'hang', facing: 0, look: TURN(f, S, -0.3, 0.3), blink: blinkAt(f, 11), bob: q(id3.bob, 3), step: wk.step }, [wk.x, 0, 0.7], { tint }));
-      out.push(bg('kid', { expr: 'wince', L: 'cheek', R: 'cheek', facing: 0, look: 0 }, [1.8, 0, -0.6], 9));
-      break;
-    }
-    case 'rays_explode': {
-      const wk = WK(f, S, -2.4, 1.1);
-      out.push(A(T, 'fisherman', { seed: 17, expr: 'shock', L: 'point', R: 'point', facing: 0, look: 0, blink: 0, bob: q(id1.bob, 3) }, [0.9, 0, 0.5], { tint }));
-      out.push(A(T, 'doctor', { seed: 21, expr: 'stern', L: 'board', R: 'point', facing: -1, look: -0.2, blink: blinkAt(f, 21), bob: q(id2.bob, 3) }, [1.5, 0, 0.9], { tint }));
-      out.push(A(T, 'marine', { seed: 11, expr: 'shock', L: 'hang', R: 'hang', facing: 0, look: TURN(f, S, -0.4, 0.4), blink: blinkAt(f, 11), bob: q(id3.bob, 3), step: wk.step }, [wk.x, 0, 0.7], { tint }));
-      out.push(bg('diver', { expr: 'shock', L: 'up', R: 'up', facing: 0, look: 0 }, [-1.8, 0, -0.6], 13));
-      break;
-    }
-    case 'scallops_gone': {
-      const wk = WK(f, S, -2.4, 0.9);
-      out.push(A(T, 'fisherman', { seed: 17, expr: 'wince', L: 'hip', R: 'point', facing: 0, look: 0, blink: blinkAt(f, 17), bob: q(id1.bob, 3) }, [0.9, 0, 0.5], { tint }));
-      out.push(A(T, 'fisherman', { seed: 19, expr: 'stern', L: 'hang', R: 'hang', facing: 0, look: TURN(f, S, 0.3, -0.3), blink: blinkAt(f, 19), bob: q(id2.bob, 3), step: wk.step }, [wk.x, 0, 0.7], { tint }));
-      out.push(A(T, 'doctor', { seed: 21, expr: 'knowing', L: 'board', R: 'point', facing: -1, look: -0.2, blink: blinkAt(f, 21), bob: q(id3.bob, 3) }, [1.5, 0, 0.9], { tint }));
-      out.push(bg('marine', { expr: 'wince', L: 'cheek', R: 'cheek', facing: 0, look: 0 }, [-1.8, 0, -0.6], 15));
-      break;
-    }
-    case 'shark_bay': {
-      const wk = WK(f, S, -2.4, 1.0);
-      out.push(A(T, 'diver', { seed: 5, expr: 'grin', L: 'hang', R: 'point', facing: 0, look: 0, blink: blinkAt(f, 5), bob: q(id1.bob, 3) }, [0.9, 0, 0.5], { tint }));
-      out.push(A(T, 'marine', { seed: 11, expr: 'curious', L: 'hang', R: 'hang', facing: 0, look: TURN(f, S, -0.3, 0.3), blink: blinkAt(f, 11), bob: q(id2.bob, 3), step: wk.step }, [wk.x, 0, 0.7], { tint }));
-      out.push(A(T, 'diver', { seed: 7, expr: 'grin', L: 'up', R: 'up', facing: 0, look: 0, blink: blinkAt(f, 7), bob: q(id3.bob, 3) }, [-1.3, 0, 0.5], { tint }));
-      out.push(bg('kid', { expr: 'grin', L: 'hang', R: 'point', facing: 0, look: 0 }, [-1.8, 0, -0.6], 9));
-      break;
-    }
-    case 'fear_zones': {
-      const wk = WK(f, S, -2.4, 1.0);
-      out.push(A(T, 'diver', { seed: 5, expr: 'curious', L: 'hang', R: 'point', facing: 0, look: 0, blink: blinkAt(f, 5), bob: q(id1.bob, 3) }, [0.9, 0, 0.5], { tint }));
-      out.push(A(T, 'marine', { seed: 11, expr: 'grin', L: 'hang', R: 'hang', facing: 0, look: TURN(f, S, -0.4, 0.4), blink: blinkAt(f, 11), bob: q(id2.bob, 3), step: wk.step }, [wk.x, 0, 0.7], { tint }));
-      out.push(A(T, 'doctor', { seed: 21, expr: 'knowing', L: 'board', R: 'point', facing: -1, look: -0.2, blink: blinkAt(f, 21), bob: q(id3.bob, 3) }, [1.5, 0, 0.9], { tint }));
-      out.push(bg('diver', { expr: 'curious', L: 'hang', R: 'point', facing: 0, look: 0 }, [-1.8, 0, -0.6], 13));
-      break;
-    }
-    case 'seagrass_value': {
-      const wk = WK(f, S, -2.4, 0.9);
-      out.push(A(T, 'doctor', { seed: 21, expr: 'knowing', L: 'board', R: 'point', facing: -1, look: -0.2, blink: blinkAt(f, 21), bob: q(id2.bob, 3) }, [1.5, 0, 0.9], { tint }));
-      out.push(A(T, 'diver', { seed: 5, expr: 'grin', L: 'hang', R: 'point', facing: 0, look: TURN(f, S, -0.3, 0.3), blink: blinkAt(f, 5), bob: q(id1.bob, 3) }, [-1.4, 0, 0.6], { tint }));
-      out.push(A(T, 'marine', { seed: 11, expr: 'grin', L: 'hang', R: 'hang', facing: 0, look: 0, blink: blinkAt(f, 11), bob: q(id3.bob, 3), step: wk.step }, [wk.x, 0, 0.7], { tint }));
-      out.push(bg('kid', { expr: 'grin', L: 'up', R: 'up', facing: 0, look: 0 }, [1.8, 0, -0.6], 9));
-      break;
-    }
-    case 'seventy_one': {
-      const wk = WK(f, S, -2.4, 1.0);
-      out.push(A(T, 'doctor', { seed: 21, expr: 'stern', L: 'board', R: 'point', facing: -1, look: -0.2, blink: blinkAt(f, 21), bob: q(id2.bob, 3) }, [1.5, 0, 0.9], { tint }));
-      out.push(A(T, 'fisherman', { seed: 17, expr: 'wince', L: 'cheek', R: 'cheek', facing: 0, look: 0, blink: 0, bob: q(id1.bob, 3) }, [-1.4, 0, 0.6], { tint }));
-      out.push(A(T, 'marine', { seed: 11, expr: 'shock', L: 'hang', R: 'hang', facing: 0, look: TURN(f, S, -0.3, 0.3), blink: blinkAt(f, 11), bob: q(id3.bob, 3), step: wk.step }, [wk.x, 0, 0.7], { tint }));
-      out.push(bg('kid', { expr: 'shock', L: 'cheek', R: 'cheek', facing: 0, look: 0 }, [1.8, 0, -0.6], 9));
-      break;
-    }
-    case 'dominoes_fall': {
-      const wk = WK(f, S, -2.2, 1.0);
-      out.push(A(T, 'doctor', { seed: 21, expr: 'knowing', L: 'board', R: 'point', facing: -1, look: -0.2, blink: blinkAt(f, 21), bob: q(id2.bob, 3) }, [1.5, 0, 0.9], { tint }));
-      out.push(A(T, 'kid', { seed: 5, expr: 'curious', L: 'hip', R: 'point', facing: 0, look: TURN(f, S, -0.4, 0.4), blink: blinkAt(f, 5), bob: q(id1.bob, 3) }, [-1.4, 0, 0.6], { tint }));
-      out.push(A(T, 'marine', { seed: 11, expr: 'grin', L: 'hang', R: 'hang', facing: 0, look: 0, blink: blinkAt(f, 11), bob: q(id3.bob, 3), step: wk.step }, [wk.x, 0, 0.7], { tint }));
-      out.push(bg('diver', { expr: 'curious', L: 'hang', R: 'point', facing: 0, look: 0 }, [1.8, 0, -0.6], 13));
-      break;
-    }
-    case 'fish_we_eat': {
-      const wk = WK(f, S, -2.0, 0.9);
-      out.push(A(T, 'fisherman', { seed: 17, expr: 'grin', L: 'hip', R: 'point', facing: 0, look: 0, blink: blinkAt(f, 17), bob: q(id1.bob, 3) }, [0.9, 0, 0.85], { tint }));
-      out.push(A(T, 'vendor', { seed: 23, expr: 'grin', L: 'board', R: 'thumb', facing: 0, look: 0, blink: blinkAt(f, 23), bob: q(id2.bob, 3) }, [-1.4, 0, 0.85], { tint }));
-      out.push(A(T, 'kid', { seed: 5, expr: 'grin', L: 'hang', R: 'hang', facing: 0, look: TURN(f, S, -0.3, 0.3), blink: blinkAt(f, 5), bob: q(id3.bob, 3), step: wk.step }, [wk.x, 0, 0.85], { tint }));
-      out.push(bg('marine', { expr: 'grin', L: 'hang', R: 'point', facing: 0, look: 0 }, [1.8, 0, -0.6], 15));
-      break;
-    }
-    case 'no_sharks': {
-      const wk = WK(f, S, -2.4, 1.0);
-      out.push(A(T, 'diver', { seed: 5, expr: 'dazed', L: 'up', R: 'up', facing: 0, look: 0, blink: blinkAt(f, 5), bob: q(id1.bob, 3) }, [0.9, 0, 0.5], { tint }));
-      out.push(A(T, 'diver', { seed: 7, expr: 'dazed', L: 'hip', R: 'hip', facing: 0, look: TURN(f, S, -0.4, 0.4), blink: blinkAt(f, 7), bob: q(id2.bob, 3) }, [-1.3, 0, 0.5], { tint }));
-      out.push(A(T, 'doctor', { seed: 21, expr: 'knowing', L: 'hip', R: 'point', facing: 0, look: 0, blink: blinkAt(f, 21), bob: q(id3.bob, 3), step: wk.step }, [wk.x, 0, 0.7], { tint }));
-      out.push(bg('marine', { expr: 'dazed', L: 'up', R: 'up', facing: 0, look: 0 }, [-1.8, 0, -0.6], 15));
-      break;
-    }
-    case 'guard_finale': {
-      const wk = WK(f, S, -2.6, 1.0);
-      out.push(A(T, 'diver', { seed: 5, expr: 'grin', L: 'hip', R: 'thumb', facing: 0, look: 0, blink: blinkAt(f, 5), bob: q(id1.bob, 3) }, [-1.6, -0.2, 5.5], { tint }));
-      out.push(A(T, 'doctor', { seed: 21, expr: 'grin', L: 'board', R: 'up', facing: 0, look: 0, blink: blinkAt(f, 21), bob: q(id2.bob, 3) }, [1.3, -0.2, 5.5], { tint }));
-      out.push(A(T, 'fisherman', { seed: 17, expr: 'grin', L: 'hang', R: 'thumb', facing: 0, look: TURN(f, S, -0.3, 0.3), blink: blinkAt(f, 17), bob: q(id3.bob, 3), step: wk.step }, [wk.x, -0.2, 5.5], { tint }));
-      out.push(A(T, 'kid', { seed: 9, expr: 'grin', L: 'up', R: 'up', facing: 0, look: 0, blink: blinkAt(f, 9), bob: q(id4.bob, 3) }, [2.2, -0.2, 5.5], { tint }));
+    case 'lesson_finale': {
+      const twist = f >= 1365;
+      out.push(A(T, 'passenger', {
+        seed: 5, expr: twist ? 'shock' : 'grin', L: twist ? 'up' : 'hip', R: twist ? 'up' : 'thumb',
+        facing: 0, look: 0, blink: twist ? 0 : blinkAt(f, 5), bob: q(id1.bob, 3),
+      }, [-1.6, -0.2, 6.5], { tint }));
+      out.push(A(T, 'pilot', {
+        seed: 31, expr: 'knowing', L: 'hang', R: 'point', facing: 0, look: 0,
+        blink: blinkAt(f, 31), bob: q(id2.bob, 3), headTilt: q(id2.headTilt, 1),
+      }, [0.1, -0.2, 6.5], { tint }));
+      out.push(A(T, 'engineer', {
+        seed: 21, expr: 'grin', L: 'board', R: 'up', facing: 0, look: 0,
+        blink: blinkAt(f, 21), bob: q(id3.bob, 3),
+      }, [1.8, -0.2, 6.5], { tint }));
       break;
     }
   }
@@ -375,43 +252,33 @@ const FX = (key, draw, pos, s, extra = {}) => ({ key, draw, x: pos[0], y: pos[1]
 
 export const fxAt = (f, T) => {
   const S = shotAt(f), out = [];
-  if (S.id === 'hook_vanish') {
+  if (S.id === 'hook_window') {
     const t = q((f * 0.05) % 1, 2);
-    out.push(FX('mo' + t, (p) => T.fxMotion(p, t), [0.5, 2.2, 0.9], 0.45));
-    if (f >= 62) out.push(FX('sp' + t, (p) => T.fxSparkle(p, t), [0, 2.6, 0.9], 0.5));
+    out.push(FX('mo' + t, (p) => T.fxMotion(p, t), [1.0, 7.6, 0.5], 0.55));
   }
-  if (S.id === 'it_is_fear') {
+  if (S.id === 'its_round' && f >= 52) {
+    const t = q(((f - 52) * 0.04) % 1, 2);
+    out.push(FX('sp' + t, (p) => T.fxSparkle(p, t), [18.2, 2.6, 0.2], 0.42));
+  }
+  if (S.id === 'square_hole' && f >= 470) {
+    const t = q(((f - 470) * 0.045) % 1, 2);
+    out.push(FX('al' + t, (p) => T.fxAlert(p, t), [0.0, 3.6, 0.5], 0.46));
+  }
+  if (S.id === 'cracks_start' && f >= 640) {
+    const t = q(((f - 640) * 0.04) % 1, 2);
+    out.push(FX('al2' + t, (p) => T.fxAlert(p, t), [0.0, 3.6, 0.5], 0.44));
+  }
+  if (S.id === 'stress_spreads') {
     const t = q((f * 0.05) % 1, 2);
-    out.push(FX('al' + t, (p) => T.fxAlert(p, t), [0, 3.0, 0.9], 0.46));
-    out.push(FX('sw' + t, (p) => T.fxSweat(p, t), [0, 2.4, 0.9], 0.42));
+    out.push(FX('sp2' + t, (p) => T.fxSparkle(p, t), [0.0, 3.4, 0.5], 0.42));
   }
-  if (S.id === 'real_power') {
+  if (S.id === 'why_round') {
     const t = q((f * 0.05) % 1, 2);
-    out.push(FX('qu' + t, (p) => T.fxQuestion(p, t), [0.9, 3.0, 0.9], 0.45));
+    out.push(FX('sp3' + t, (p) => T.fxSparkle(p, t), [18.2, 2.6, 0.2], 0.42));
   }
-  if (S.id === 'rays_explode') {
-    const t = q((f * 0.05) % 1, 2);
-    out.push(FX('mo2' + t, (p) => T.fxMotion(p, t), [0, 2.8, 0.9], 0.5));
-  }
-  if (S.id === 'seventy_one' && f >= 958) {
-    const t = q(((f - 958) * 0.05) % 1, 2);
-    out.push(FX('al2' + t, (p) => T.fxAlert(p, t), [0, 3.4, 0.5], 0.42));
-  }
-  if (S.id === 'dominoes_fall' && f >= 1100) {
-    const t = q(((f - 1100) * 0.05) % 1, 2);
-    out.push(FX('zp' + t, (p) => T.fxZap(p, t), [0, 3.1, 0.5], 0.45));
-  }
-  if (S.id === 'seagrass_value') {
-    const t = q((f * 0.05) % 1, 2);
-    out.push(FX('sp2' + t, (p) => T.fxSparkle(p, t), [0, 3.0, 0.5], 0.42));
-  }
-  if (S.id === 'scallops_gone') {
-    const t = q((f * 0.05) % 1, 2);
-    out.push(FX('qu2' + t, (p) => T.fxQuestion(p, t), [0.9, 2.8, 0.9], 0.45));
-  }
-  if (S.id === 'guard_finale' && f >= 1325) {
-    const t = q(((f - 1325) * 0.05) % 1, 2);
-    out.push(FX('sp3' + t, (p) => T.fxSparkle(p, t), [0, 4.8, 2.6], 0.5));
+  if (S.id === 'lesson_finale' && f >= 1365) {
+    const t = q(((f - 1365) * 0.05) % 1, 2);
+    out.push(FX('fa' + t, (p) => T.fxAlert(p, t), [0.0, 4.6, 2.6], 0.50));
   }
   return out;
 };

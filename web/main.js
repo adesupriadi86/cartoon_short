@@ -24,8 +24,11 @@ const toon = (opts) => new THREE.MeshToonMaterial({ gradientMap: grad, ...opts }
 const texM = (c, rx_ = 1, ry_ = 1, color = '#ffffff') => toon({ map: P.tex(c, rx_, ry_), color });
 
 const M = {
-  sidewalk: texM(P.sidewalk(7), 20, 20),
+  runway: texM(P.tarmac(3), 10, 1),
   grass: toon({ color: '#6fae5f' }),
+  fuselage: texM(P.fuselageTex(1), 1, 1),
+  fuselageComet: toon({ color: '#c9ced6' }),
+  windowGlass: new THREE.MeshBasicMaterial({ map: P.tex(P.windowGlass(2), 1, 1) }),
   panel: toon({ color: '#dfe6ec' }),
   panelDark: toon({ color: '#465260' }),
   steel: toon({ color: '#b0bcc8' }),
@@ -40,43 +43,15 @@ const M = {
   teal: toon({ color: '#28b8a8' }),
   white: toon({ color: '#f8fafc' }),
   blue: toon({ color: '#1f6fb2' }),
+  seatBlue: toon({ color: '#2f6fb2' }),
   cloud: toon({ color: '#ffffff' }),
   wood: toon({ color: '#9c6b43' }),
   hazard: texM(P.hazardStripe(), 8, 1),
   glass: new THREE.MeshToonMaterial({ gradientMap: grad, color: '#9ed8f5', transparent: true, opacity: 0.32, side: THREE.DoubleSide, depthWrite: false }),
-  // ocean sets
-  sand: texM(P.sandTex(7), 20, 20),
-  rock: toon({ color: '#7a7f8a' }),
-  coralPink: toon({ color: '#ff7f9e' }),
-  coralOrange: toon({ color: '#ff9f5a' }),
-  coralPurple: toon({ color: '#b07fd4' }),
-  seaweed: toon({ color: '#3f9e57' }),
-  seaweedDark: toon({ color: '#2a7a42' }),
-  sharkGray: toon({ color: '#8fa8bc' }),
-  sharkBelly: toon({ color: '#e8eef2' }),
-  sharkDark: toon({ color: '#5a7286' }),
-  sharkFin: toon({ color: '#5a7286', side: THREE.DoubleSide }),
-  rayBrown: toon({ color: '#b08d68' }),
-  rayBelly: toon({ color: '#f0e2c8' }),
-  rayWing: toon({ color: '#a08060', side: THREE.DoubleSide }),
-  scallopShell: toon({ color: '#f2e6d8' }),
-  turtleGreen: toon({ color: '#5a8a5a' }),
-  turtleShell: toon({ color: '#6b8e5a' }),
-  dugongGray: toon({ color: '#9aa5ad' }),
-  fishYellow: toon({ color: '#f5c418' }),
-  fishBlue: toon({ color: '#4dd0e1' }),
-  fishOrange: toon({ color: '#ff8a3d' }),
-  netWhite: toon({ color: '#e8e8e8' }),
-  bubble: new THREE.MeshToonMaterial({ gradientMap: grad, color: '#dff3ff', transparent: true, opacity: 0.45, side: THREE.DoubleSide, depthWrite: false }),
-  lightRay: new THREE.MeshBasicMaterial({ color: '#ffffff', transparent: true, opacity: 0.07, side: THREE.DoubleSide, depthWrite: false }),
-  gaugeWhite: toon({ color: '#f8fafc' }),
-  gaugeRed: toon({ color: '#e63946' }),
-  foodBoard: new THREE.MeshBasicMaterial({ map: P.tex(P.foodChain(), 1, 1) }),
-  mapBoard: new THREE.MeshBasicMaterial({ map: P.tex(P.coastMap(), 1, 1) }),
-  chart71Board: new THREE.MeshBasicMaterial({ map: P.tex(P.chart71(), 1, 1) }),
-  declineBoard: new THREE.MeshBasicMaterial({ map: P.tex(P.declineChart(), 1, 1) }),
-  finalePlate: new THREE.MeshBasicMaterial({ map: P.tex(P.textPlate('NO SHARKS, NO BALANCE', '#1f6fb2', '#ffffff'), 1, 1) }),
-  marketSign: new THREE.MeshBasicMaterial({ map: P.tex(P.textPlate('FISH MARKET', '#e05a47', '#ffffff'), 1, 1) }),
+  blueprintBoard: new THREE.MeshBasicMaterial({ map: P.tex(P.blueprintStress(), 1, 1) }),
+  labelSquare: new THREE.MeshBasicMaterial({ map: P.tex(P.warnLabel('SQUARE'), 1, 1) }),
+  labelRound: new THREE.MeshBasicMaterial({ map: P.tex(P.textPlate('ROUND', '#2e9e4f', '#ffffff'), 1, 1) }),
+  finalePlate: new THREE.MeshBasicMaterial({ map: P.tex(P.textPlate('A LESSON WRITTEN IN METAL', '#1f6fb2', '#ffffff'), 1, 1) }),
 };
 
 // ---------- ink / normal-depth contract ----------
@@ -116,207 +91,157 @@ const sun = new THREE.DirectionalLight('#ffffff', 2.2); sun.castShadow = true;
 sun.shadow.mapSize.set(1024, 1024); sun.shadow.bias = -0.0005; sun.shadow.normalBias = 0.03; sun.shadow.radius = 2;
 scene.add(sun); scene.add(sun.target);
 const dangerLight = new THREE.PointLight('#ff3b30', 0, 8); dangerLight.position.set(0, 3.0, 1.4); scene.add(dangerLight);
-const coldLight = new THREE.PointLight('#7dd3fc', 0, 7); coldLight.position.set(0, 2.6, 1.6); scene.add(coldLight);
-const warmLight = new THREE.PointLight('#ffb36b', 0, 8); warmLight.position.set(0, 2.7, 1.6); scene.add(warmLight);
 scene.fog = new THREE.Fog('#e6eef8', 24, 95);
 
-// ---------- OCEAN FLOOR: sand + rising bubbles + god-rays ----------
+// ---------- AIRFIELD: grass + runway strip + drifting clouds ----------
 const world = new THREE.Group(); scene.add(world);
-add(box(240, 0.2, 240), M.sand, 0, -0.3, 0, world, { cast: false });
+// grass field (big) + runway strip the jet sits on
+add(box(240, 0.2, 240), M.grass, 0, -0.3, 0, world, { cast: false });
+add(box(140, 0.2, 12), M.runway, 0, -0.1, 0, world, { cast: false });
 
-// rising bubbles (replaces the drifting clouds)
-const bubbles = [];
-for (let i = 0; i < 14; i++) {
-  const s = 0.06 + (i % 4) * 0.03;
-  const b = add(new THREE.SphereGeometry(s, 10, 8), M.bubble, -3 + (i * 0.55) % 6, 0.5 + (i % 5), -1.5 + (i % 3), world, { cast: false, ndSkip: true });
-  bubbles.push({ mesh: b, x: -3 + (i * 0.55) % 6, z: -1.5 + (i % 3), speed: 0.008 + (i % 3) * 0.004, phase: i * 0.7 });
-}
-// slanted god-rays from the surface
-for (let i = 0; i < 4; i++) {
-  const ray = add(new THREE.PlaneGeometry(0.7, 9), M.lightRay, -2.4 + i * 1.6, 5.5, -2.5, world, { cast: false, ndSkip: true });
-  ray.rotation.z = 0.35;
-}
-
-// ---------- REEF SET: rocks, corals, swaying seaweed ----------
-const reefGroup = new THREE.Group(); world.add(reefGroup); reefGroup.visible = false;
-const ROCKS = [[-2.6, 0.25, -1.2, 0.8], [2.7, 0.3, -1.4, 1.0], [-1.8, 0.2, -2.2, 0.6], [1.9, 0.22, -2.4, 0.7], [0.3, 0.18, -2.8, 0.55]];
-for (const [rx, ry, rz, rs] of ROCKS) {
-  const rock = add(new THREE.SphereGeometry(rs, 10, 8), M.rock, rx, ry, rz, reefGroup);
-  rock.scale.set(1.3, 0.6, 1);
-}
-const CORALS = [[-2.6, 0.6, -1.1, 'coralPink'], [2.7, 0.7, -1.3, 'coralOrange'], [-1.8, 0.5, -2.1, 'coralPurple'], [1.9, 0.5, -2.3, 'coralPink'], [0.3, 0.45, -2.7, 'coralOrange']];
-for (const [cx, cy, cz, col] of CORALS) {
-  add(new THREE.ConeGeometry(0.22, 0.7, 8), M[col], cx - 0.15, cy, cz, reefGroup);
-  add(new THREE.SphereGeometry(0.18, 8, 6), M[col], cx + 0.2, cy + 0.05, cz, reefGroup);
-}
-const seaweedBlades = [];
+// drifting cartoon clouds (3 puffs each)
+const clouds = [];
 for (let i = 0; i < 12; i++) {
-  const bx = -3.2 + i * 0.58;
-  seaweedBlades.push(add(new THREE.ConeGeometry(0.09, 1.6 + (i % 3) * 0.3, 6), i % 2 ? M.seaweed : M.seaweedDark, bx, 0.85, -1.8 - (i % 3) * 0.4, reefGroup));
+  const g = new THREE.Group();
+  const cx = -32 + (i * 5.7) % 64, cy = 9 + (i % 4) * 2.2, cz = -18 + (i * 3.1) % 26;
+  g.position.set(cx, cy, cz);
+  const s = 0.8 + (i % 3) * 0.35;
+  add(new THREE.SphereGeometry(1.25 * s, 10, 8), M.cloud, 0, 0, 0, g, { cast: false });
+  add(new THREE.SphereGeometry(0.9 * s, 10, 8), M.cloud, 1.3 * s, -0.15, 0.2, g, { cast: false });
+  add(new THREE.SphereGeometry(0.8 * s, 10, 8), M.cloud, -1.2 * s, -0.2, -0.1, g, { cast: false });
+  world.add(g);
+  clouds.push({ g, baseX: cx });
 }
 
-// ---------- SHARKS: hero shark (swims, then vanishes) + tiger shark (patrols) ----------
-// Fins are flat DoubleSide triangles, NOT 4-sided cones: cones read as pyramids/diamonds.
-const finTri = (w, h, lean) => {
-  const s = new THREE.Shape();
-  s.moveTo(-w / 2, 0); s.lineTo(w / 2, 0); s.lineTo(lean, h); s.closePath();
-  return new THREE.ShapeGeometry(s);
-};
-const makeShark = (scale, tiger) => {
+// ---------- HERO JET BUILDER (fuselage along X, nose +X, windows on +Z side) ----------
+const makeJet = ({ square = false, fuselageMat = M.fuselage } = {}) => {
   const g = new THREE.Group();
-  const body = add(new THREE.SphereGeometry(0.5, 16, 12), M.sharkGray, 0, 0, 0, g);
-  body.scale.set(2.6, 0.62, 0.55);
-  const belly = add(new THREE.SphereGeometry(0.45, 16, 12), M.sharkBelly, 0.1, -0.1, 0, g);
-  belly.scale.set(2.3, 0.45, 0.5);
-  const snout = add(new THREE.ConeGeometry(0.26, 0.6, 12), M.sharkGray, 1.35, 0, 0, g);
-  snout.rotation.z = -Math.PI / 2;
-  const dorsal = new THREE.Mesh(finTri(0.6, 0.55, 0.1), M.sharkFin);
-  dorsal.position.set(-0.1, 0.22, 0); dorsal.rotation.z = -0.2; dorsal.castShadow = true; g.add(dorsal);
-  const finL = new THREE.Mesh(finTri(0.4, 0.35, 0.05), M.sharkFin);
-  finL.position.set(0.35, -0.12, 0.22); finL.rotation.set(0.7, 0, 2.6); finL.castShadow = true; g.add(finL);
-  const finR = new THREE.Mesh(finTri(0.4, 0.35, 0.05), M.sharkFin);
-  finR.position.set(0.35, -0.12, -0.22); finR.rotation.set(-0.7, 0, 2.6); finR.castShadow = true; g.add(finR);
-  for (const ez of [0.26, -0.26]) add(new THREE.SphereGeometry(0.05, 8, 6), M.handrail, 1.0, 0.08, ez, g, { cast: false, ndSkip: true });
-  const tailPivot = new THREE.Group(); tailPivot.position.set(-1.2, 0, 0); g.add(tailPivot);
-  const tailUp = new THREE.Mesh(finTri(0.5, 0.7, 0.05), M.sharkFin);
-  tailUp.position.set(-0.12, 0.05, 0); tailUp.castShadow = true; tailPivot.add(tailUp);
-  const tailDn = new THREE.Mesh(finTri(0.4, 0.45, 0.05), M.sharkFin);
-  tailDn.position.set(-0.12, -0.02, 0); tailDn.rotation.z = Math.PI; tailDn.castShadow = true; tailPivot.add(tailDn);
-  if (tiger) { // 3 thin dark bands across the body where it is fullest
-    for (const [sx, sh, sd] of [[0.3, 0.55, 0.5], [0.0, 0.6, 0.53], [-0.3, 0.55, 0.5]]) {
-      const stripe = add(box(0.05, sh, sd), M.sharkDark, sx, 0.08, 0, g, { cast: false });
-      stripe.rotation.z = 0.15;
+  // fuselage tube (axis along X) + nose + tail cone
+  const tube = add(new THREE.CylinderGeometry(1.15, 1.15, 14, 24), fuselageMat, 0, 0, 0, g);
+  tube.rotation.z = Math.PI / 2;
+  const nose = add(new THREE.SphereGeometry(1.15, 20, 14), fuselageMat, 7, 0, 0, g);
+  nose.scale.set(1.6, 1, 1);
+  const tail = add(new THREE.CylinderGeometry(0.25, 1.15, 2.4, 16), fuselageMat, -8, 0, 0, g);
+  tail.rotation.z = Math.PI / 2;
+  // tail fin (swept) + horizontal stabilizers
+  const fin = add(box(1.8, 2.8, 0.16), M.blue, -7.4, 1.3, 0, g);
+  fin.rotation.z = -0.3;
+  add(box(1.8, 0.12, 3.6), M.blue, -7.6, 0.35, 0, g);
+  // swept wings (two halves) + engines
+  for (const s of [-1, 1]) {
+    const wing = add(box(3.4, 0.14, 5.2), M.steelBright, 0.2, -0.4, s * 2.9, g);
+    wing.rotation.y = -s * 0.28;
+    const eng = add(new THREE.CylinderGeometry(0.45, 0.45, 2.0, 14), M.steel, 0.6, -0.85, s * 2.3, g);
+    eng.rotation.z = Math.PI / 2;
+    const intake = add(new THREE.CircleGeometry(0.38, 14), M.handrail, 1.62, -0.85, s * 2.3, g, { cast: false });
+    intake.rotation.y = Math.PI / 2;
+  }
+  // cockpit windows on the nose
+  for (const s of [-1, 1]) {
+    const cw = add(new THREE.PlaneGeometry(0.55, 0.38), M.windowGlass, 7.75, 0.45, s * 0.42, g, { cast: false });
+    cw.rotation.y = s * 0.55;
+  }
+  // passenger windows along the fuselage side (y +0.35, z +1.16, slightly proud of the skin)
+  for (let i = 0; i < 9; i++) {
+    const x = -5.6 + i * 1.4;
+    if (square) {
+      add(new THREE.PlaneGeometry(0.6, 0.6), M.windowGlass, x, 0.35, 1.16, g, { cast: false });
+      add(box(0.72, 0.08, 0.06), M.steelDark, x, 0.68, 1.16, g, { cast: false });
+      add(box(0.72, 0.08, 0.06), M.steelDark, x, 0.02, 1.16, g, { cast: false });
+      add(box(0.08, 0.72, 0.06), M.steelDark, x - 0.32, 0.35, 1.16, g, { cast: false });
+      add(box(0.08, 0.72, 0.06), M.steelDark, x + 0.32, 0.35, 1.16, g, { cast: false });
+    } else {
+      const disc = add(new THREE.CircleGeometry(0.30, 20), M.windowGlass, x, 0.35, 1.16, g, { cast: false });
+      const ring = add(new THREE.TorusGeometry(0.30, 0.07, 10, 20), M.steelBright, x, 0.35, 1.16, g, { cast: false });
     }
   }
-  g.scale.setScalar(scale);
-  return { group: g, tailPivot };
+  // pressure arrows (children of the jet, shown in balloon / thin-air / pressure shots)
+  const arrows = new THREE.Group(); g.add(arrows);
+  for (let i = 0; i < 6; i++) {
+    const a = new THREE.Group();
+    a.position.set(-5 + i * 2, 2.1, 0);
+    add(new THREE.CylinderGeometry(0.07, 0.07, 0.7, 8), M.yellow, 0, 0, 0, a, { cast: false });
+    const tip = add(new THREE.ConeGeometry(0.2, 0.5, 10), M.yellow, 0, -0.55, 0, a, { cast: false });
+    tip.rotation.x = Math.PI;
+    arrows.add(a);
+  }
+  g.userData.arrows = arrows;
+  // landing gear (visible only on the ground)
+  const gear = new THREE.Group(); g.add(gear);
+  for (const [gx, gz] of [[4.6, 0.75], [4.6, -0.75], [-0.8, 0]]) {
+    add(box(0.12, 1.15, 0.12), M.steelDark, gx, -1.72, gz, gear);
+    const wheel = add(new THREE.CylinderGeometry(0.28, 0.28, 0.18, 12), M.handrail, gx, -2.3, gz, gear);
+    wheel.rotation.x = Math.PI / 2;
+  }
+  g.userData.gear = gear;
+  return g;
 };
-const heroShark = makeShark(0.85, false);
-heroShark.group.position.set(0, 2.4, -1.2); world.add(heroShark.group); heroShark.group.visible = false;
-const tigerShark = makeShark(0.95, true);
-tigerShark.group.position.set(0, 3.0, -1.5); world.add(tigerShark.group); tigerShark.group.visible = false;
 
-// ---------- BOARD STAND (food chain / coast map / -71% / decline) ----------
+const jetGroup = makeJet({}); world.add(jetGroup);
+const cometGroup = makeJet({ square: true, fuselageMat: M.fuselageComet });
+cometGroup.position.set(-14, 7.5, -5); cometGroup.rotation.y = 0.5; cometGroup.scale.setScalar(0.85);
+world.add(cometGroup); cometGroup.visible = false;
+
+// ---------- CABIN INTERIOR SET (x ~18, for its_round / why_round) ----------
+const cabinGroup = new THREE.Group(); world.add(cabinGroup); cabinGroup.visible = false;
+add(box(6, 0.1, 3.4), M.panel, 18, 0.05, 0.2, cabinGroup, { cast: false });
+add(box(5.5, 3.2, 0.15), M.panel, 18, 1.6, -0.9, cabinGroup, { cast: false });
+add(box(5.5, 0.5, 0.18), M.seatBlue, 18, 0.35, -0.82, cabinGroup, { cast: false });
+add(box(5.0, 0.55, 0.9), M.steelBright, 18, 2.95, -0.55, cabinGroup);
+// round cabin window + frame
+add(new THREE.TorusGeometry(0.55, 0.09, 10, 24), M.white, 18.3, 1.9, -0.80, cabinGroup, { cast: false });
+add(new THREE.CircleGeometry(0.55, 24), M.windowGlass, 18.3, 1.9, -0.79, cabinGroup, { cast: false });
+// seat backs flanking the passenger
+for (const sx of [16.4, 19.9]) {
+  add(box(0.9, 1.0, 0.25), M.seatBlue, sx, 0.85, 0.5, cabinGroup);
+  add(box(0.7, 0.3, 0.28), M.steelBright, sx, 1.45, 0.5, cabinGroup);
+}
+
+// ---------- COMPARISON PANEL (one stand, swaps square <-> round window) ----------
+const panelsGroup = new THREE.Group(); world.add(panelsGroup); panelsGroup.visible = false;
+add(box(3.4, 2.8, 0.15), M.panel, 0, 2.4, 0, panelsGroup);
+add(box(3.6, 0.18, 0.2), M.panelDark, 0, 0.95, 0, panelsGroup);
+add(box(3.6, 0.18, 0.2), M.panelDark, 0, 3.85, 0, panelsGroup);
+// label plates above the panel (toggle square / round)
+const labelSquareMesh = add(new THREE.PlaneGeometry(1.7, 0.53), M.labelSquare, 0, 4.35, 0.12, panelsGroup, { cast: false });
+const labelRoundMesh = add(new THREE.PlaneGeometry(1.7, 0.53), M.labelRound, 0, 4.35, 0.12, panelsGroup, { cast: false });
+// --- square window assembly ---
+const squareAssembly = new THREE.Group(); panelsGroup.add(squareAssembly);
+add(new THREE.PlaneGeometry(0.95, 0.95), M.windowGlass, 0, 2.5, 0.09, squareAssembly, { cast: false });
+add(box(1.07, 0.08, 0.06), M.steelDark, 0, 3.0, 0.1, squareAssembly, { cast: false });
+add(box(1.07, 0.08, 0.06), M.steelDark, 0, 2.0, 0.1, squareAssembly, { cast: false });
+add(box(0.08, 1.07, 0.06), M.steelDark, -0.52, 2.5, 0.1, squareAssembly, { cast: false });
+add(box(0.08, 1.07, 0.06), M.steelDark, 0.52, 2.5, 0.1, squareAssembly, { cast: false });
+// red corner glow spheres + growing crack lines (one per corner, 45 deg outward)
+const cornerGlows = [];
+const crackMeshes = [];
+const crackGeo = box(0.75, 0.05, 0.02); crackGeo.translate(0.375, 0, 0);
+const CORNERS = [
+  { x: -0.52, y: 3.0, a: Math.PI * 0.75 }, { x: 0.52, y: 3.0, a: Math.PI * 0.25 },
+  { x: -0.52, y: 2.0, a: Math.PI * 1.25 }, { x: 0.52, y: 2.0, a: Math.PI * 1.75 },
+];
+for (const c of CORNERS) {
+  cornerGlows.push(add(new THREE.SphereGeometry(0.09, 10, 8), M.redGlow, c.x, c.y, 0.16, squareAssembly, { cast: false, ndSkip: true }));
+  const cm = add(crackGeo, M.handrail, c.x, c.y, 0.14, squareAssembly, { cast: false });
+  cm.rotation.z = c.a; cm.scale.x = 0.05; crackMeshes.push(cm);
+}
+// --- round window assembly ---
+const roundAssembly = new THREE.Group(); panelsGroup.add(roundAssembly); roundAssembly.visible = false;
+add(new THREE.TorusGeometry(0.55, 0.09, 10, 24), M.steelBright, 0, 2.5, 0.1, roundAssembly, { cast: false });
+add(new THREE.CircleGeometry(0.55, 24), M.windowGlass, 0, 2.5, 0.09, roundAssembly, { cast: false });
+// stress flow dots orbiting the round window
+const flowDots = [];
+for (let i = 0; i < 8; i++) {
+  flowDots.push(add(new THREE.SphereGeometry(0.07, 8, 6), M.greenGlow, 0, 2.5, 0.16, roundAssembly, { cast: false, ndSkip: true }));
+}
+
+// ---------- BLUEPRINT BOARD STAND (engineers_fix / no_corners) ----------
 const boardGroup = new THREE.Group(); world.add(boardGroup); boardGroup.visible = false;
 add(box(2.6, 3.4, 0.12), M.steelDark, 0, 1.9, 0, boardGroup);
-const foodMesh = add(new THREE.PlaneGeometry(2.4, 3.2), M.foodBoard, 0, 1.9, 0.075, boardGroup, { cast: false });
-const mapMesh = add(new THREE.PlaneGeometry(2.4, 3.2), M.mapBoard, 0, 1.9, 0.075, boardGroup, { cast: false });
-const chart71Mesh = add(new THREE.PlaneGeometry(2.4, 3.2), M.chart71Board, 0, 1.9, 0.075, boardGroup, { cast: false });
-const declineMesh = add(new THREE.PlaneGeometry(2.4, 3.2), M.declineBoard, 0, 1.9, 0.075, boardGroup, { cast: false });
+add(new THREE.PlaneGeometry(2.4, 3.2), M.blueprintBoard, 0, 1.9, 0.075, boardGroup, { cast: false });
 for (const s of [-0.95, 0.95]) add(box(0.12, 0.35, 0.65), M.steelDark, s, 0.18, 0, boardGroup);
 
-// ---------- DOMINOES (chain reaction, fall one by one) ----------
-const dominoGroup = new THREE.Group(); world.add(dominoGroup); dominoGroup.visible = false;
-add(box(4.6, 0.15, 0.9), M.wood, 0, 0.08, -0.8, dominoGroup, { cast: false });
-const dominoes = [];
-const DOMINO_COLORS = ['#e05a47', '#f08a2c', '#f5c418', '#3fa36c', '#2f6fb2'];
-for (let i = 0; i < 5; i++) {
-  const pivot = new THREE.Group(); pivot.position.set(-1.4 + i * 0.7, 0.15, -0.8); dominoGroup.add(pivot);
-  add(box(0.14, 0.85, 0.5), toon({ color: DOMINO_COLORS[i] }), 0, 0.425, 0, pivot);
-  add(new THREE.SphereGeometry(0.06, 8, 6), M.white, 0, 0.7, 0.26, pivot, { cast: false, ndSkip: true });
-  dominoes.push(pivot);
-}
-
-// ---------- COWNOSE RAY SWARM (multiplies as sharks vanish) ----------
-const makeRay = () => {
-  const g = new THREE.Group();
-  // Face the camera: a ray's wings span its sides, so swimming toward the
-  // camera puts the diamond silhouette on screen (swimming across hides
-  // the wings edge-on). Flap pivots then read as up/down on screen.
-  g.rotation.y = Math.PI / 2;
-  const body = add(new THREE.SphereGeometry(0.28, 12, 8), M.rayBrown, 0, 0, 0, g);
-  body.scale.set(1.8, 0.35, 1.0);
-  const belly = add(new THREE.SphereGeometry(0.24, 12, 8), M.rayBelly, 0, -0.05, 0, g);
-  belly.scale.set(1.6, 0.22, 0.85);
-  const wingShape = new THREE.Shape();
-  wingShape.moveTo(0, 0); wingShape.lineTo(-0.35, 0.6); wingShape.lineTo(0.45, 0.6); wingShape.closePath();
-  const wingGeo = new THREE.ShapeGeometry(wingShape);
-  const pivR = new THREE.Group(); g.add(pivR);
-  const wR = new THREE.Mesh(wingGeo, M.rayWing); wR.rotation.x = Math.PI / 2 - 0.6; wR.castShadow = true; pivR.add(wR);
-  const pivL = new THREE.Group(); g.add(pivL);
-  const wL = new THREE.Mesh(wingGeo, M.rayWing); wL.rotation.x = -Math.PI / 2 + 0.6; wL.castShadow = true; pivL.add(wL);
-  return { group: g, pivR, pivL };
-};
-const rays = [];
-const RAY_SPOTS = [[-2.2, 2.0, -0.3], [-1.2, 2.5, 0.3], [-0.3, 1.9, -0.4], [0.7, 2.6, 0.2], [1.6, 2.1, -0.2], [2.3, 2.7, 0.3], [-1.8, 2.8, 0.1], [0.2, 2.9, -0.3]];
-for (const [rx, ry, rz] of RAY_SPOTS) {
-  const r = makeRay();
-  r.group.position.set(rx, ry, rz);
-  r.baseX = rx; r.baseY = ry;
-  world.add(r.group); r.group.visible = false;
-  rays.push(r);
-}
-
-// ---------- SCALLOP BED (stripped bare by the rays) + empty net ----------
-const scallopGroup = new THREE.Group(); world.add(scallopGroup); scallopGroup.visible = false;
-const scallops = [];
-for (let i = 0; i < 10; i++) {
-  const sx = -2.2 + (i % 5) * 1.1, sz = 0.3 + Math.floor(i / 5) * 0.5;
-  const shell = add(new THREE.SphereGeometry(0.22, 10, 8), i % 2 ? M.scallopShell : M.coralPink, sx, 0.12, sz, scallopGroup);
-  shell.scale.set(1, 0.35, 1);
-  scallops.push(shell);
-}
-add(box(2.2, 0.05, 0.06), M.netWhite, 0, 0.22, -0.02, scallopGroup, { cast: false });
-add(box(2.2, 0.05, 0.06), M.netWhite, 0, 0.22, 1.12, scallopGroup, { cast: false });
-add(box(0.06, 0.05, 1.2), M.netWhite, -1.07, 0.22, 0.55, scallopGroup, { cast: false });
-add(box(0.06, 0.05, 1.2), M.netWhite, 1.07, 0.22, 0.55, scallopGroup, { cast: false });
-for (let i = 0; i < 5; i++) add(box(0.03, 0.02, 1.14), M.steelDark, -0.88 + i * 0.44, 0.22, 0.55, scallopGroup, { cast: false });
-for (let i = 0; i < 3; i++) add(box(2.14, 0.02, 0.03), M.steelDark, 0, 0.22, 0.28 + i * 0.27, scallopGroup, { cast: false });
-
-// ---------- SHARK BAY: tall seagrass, turtle, dugong ----------
-const seagrassGroup = new THREE.Group(); world.add(seagrassGroup); seagrassGroup.visible = false;
-const tallBlades = [];
-for (let i = 0; i < 14; i++) {
-  const bx = -3.4 + i * 0.52;
-  tallBlades.push(add(new THREE.ConeGeometry(0.07, 2.2 + (i % 3) * 0.4, 6), i % 2 ? M.seaweed : M.seaweedDark, bx, 1.1, -1.2 - (i % 4) * 0.3, seagrassGroup));
-}
-const turtleGroup = new THREE.Group(); turtleGroup.position.set(-2.0, 0.6, 0.3); turtleGroup.scale.setScalar(1.3); seagrassGroup.add(turtleGroup);
-const tShell = add(new THREE.SphereGeometry(0.5, 14, 10), M.turtleShell, 0, 0, 0, turtleGroup);
-tShell.scale.set(1.3, 0.55, 1.0);
-add(new THREE.SphereGeometry(0.16, 10, 8), M.turtleGreen, 0.75, 0.05, 0, turtleGroup);
-for (const [fx, fz] of [[0.4, 0.45], [0.4, -0.45], [-0.45, 0.45], [-0.45, -0.45]]) {
-  const flip = add(new THREE.SphereGeometry(0.16, 8, 6), M.turtleGreen, fx, -0.1, fz, turtleGroup);
-  flip.scale.set(1.2, 0.25, 0.7);
-}
-const dugongGroup = new THREE.Group(); dugongGroup.position.set(2.0, 0.65, -0.3); dugongGroup.scale.setScalar(1.3); seagrassGroup.add(dugongGroup);
-const dBody = add(new THREE.SphereGeometry(0.5, 14, 10), M.dugongGray, 0, 0, 0, dugongGroup);
-dBody.scale.set(1.9, 0.75, 0.7);
-add(new THREE.SphereGeometry(0.2, 10, 8), M.dugongGray, 1.0, 0.1, 0, dugongGroup);
-const dTail = add(new THREE.ConeGeometry(0.3, 0.6, 4), M.dugongGray, -1.1, 0, 0, dugongGroup);
-dTail.rotation.z = Math.PI / 2; dTail.scale.set(1, 1, 0.3);
-
-// ---------- FISH SCHOOL (baby fish circling / scattering) ----------
-const fishSchoolGroup = new THREE.Group(); world.add(fishSchoolGroup); fishSchoolGroup.visible = false;
-const schoolFish = [];
-const FISH_COLS = [M.fishYellow, M.fishBlue, M.fishOrange];
-for (let i = 0; i < 10; i++) {
-  const fg = new THREE.Group();
-  const fb = add(new THREE.SphereGeometry(0.12, 10, 8), FISH_COLS[i % 3], 0, 0, 0, fg);
-  fb.scale.set(1.8, 0.7, 0.6);
-  const ft = add(new THREE.ConeGeometry(0.08, 0.18, 4), FISH_COLS[i % 3], -0.24, 0, 0, fg, { cast: false });
-  ft.rotation.z = Math.PI / 2; ft.scale.set(1, 1, 0.3);
-  fishSchoolGroup.add(fg);
-  schoolFish.push({ g: fg, a: (i / 10) * Math.PI * 2, r: 1.2 + (i % 3) * 0.3, y: 2.0 + (i % 4) * 0.35, sp: 0.02 + (i % 3) * 0.008 });
-}
-
-// ---------- FISH MARKET STALL ----------
-const marketGroup = new THREE.Group(); world.add(marketGroup); marketGroup.visible = false;
-add(box(2.6, 0.9, 1.0), M.wood, 0, 0.45, 0, marketGroup);
-add(box(2.8, 0.12, 1.2), M.white, 0, 0.95, 0, marketGroup);
-add(box(2.9, 1.0, 0.12), M.steelDark, 0, 3.3, -0.4, marketGroup);
-add(new THREE.PlaneGeometry(2.7, 0.84), M.marketSign, 0, 3.3, -0.33, marketGroup, { cast: false });
-for (const s of [-1.2, 1.2]) add(box(0.12, 2.4, 0.12), M.steelDark, s, 1.6, -0.4, marketGroup);
-for (const s of [-1.25, 1.25]) add(box(0.08, 1.3, 0.08), M.steelDark, s, 1.6, 0.3, marketGroup);
-for (let i = 0; i < 6; i++) {
-  add(box(0.48, 0.06, 1.4), i % 2 ? M.white : M.red, -1.25 + i * 0.5, 2.2, 0, marketGroup, { cast: false });
-}
-for (let i = 0; i < 5; i++) {
-  const fg = new THREE.Group(); fg.position.set(-1.0 + i * 0.5, 1.05, 0.1); marketGroup.add(fg);
-  const fb = add(new THREE.SphereGeometry(0.12, 10, 8), FISH_COLS[i % 3], 0, 0, 0, fg);
-  fb.scale.set(1.8, 0.7, 0.6);
-}
-
-// ---------- FINALE TITLE PLATE STAND (guard_finale) ----------
+// ---------- FINALE TITLE PLATE STAND (lesson_finale) ----------
 const finaleGroup = new THREE.Group(); world.add(finaleGroup); finaleGroup.visible = false;
 add(box(4.8, 1.5, 0.12), M.steelDark, 0, 3.4, 3.2, finaleGroup);
 add(new THREE.PlaneGeometry(4.6, 1.44), M.finalePlate, 0, 3.4, 3.27, finaleGroup, { cast: false });
@@ -425,94 +350,60 @@ function placeSun(L, focus) {
 }
 
 function updateWorld(W_, f) {
-  const clamp01 = (x) => Math.min(1, Math.max(0, x));
-  const smooth = (x) => { x = clamp01(x); return x * x * (3 - 2 * x); };
+  // hero jet: flying high or parked on the runway
+  jetGroup.visible = !!W_.jet;
+  if (W_.jet === 'fly') {
+    jetGroup.position.set(0, 7.5, -2);
+    jetGroup.rotation.set(0, 0, 0.05 + Math.sin(f * 0.02) * 0.015);
+    jetGroup.userData.gear.visible = false;
+  } else if (W_.jet === 'ground') {
+    jetGroup.position.set(0, 2.6, 0);
+    jetGroup.rotation.set(0, 0, 0);
+    jetGroup.userData.gear.visible = true;
+  }
+  jetGroup.userData.arrows.visible = !!W_.pressureArrows;
+  if (W_.pressureArrows) {
+    jetGroup.userData.arrows.children.forEach((a, i) => {
+      a.scale.setScalar(1 + 0.18 * Math.sin(f * 0.28 + i * 1.1));
+    });
+  }
+  // 1950s Comet in the sky, gentle bob
+  cometGroup.visible = !!W_.comet;
+  if (W_.comet) cometGroup.position.y = 7.5 + Math.sin(f * 0.05) * 0.15;
   // sets
-  reefGroup.visible = !!W_.reef;
-  boardGroup.visible = W_.board !== 'none';
-  foodMesh.visible = W_.board === 'food';
-  mapMesh.visible = W_.board === 'map';
-  chart71Mesh.visible = W_.board === 'chart71';
-  declineMesh.visible = W_.board === 'decline';
-  dominoGroup.visible = !!W_.dominoes;
-  scallopGroup.visible = !!W_.scallops;
-  seagrassGroup.visible = !!W_.seagrass;
-  fishSchoolGroup.visible = !!W_.fishSchool;
-  marketGroup.visible = !!W_.market;
+  cabinGroup.visible = !!W_.cabin;
+  panelsGroup.visible = !!W_.panels;
+  boardGroup.visible = !!W_.board;
   finaleGroup.visible = !!W_.finalePlate;
-  // hero shark: swims left->right across the reef, then vanishes
-  if (W_.shark) {
-    heroShark.group.visible = true;
-    if (W_.fishSchool) { // it_is_fear: shadow passes overhead
-      heroShark.group.position.set(-3 + 6 * ((f - 204) / 26), 3.8, -0.3);
-      heroShark.group.scale.setScalar(1.1);
-    } else { // hook_vanish: swim across, then vanish
-      heroShark.group.position.set(-4 + 8 * (f / 79), 2.4 + Math.sin(f * 0.1) * 0.15, -1.2);
-      heroShark.group.scale.setScalar(Math.max(0.001, 0.85 * (1 - (W_.sharkVanish || 0))));
-    }
-    heroShark.tailPivot.rotation.y = Math.sin(f * 0.18) * 0.4;
-  } else {
-    heroShark.group.visible = false;
-  }
-  // tiger shark: slow patrol back and forth over the seagrass
-  tigerShark.group.visible = !!W_.tiger;
-  if (W_.tiger) {
-    tigerShark.group.position.set(Math.sin(f * 0.02) * 1.2, 3.0 + Math.sin(f * 0.08) * 0.1, -1.5);
-    tigerShark.group.rotation.y = Math.cos(f * 0.02) > 0 ? 0 : Math.PI;
-    tigerShark.tailPivot.rotation.y = Math.sin(f * 0.18) * 0.4;
-  }
-  // dominoes fall one by one
-  dominoes.forEach((pv, i) => {
-    const t = clamp01((W_.dominoFall || 0) * 5 - i);
-    pv.rotation.z = -smooth(t) * 1.35;
-  });
-  // rays multiply + flap (symmetric: both wings up together; dihedral base in the mesh)
-  rays.forEach((r, i) => {
-    const vis = (W_.rayCount || 0) * 8;
-    r.group.visible = i < vis;
-    if (r.group.visible) {
-      const s = 0.5 + 0.5 * clamp01(vis - i);
-      r.group.scale.setScalar(s);
-      const flap = Math.sin(f * 0.25 + i * 1.3) * 0.45;
-      r.pivR.rotation.x = -flap; r.pivL.rotation.x = flap;
-      r.group.position.y = r.baseY + Math.sin(f * 0.05 + i * 2) * 0.15;
-      r.group.position.x = r.baseX + Math.sin(f * 0.02 + i) * 0.2;
-    }
-  });
-  // scallops shrink away as the rays strip the bed
-  scallops.forEach((s, i) => {
-    const t = clamp01((W_.scallopBare || 0) * 1.4 - i * 0.05);
-    const k = 1 - smooth(t) * 0.92;
-    s.scale.set(k, 0.35 * k, k);
-  });
-  // seagrass sways; turtle & dugong flee from the tiger shark's path
-  seaweedBlades.forEach((b, i) => { b.rotation.z = 0.08 * Math.sin(f * 0.05 + i * 1.7); });
-  tallBlades.forEach((b, i) => { b.rotation.z = 0.06 * Math.sin(f * 0.04 + i * 1.3); });
-  const flee = W_.flee || 0;
-  turtleGroup.position.x = -2.0 - flee * 1.3;
-  dugongGroup.position.x = 2.0 + flee * 1.3;
-  turtleGroup.position.y = 0.6 + Math.sin(f * 0.06) * 0.05;
-  dugongGroup.position.y = 0.65 + Math.sin(f * 0.05 + 1) * 0.05;
-  // fish school circles
-  schoolFish.forEach((sf) => {
-    const ang = sf.a + f * sf.sp;
-    sf.g.position.set(Math.cos(ang) * sf.r, sf.y + Math.sin(f * 0.1 + sf.a) * 0.1, Math.sin(ang) * 0.4);
-    sf.g.rotation.y = -ang - Math.PI / 2;
-  });
-  // bubbles rise
-  for (const b of bubbles) {
-    const t = ((f * b.speed + b.phase) % 1);
-    b.mesh.position.set(b.x + Math.sin(f * 0.03 + b.phase) * 0.15, 0.3 + t * 7, b.z);
-    b.mesh.visible = !!W_.bubbles;
-  }
-  // lights: red pulse while "it is fear", warm glow on the finale
-  coldLight.intensity = 0;
-  warmLight.intensity = W_.finalePlate ? 3.2 : 0;
-  if (W_.fearGlow) {
-    dangerLight.position.set(0, 2.0, 1.4);
-    dangerLight.intensity = 2.5 + Math.sin(f * 0.5) * 1.0;
+  // square vs round window on the comparison panel
+  const round = !!W_.roundPanel;
+  squareAssembly.visible = !round;
+  roundAssembly.visible = round;
+  labelSquareMesh.visible = !round;
+  labelRoundMesh.visible = round;
+  // red corner glow pulse on the square window
+  const glow = !!W_.cornerGlow && !round;
+  cornerGlows.forEach((cg) => { cg.visible = glow; });
+  if (glow) {
+    const pulse = 0.65 + 0.35 * Math.sin(f * 0.45);
+    M.redGlow.color.setRGB(1.0, 0.15 * pulse, 0.12 * pulse);
+    dangerLight.position.set(0, 2.6, 1.6);
+    dangerLight.intensity = 3.5 * pulse;
   } else {
     dangerLight.intensity = 0;
+  }
+  // cracks grow from the square corners
+  const crack = W_.crack || 0;
+  crackMeshes.forEach((cm) => { cm.scale.x = 0.05 + crack * 0.95; cm.visible = crack > 0.01; });
+  // green stress-flow dots orbit the round window
+  flowDots.forEach((d, i) => {
+    const a = f * 0.05 + i * Math.PI / 4;
+    d.position.set(Math.cos(a) * 0.85, 2.5 + Math.sin(a) * 0.85, 0.16);
+    d.visible = !!W_.flowDots;
+  });
+  // clouds drift slowly across the sky
+  for (const c of clouds) {
+    c.g.position.x = ((c.baseX + f * 0.008 + 35) % 70) - 35;
   }
 }
 
